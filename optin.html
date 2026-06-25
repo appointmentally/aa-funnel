@@ -223,8 +223,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     var cells=grid.children, formCell=null, copyCell=null;
     for(var i=0;i<cells.length;i++){ if(cells[i].contains(ifr)){formCell=cells[i];} else {copyCell=cells[i];} }
     if(!formCell || !copyCell) return;
-    var fr=formCell.getBoundingClientRect(), cr=copyCell.getBoundingClientRect();
-    if(fr.top < cr.top + 40) return; /* side-by-side desktop -> leave as is */
+    if(!window.matchMedia("(max-width: 840px)").matches) return; /* desktop -> leave side-by-side, untouched */
     var h1=copyCell.querySelector("h1");
     if(!h1) return;
     grid.style.display="block";
