@@ -1,0 +1,146 @@
+<!-- ============================================================
+  Appointment Ally — JSON-LD structured data (GEO/AEO)
+  Paste this whole block into GHL → Funnel/Website → Settings →
+  Tracking Code → HEAD (or Footer works too; JSON-LD is valid in body).
+  No fabricated data. No "AI" mentions (owner positioning lock).
+  Public stats per owner lock: 134 firms / 500k convos / 500k leads / 20k shows.
+  TODO (you): add real social profile URLs to "sameAs" when you have them.
+============================================================ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://yourapptally.com/#organization",
+      "name": "Appointment Ally",
+      "legalName": "Appointment Ally Pte Ltd",
+      "url": "https://yourapptally.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://assets.cdn.filesafe.space/Xy6E6yHYlMNwGCzvtB4u/media/65e5f870c504fa390202e437.png"
+      },
+      "image": "https://assets.cdn.filesafe.space/Xy6E6yHYlMNwGCzvtB4u/media/65e5f870c504fa390202e437.png",
+      "email": "info@yourapptally.com",
+      "description": "Appointment Ally books guaranteed showed-up showroom appointments for interior design firms in Singapore on a pay-per-show basis — you only pay when a homeowner actually shows up to your showroom.",
+      "slogan": "Pay only when they show up.",
+      "areaServed": { "@type": "Country", "name": "Singapore" },
+      "knowsAbout": [
+        "Showroom appointment generation",
+        "Interior design lead generation",
+        "Pay-per-show marketing",
+        "Facebook and Instagram advertising for interior design firms",
+        "Appointment setting for interior designers"
+      ],
+      "sameAs": []
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://yourapptally.com/#business",
+      "name": "Appointment Ally",
+      "url": "https://yourapptally.com/",
+      "image": "https://assets.cdn.filesafe.space/Xy6E6yHYlMNwGCzvtB4u/media/65e5f870c504fa390202e437.png",
+      "email": "info@yourapptally.com",
+      "priceRange": "$$",
+      "areaServed": { "@type": "Country", "name": "Singapore" },
+      "serviceType": "Showroom appointment generation for interior design firms",
+      "description": "Done-for-you advertising and appointment setting that fills Singapore interior design showrooms with homeowners who actually show up. Pay-per-show: you only pay for appointments that turn up — no retainer, no paying for shared portal leads that ghost.",
+      "parentOrganization": { "@id": "https://yourapptally.com/#organization" }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://yourapptally.com/#service",
+      "name": "Pay-Per-Show Showroom Appointment Generation",
+      "serviceType": "Appointment generation for interior design firms",
+      "provider": { "@id": "https://yourapptally.com/#organization" },
+      "areaServed": { "@type": "Country", "name": "Singapore" },
+      "audience": { "@type": "BusinessAudience", "audienceType": "Interior design firms in Singapore" },
+      "description": "We fill interior design showrooms with qualified homeowners who actually show up. Exclusive, booked appointments — never shared portal leads — and you only pay for the ones that show. Across 134 interior design firms we have generated 500,000+ homeowner conversations, 500,000+ leads, and 20,000+ showed-up appointments.",
+      "offers": {
+        "@type": "Offer",
+        "name": "Free Strategy Call",
+        "price": "0",
+        "priceCurrency": "SGD",
+        "url": "https://yourapptally.com/optin"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://yourapptally.com/#website",
+      "url": "https://yourapptally.com/",
+      "name": "Appointment Ally",
+      "publisher": { "@id": "https://yourapptally.com/#organization" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://yourapptally.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does Appointment Ally do?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Appointment Ally books guaranteed showed-up showroom appointments for interior design firms in Singapore. We run the advertising and appointment setting end-to-end so qualified homeowners walk into your showroom ready to renovate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does pay-per-show work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You only pay when a homeowner actually shows up to your showroom. There is no retainer and you never pay for leads that ghost you — if an appointment does not show, you do not pay for it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who is Appointment Ally for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Established interior design firms in Singapore that want qualified homeowners physically showing up at their showroom, instead of buying shared leads from renovation portals."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is this different from buying leads from renovation portals?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Renovation portals sell the same lead to many firms at once. Appointment Ally delivers exclusive, booked, showed-up appointments — and you only pay when they show up, so you are paying for outcomes instead of contact details."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What results has Appointment Ally generated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Across 134 interior design firms, Appointment Ally has generated over 500,000 homeowner conversations, over 500,000 leads, and over 20,000 showed-up showroom appointments."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where does Appointment Ally operate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Singapore. Appointment Ally works exclusively with interior design firms serving the Singapore market."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does Appointment Ally cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pricing is pay-per-show — you pay per showed-up appointment, with no retainer. Book a free strategy call for a custom plan based on your showroom capacity and goals."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I get started with Appointment Ally?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Book a free strategy call at yourapptally.com. On the call we build you a custom plan to fill your showroom with showed-up appointments — yours to keep, even if you never work with us."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
