@@ -179,9 +179,10 @@ document.addEventListener('DOMContentLoaded', async function() {
   </script>
 
 <script>
-/* AA: wrap the GHL Demo Call form in the amber card (badge/heading/sub/footer) */
+/* AA: amber form card + founder photo */
 (function(){
-  var SRC="https://api.leadconnectorhq.com/widget/form/yBWeNHUZGGfhvYR0jXBI";
+  var FORM_SRC="https://api.leadconnectorhq.com/widget/form/yBWeNHUZGGfhvYR0jXBI";
+  var PHOTO="https://appointmentally.github.io/aa-funnel/founder.jpg";
   var jsAdded=false;
   function addJs(){ if(jsAdded)return; jsAdded=true; var s=document.createElement("script"); s.src="https://link.msgsndr.com/js/form_embed.js"; document.body.appendChild(s); }
   function card(){
@@ -192,16 +193,30 @@ document.addEventListener('DOMContentLoaded', async function() {
       <span style="display:inline-flex;align-items:center;gap:7px;background:rgba(232,146,12,.10);color:#8A5A12;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;padding:6px 13px;border-radius:999px;margin-bottom:15px">⚡ Free · Worth $1,500</span>
       <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(1.32rem,2.3vw,1.62rem);letter-spacing:-.02em;line-height:1.12;color:#15181E">Book Your Free Strategy Call</div>
       <p style="font-family:'Inter',sans-serif;font-size:.95rem;color:#5B6471;margin:10px 0 16px;line-height:1.5">30 minutes. We build you a custom plan to fill your showroom with showed-up appointments — yours to keep, even if we never work together.</p>
-      <iframe src="${SRC}" id="${id}" data-form-id="yBWeNHUZGGfhvYR0jXBI" data-layout="{'id':'INLINE'}" data-form-name="Demo Call Pop Up" title="Demo Call Pop Up" style="width:100%;min-height:430px;border:0;background:transparent;display:block"></iframe>
+      <iframe src="${FORM_SRC}" id="${id}" data-form-id="yBWeNHUZGGfhvYR0jXBI" data-layout="{'id':'INLINE'}" data-form-name="Demo Call Pop Up" title="Demo Call Pop Up" style="width:100%;min-height:430px;border:0;background:transparent;display:block"></iframe>
       <p style="font-family:'Inter',sans-serif;font-size:.8rem;color:#5B6471;margin-top:4px">🔒 100% free · no spam · no obligation</p>`;
     return d;
   }
-  function swap(){
+  function swapForms(){
     var forms=document.querySelectorAll("form:not([data-aa-swapped])");
     for(var i=0;i<forms.length;i++){ var f=forms[i]; f.setAttribute("data-aa-swapped","1"); f.parentNode.replaceChild(card(),f); addJs(); }
   }
-  var n=0,iv=setInterval(function(){ swap(); if(++n>50)clearInterval(iv); },300);
-  if(document.readyState!=="loading") swap();
+  function swapFounder(){
+    var fc=document.querySelector(".aa-founder");
+    if(!fc || fc.getAttribute("data-aa-photo")) return;
+    var divs=fc.querySelectorAll("div");
+    for(var i=0;i<divs.length;i++){
+      var b=divs[i], bg=b.style.background||"";
+      if(bg.indexOf("gradient")>-1 && b.offsetWidth>=95 && b.offsetWidth<=160 && b.offsetHeight>=95){
+        b.style.background="#111 url('"+PHOTO+"') center 14% / cover no-repeat";
+        b.textContent="";
+        fc.setAttribute("data-aa-photo","1");
+        return;
+      }
+    }
+  }
+  var n=0,iv=setInterval(function(){ swapForms(); swapFounder(); if(++n>60)clearInterval(iv); },300);
+  if(document.readyState!=="loading"){ swapForms(); swapFounder(); }
 })();
 </script>
 
