@@ -46,7 +46,7 @@ Portals sell the same lead to multiple firms. A pay-per-show model delivers excl
 Established interior design firms in Singapore that want qualified homeowners physically showing up at their showroom, instead of chasing shared leads.
 
 **How much does it cost?**
-It's priced per showed-up appointment, with no retainer. The right number depends on your showroom capacity and how many projects you can take on.
+There's a one-time setup fee to build and launch your system, then it's pay-per-show — you pay per showed-up appointment, with no monthly retainer. You'll get the exact numbers for your firm on a free strategy call.
 
 **How do I get started?**
 Book a free strategy call and we'll build you a custom plan to fill your showroom with showed-up appointments — yours to keep, even if we never work together.
