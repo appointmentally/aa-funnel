@@ -14,7 +14,7 @@ Appointment Ally
 Set as a **service-area business** → **Singapore** (you don't need to show a street address).
 
 ## 4. Description (paste this)
-> Appointment Ally books guaranteed showed-up showroom appointments for interior design firms in Singapore. We run the advertising and appointment setting end-to-end on a pay-per-show model — you only pay when a homeowner actually shows up to your showroom. No retainer, no shared portal leads. Across 134 interior design firms we've generated 500,000+ homeowner conversations and 20,000+ showed-up appointments. Book a free strategy call at yourapptally.com.
+> Appointment Ally books guaranteed showed-up showroom appointments for interior design firms in Singapore. We run the advertising and appointment setting end-to-end on a pay-per-show model — you only pay when a homeowner actually shows up to your showroom. No retainer, no shared portal leads. Across 69 interior design firms we've generated 118,000+ homeowner conversations and 20,000+ showed-up appointments. Book a free strategy call at yourapptally.com.
 
 ## 5. Services (add each with a short description)
 - **Pay-per-show appointment generation** — Showed-up showroom appointments for interior design firms; pay only when they show.

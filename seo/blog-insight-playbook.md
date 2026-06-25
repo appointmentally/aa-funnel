@@ -3,11 +3,11 @@
 Every blog post must deliver ONE genuinely useful, non-obvious truth that an interior design firm owner can act on. This file is the source of truth — mined from real data across the operation (1,300+ validated conversations at one firm, a 9-firm funnel-leak audit, and forensic ad analysis across 9 accounts). The auto-writer draws from here so posts solve real pain, never generic filler.
 
 ## Publishing rules (HARD)
-- **Only these stats go in verbatim:** 134 firms · 500,000+ homeowner conversations · 500,000+ leads · 20,000+ showed-up appointments.
-- **Every other figure is internal — reframe qualitatively** and anchor to authority: *"Across the 134 firms we've worked with, the pattern is consistent: …"* / "the majority" / "far more often" / "a large share." NEVER publish internal percentages, client-specific numbers, or CPL figures as facts.
+- **Only these stats go in verbatim:** 69 firms · 118,000+ homeowner conversations · 150,000+ leads · 20,000+ showed-up appointments.
+- **Every other figure is internal — reframe qualitatively** and anchor to authority: *"Across the 69 firms we've worked with, the pattern is consistent: …"* / "the majority" / "far more often" / "a large share." NEVER publish internal percentages, client-specific numbers, or CPL figures as facts.
 - **No client names. No mention of AI / chatbots / setters / automation.** Frame everything as a principle/reality the firm can self-diagnose and fix.
 - **The reader is the ID firm OWNER**, not the homeowner. Posts help them see and plug leaks in their own funnel and ads.
-- Voice: a confident operator who has seen inside 134 firms' funnels. Specific, contrarian where the data backs it, never salesy. Each post ends with the reader thinking "I can check/fix this on Monday."
+- Voice: a confident operator who has seen inside 69 firms' funnels. Specific, contrarian where the data backs it, never salesy. Each post ends with the reader thinking "I can check/fix this on Monday."
 
 ---
 
@@ -19,7 +19,7 @@ Every blog post must deliver ONE genuinely useful, non-obvious truth that an int
 ## PILLAR 1 — Booking & conversion (from real homeowner conversations)
 
 **1.1 "When are you free?" is the most expensive question in your sales process.**
-Cost: ready buyers (keys in hand, budget stated) get *collected* and never closed. Fix: name a specific day/time and let them counter — the assumptive close ("Thursday 3pm or Saturday 11am?") books; open availability invites a stall. Framing: across 134 firms, the booking that actually happens is the one a person *proposes*, not the one left to the homeowner to volunteer.
+Cost: ready buyers (keys in hand, budget stated) get *collected* and never closed. Fix: name a specific day/time and let them counter — the assumptive close ("Thursday 3pm or Saturday 11am?") books; open availability invites a stall. Framing: across 69 firms, the booking that actually happens is the one a person *proposes*, not the one left to the homeowner to volunteer.
 
 **1.2 The real fear behind every price question: "will it cost MORE when I come down?"**
 Cost: your advertised price reads as bait; reciting the inclusions doesn't reassure. Fix: answer the *unspoken* question (no bait-and-switch) with concrete itemisation + accreditation + real past projects BEFORE asking for the visit. Framing: price-skeptics are the worst-converting enquiries — they need proof, not a feature list.
@@ -36,7 +36,7 @@ Cost: deflecting every question to "the designer will explain at the meeting" re
 ## PILLAR 2 — The booked-but-leaking funnel (from the 9-firm ops audit)
 
 **2.1 A booked consult with no floor plan is already dead.**
-Cost: a large share of "confirmed" appointments have no floor plan — so the designer can't prep (or won't even be assigned), and the homeowner reads "unprepared" as "amateur." Fix: chase the plan *before* every appointment. Framing: across 134 firms, a meaningful share of booked consults walk in blind — and the CRM never flags it.
+Cost: a large share of "confirmed" appointments have no floor plan — so the designer can't prep (or won't even be assigned), and the homeowner reads "unprepared" as "amateur." Fix: chase the plan *before* every appointment. Framing: across 69 firms, a meaningful share of booked consults walk in blind — and the CRM never flags it.
 
 **2.2 …but never let a *missing* floor plan block the booking.**
 Cost: treating "send your floor plan first" as a gate kills momentum with the most ready buyers. Fix: when there's no plan, pivot instantly — postal code lookup, a property-listing link, photos, or "bring it on the day" — and keep moving. The plan is a commitment device, not a checkpoint.
@@ -62,7 +62,7 @@ Cost: chasing everyone buries the genuinely recoverable leads under noise and bu
 ## PILLAR 3 — Media buying & creative (from forensic ad analysis, 9 accounts)
 
 **3.1 Your cheapest leads often cost you the most.**
-Cost: judging ads by cost-per-lead funds ads that fill the calendar with no-shows and tyre-kickers. Fix: score on **cost-per-booked-consultation** and **lead→appointment rate**, not lead price. Framing: across 134 firms, the cheapest-per-lead ad and the cheapest-per-*booked* ad are routinely different ads — sometimes opposite.
+Cost: judging ads by cost-per-lead funds ads that fill the calendar with no-shows and tyre-kickers. Fix: score on **cost-per-booked-consultation** and **lead→appointment rate**, not lead price. Framing: across 69 firms, the cheapest-per-lead ad and the cheapest-per-*booked* ad are routinely different ads — sometimes opposite.
 
 **3.2 The three metrics firms obsess over don't predict a single sale.**
 Cost: optimising toward click-through, video watch-time, and frequency keeps pretty, well-watched ads that don't book and kills "boring" ones that do. Fix: the only early signals that matter are cost-per-lead vs. *your own* baseline, and delivery cost (CPM).

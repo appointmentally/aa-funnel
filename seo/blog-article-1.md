@@ -32,7 +32,7 @@ The biggest hidden leak for most firms is the gap between a booking and a show. 
 
 ## What results look like
 
-Across 134 interior design firms, this approach has generated **over 500,000 homeowner conversations**, **over 500,000 leads**, and **over 20,000 showed-up showroom appointments**. The common thread isn't a clever ad — it's the discipline of optimising for the homeowner walking through the door, and only counting the win when they do.
+Across 69 interior design firms, this approach has generated **over 118,000 homeowner conversations**, **over 150,000 leads**, and **over 20,000 showed-up showroom appointments**. The common thread isn't a clever ad — it's the discipline of optimising for the homeowner walking through the door, and only counting the win when they do.
 
 ## Frequently asked questions
 
