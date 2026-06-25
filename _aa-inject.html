@@ -1,0 +1,57 @@
+<script>
+/* AA: amber form card + founder photo */
+(function(){
+  var FORM_SRC="https://api.leadconnectorhq.com/widget/form/yBWeNHUZGGfhvYR0jXBI";
+  var PHOTO="https://appointmentally.github.io/aa-funnel/founder.jpg";
+  var jsAdded=false;
+  function addJs(){ if(jsAdded)return; jsAdded=true; var s=document.createElement("script"); s.src="https://link.msgsndr.com/js/form_embed.js"; document.body.appendChild(s); }
+  function card(){
+    var id="inline-yBWeNHUZGGfhvYR0jXBI-"+Math.floor(Math.random()*1e9);
+    var d=document.createElement("div");
+    d.style.cssText="width:100%;max-width:470px;margin:0 auto;background:#ffffff;border:1px solid rgba(21,24,30,.08);border-radius:18px;padding:clamp(24px,3vw,34px);box-shadow:0 1px 3px rgba(21,24,30,.05),0 30px 64px -30px rgba(21,24,30,.40);text-align:center";
+    d.innerHTML = `
+      <span style="display:inline-flex;align-items:center;gap:7px;background:rgba(232,146,12,.10);color:#8A5A12;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;padding:6px 13px;border-radius:999px;margin-bottom:15px">⚡ Free · Worth $1,500</span>
+      <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(1.32rem,2.3vw,1.62rem);letter-spacing:-.02em;line-height:1.12;color:#15181E">Book Your Free Strategy Call</div>
+      <p style="font-family:'Inter',sans-serif;font-size:.95rem;color:#5B6471;margin:10px 0 16px;line-height:1.5">30 minutes. We build you a custom plan to fill your showroom with showed-up appointments — yours to keep, even if we never work together.</p>
+      <iframe src="${FORM_SRC}" id="${id}" data-form-id="yBWeNHUZGGfhvYR0jXBI" data-layout="{'id':'INLINE'}" data-form-name="Demo Call Pop Up" title="Demo Call Pop Up" style="width:100%;min-height:430px;border:0;background:transparent;display:block"></iframe>
+      <p style="font-family:'Inter',sans-serif;font-size:.8rem;color:#5B6471;margin-top:4px">🔒 100% free · no spam · no obligation</p>`;
+    return d;
+  }
+  function swapForms(){
+    var forms=document.querySelectorAll("form:not([data-aa-swapped])");
+    for(var i=0;i<forms.length;i++){ var f=forms[i]; f.setAttribute("data-aa-swapped","1"); f.parentNode.replaceChild(card(),f); addJs(); }
+  }
+  function swapFounder(){
+    var fc=document.querySelector(".aa-founder");
+    if(!fc || fc.getAttribute("data-aa-photo")) return;
+    var divs=fc.querySelectorAll("div");
+    for(var i=0;i<divs.length;i++){
+      var b=divs[i], bg=b.style.background||"";
+      if(bg.indexOf("gradient")>-1 && b.offsetWidth>=95 && b.offsetWidth<=160 && b.offsetHeight>=95){
+        b.style.background="#111 url('"+PHOTO+"') center 14% / cover no-repeat";
+        b.textContent="";
+        fc.setAttribute("data-aa-photo","1");
+        return;
+      }
+    }
+  }
+  function placeFormForMobile(){
+    var grid=document.querySelector(".aa-hero-grid");
+    if(!grid || grid.getAttribute("data-aa-moved")) return;
+    var ifr=grid.querySelector('iframe[data-form-id="yBWeNHUZGGfhvYR0jXBI"]');
+    if(!ifr) return;
+    var cells=grid.children, formCell=null, copyCell=null;
+    for(var i=0;i<cells.length;i++){ if(cells[i].contains(ifr)){formCell=cells[i];} else {copyCell=cells[i];} }
+    if(!formCell || !copyCell) return;
+    if(!window.matchMedia("(max-width: 840px)").matches) return; /* desktop -> leave side-by-side, untouched */
+    var h1=copyCell.querySelector("h1");
+    if(!h1) return;
+    grid.style.display="block";
+    h1.parentNode.insertBefore(formCell, h1.nextSibling); /* lift form right under the headline */
+    formCell.style.margin="20px 0 8px";
+    grid.setAttribute("data-aa-moved","1");
+  }
+  var n=0,iv=setInterval(function(){ swapForms(); swapFounder(); placeFormForMobile(); if(++n>60)clearInterval(iv); },300);
+  if(document.readyState!=="loading"){ swapForms(); swapFounder(); placeFormForMobile(); }
+})();
+</script>
