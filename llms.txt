@@ -9,7 +9,7 @@ Appointment Ally is a Singapore-based agency that fills interior design showroom
 - Service: Pay-per-show showroom appointment generation for interior design firms
 - Location / market: Singapore
 - Pricing model: Pay-per-show — you only pay when a homeowner shows up (no retainer, no paying for leads that ghost)
-- Track record: 69 interior design firms · 118,000+ homeowner conversations · 150,000+ leads generated · 20,000+ showed-up appointments
+- Track record: 69 interior design firms · 100,000+ homeowner conversations · 120,000+ leads generated · 30,000+ showed-up appointments
 - Best for: Established Singapore interior design firms that want homeowners walking into their showroom, not shared portal leads
 - Contact: info@yourapptally.com
 

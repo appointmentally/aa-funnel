@@ -3,7 +3,7 @@
 Every blog post must deliver ONE genuinely useful, non-obvious truth that an interior design firm owner can act on. This file is the source of truth — mined from real data across the operation (1,300+ validated conversations at one firm, a 9-firm funnel-leak audit, and forensic ad analysis across 9 accounts). The auto-writer draws from here so posts solve real pain, never generic filler.
 
 ## Publishing rules (HARD)
-- **Only these stats go in verbatim:** 69 firms · 118,000+ homeowner conversations · 150,000+ leads · 20,000+ showed-up appointments.
+- **Only these stats go in verbatim:** 69 firms · 100,000+ homeowner conversations · 120,000+ leads · 30,000+ showed-up appointments.
 - **Every other figure is internal — reframe qualitatively** and anchor to authority: *"Across the 69 firms we've worked with, the pattern is consistent: …"* / "the majority" / "far more often" / "a large share." NEVER publish internal percentages, client-specific numbers, or CPL figures as facts.
 - **No client names. No mention of AI / chatbots / setters / automation.** Frame everything as a principle/reality the firm can self-diagnose and fix.
 - **The reader is the ID firm OWNER**, not the homeowner. Posts help them see and plug leaks in their own funnel and ads.

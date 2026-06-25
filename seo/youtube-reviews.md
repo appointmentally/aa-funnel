@@ -5,7 +5,7 @@ Your client video reviews are gold sitting on Instagram where Google barely sees
 **Setup once:** create a YouTube channel "Appointment Ally", add a banner + the description below, link yourapptally.com.
 
 **Channel description:**
-> Appointment Ally books guaranteed showed-up showroom appointments for interior design firms in Singapore — pay only when a homeowner actually shows up. 69 firms · 118,000+ conversations · 20,000+ showed-up appointments. Book a free strategy call: yourapptally.com
+> Appointment Ally books guaranteed showed-up showroom appointments for interior design firms in Singapore — pay only when a homeowner actually shows up. 69 firms · 100,000+ conversations · 30,000+ showed-up appointments. Book a free strategy call: yourapptally.com
 
 ---
 
@@ -18,7 +18,7 @@ For EACH review video, use this pattern (swap in the firm name):
 >
 > 👉 Book your free strategy call: https://yourapptally.com
 >
-> Appointment Ally has generated 118,000+ homeowner conversations and 20,000+ showed-up appointments across 69 interior design firms.
+> Appointment Ally has generated 100,000+ homeowner conversations and 30,000+ showed-up appointments across 69 interior design firms.
 - **Tags:** interior design singapore, renovation leads singapore, showroom appointments, interior design marketing, pay per show, appointment ally
 - **Hashtags in description:** #InteriorDesignSingapore #RenovationSingapore #AppointmentAlly
 

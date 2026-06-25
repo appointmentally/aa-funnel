@@ -13,7 +13,7 @@ Feeds Google AI Overviews + Gemini + general LLM knowledge of "who exists in Sin
 - Service area: **Singapore** (you can run it as a service-area business — no public street address needed)
 - Paste this description:
 
-> Appointment Ally books guaranteed showed-up showroom appointments for interior design firms in Singapore. We run the advertising and appointment setting end-to-end, on a pay-per-show model — you only pay when a homeowner actually shows up to your showroom. No retainer, no shared portal leads. Across 69 interior design firms we've generated 118,000+ homeowner conversations and 20,000+ showed-up appointments. Book a free strategy call at yourapptally.com.
+> Appointment Ally books guaranteed showed-up showroom appointments for interior design firms in Singapore. We run the advertising and appointment setting end-to-end, on a pay-per-show model — you only pay when a homeowner actually shows up to your showroom. No retainer, no shared portal leads. Across 69 interior design firms we've generated 100,000+ homeowner conversations and 30,000+ showed-up appointments. Book a free strategy call at yourapptally.com.
 
 - Add services: "Pay-per-show appointment generation", "Lead generation for interior designers", "Facebook & Instagram advertising"
 - Post your client wins as Google Posts monthly (keeps it active = stronger signal).
@@ -30,7 +30,7 @@ For "best lead-gen / marketing agency Singapore" answers, LLMs quote these. Crea
 
 Paste this standard blurb on each (keep name/description identical everywhere — consistency = entity strength):
 
-> **Appointment Ally** — Singapore. We book guaranteed showed-up showroom appointments for interior design firms on a pay-per-show basis: you only pay when a homeowner shows up. Done-for-you ads + appointment setting. 69 firms · 118,000+ conversations · 20,000+ showed-up appointments. yourapptally.com · info@yourapptally.com
+> **Appointment Ally** — Singapore. We book guaranteed showed-up showroom appointments for interior design firms on a pay-per-show basis: you only pay when a homeowner shows up. Done-for-you ads + appointment setting. 69 firms · 100,000+ conversations · 30,000+ showed-up appointments. yourapptally.com · info@yourapptally.com
 
 ## 3. Reviews with TEXT (LLMs read review bodies, not just stars)
 You have real wins (Trio, Haus Werkz, June Interior, Modern Living). Ask each for:
