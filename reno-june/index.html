@@ -3,247 +3,210 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Free A.I Reno Calculator — See Your New Home + Real Cost in 60 Seconds</title>
-<meta name="description" content="Instant itemised renovation estimate for Singapore homes plus free A.I 3D renders of your new home in 6 designer styles. HDB, condo & landed.">
-<meta property="og:title" content="Free A.I Reno Calculator — See Your New Home Before You Renovate">
-<meta property="og:description" content="Instant itemised renovation estimate + free A.I 3D renders of your home in 6 designer styles. Takes 60 seconds.">
+<title>Free A.I Reno Estimator — June Interior Design</title>
+<meta name="description" content="Less is more. See your renovated HDB or condo in 3D and get a calm, honest itemised estimate — free, in 60 seconds.">
+<meta property="og:title" content="See your new home before you renovate — free A.I renders + instant estimate">
+<meta property="og:description" content="Less is more. Free A.I 3D renders + an honest itemised renovation estimate for Singapore homes.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏠</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F7F2EA; --ink:#211D18; --muted:#5C554C; --accent:#B9572F; --accent-dark:#98441F;
-  --gold:#C9A24A; --soft:#F1E9DC; --card:#FFFFFF; --line:#E5DCCE; --good:#3E7C4F; --bad:#B3362B;
-  --radius:14px; --shadow:0 10px 30px rgba(33,29,24,.08);
+  --bg:#FBF7F0; --ink:#2B2723; --muted:#7A7166; --accent:#5F7050; --accent-dark:#4B5A3E;
+  --soft:#F1EBDF; --card:#FFFFFF; --line:#E8E0D2; --good:#5F7050; --bad:#B3432F;
+  --radius:18px; --shadow:0 10px 32px rgba(43,39,35,.07);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--paper);color:var(--ink);line-height:1.5;font-size:15px}
-h1,h2,h3,h4,.font-head{font-family:'Poppins',system-ui,sans-serif}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:15px}
+h1,h2,.font-head{font-family:'Fraunces',Georgia,serif;letter-spacing:-.01em;font-weight:600}
+h3,h4{font-family:'Inter'}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
 input,select{font-family:inherit;font-size:15px}
 img{max-width:100%;display:block}
 .hidden{display:none!important}
 
-/* ---------- Landing ---------- */
-#landing{min-height:100vh;min-height:100dvh;position:relative;display:flex;align-items:center;justify-content:center;background:var(--ink)}
-#landing .bg{position:absolute;inset:0;background-image:url('renders/smart-luxury-living.jpg');background-size:cover;background-position:center;opacity:.42;filter:saturate(.9)}
-#landing .bg-grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,20,16,.55),rgba(23,20,16,.82))}
-.landing-inner{position:relative;z-index:2;width:100%;max-width:1060px;margin:0 auto;padding:36px 20px 44px;display:flex;gap:44px;align-items:center;flex-wrap:wrap}
-.landing-copy{flex:1 1 400px;color:#fff}
-.brand-mark{font-family:'Poppins';font-weight:800;font-style:italic;font-size:26px;letter-spacing:.5px;color:#fff}
-.brand-mark small{display:block;font-style:normal;font-weight:500;font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-top:2px}
-.landing-copy h1{font-size:clamp(28px,4.6vw,44px);font-weight:800;line-height:1.13;margin:26px 0 14px}
-.landing-copy h1 .hl{color:var(--gold)}
-.landing-sub{color:rgba(255,255,255,.85);font-size:16px;max-width:430px;margin-bottom:22px}
-.landing-points{list-style:none;display:grid;gap:11px;margin-bottom:8px}
-.landing-points li{display:flex;gap:11px;align-items:flex-start;font-weight:500;font-size:14.5px;color:#fff}
-.landing-points .tick{flex:0 0 20px;height:20px;border-radius:50%;background:rgba(201,162,74,.25);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);margin-top:1px}
-.landing-trust{margin-top:18px;font-size:12px;color:rgba(255,255,255,.55)}
-.landing-card{flex:0 1 400px;background:var(--card);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.4);padding:28px 26px}
-.landing-card h2{font-size:17px;font-weight:700;color:var(--accent);margin-bottom:16px}
-.prop-btn{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:14px;border:2px solid var(--line);border-radius:14px;margin-bottom:10px;transition:all .15s;background:#fff}
-.prop-btn .ico{font-size:22px}
+/* ---------- Landing (light, airy split) ---------- */
+#landing{min-height:100vh;min-height:100dvh;background:var(--bg);display:flex;align-items:center}
+.landing-inner{width:100%;max-width:1020px;margin:0 auto;padding:44px 22px 52px;display:flex;gap:48px;align-items:center;flex-wrap:wrap-reverse}
+.landing-copy{flex:1 1 380px}
+.brand-mark{font-family:'Fraunces';font-weight:600;font-style:italic;font-size:30px;color:var(--ink)}
+.brand-mark small{display:block;font-family:'Inter';font-style:normal;font-weight:600;font-size:9px;letter-spacing:4.5px;color:var(--accent);text-transform:uppercase;margin-top:2px}
+.landing-copy h1{font-size:clamp(30px,5vw,44px);line-height:1.12;margin:26px 0 14px}
+.landing-copy h1 em{font-style:italic;color:var(--accent)}
+.landing-sub{color:var(--muted);font-size:16px;max-width:420px;margin-bottom:22px}
+.landing-points{list-style:none;display:grid;gap:10px;margin-bottom:26px}
+.landing-points li{display:flex;gap:11px;align-items:flex-start;font-weight:500;font-size:14px}
+.landing-points .tick{flex:0 0 20px;height:20px;border-radius:50%;background:var(--soft);border:1px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--accent);margin-top:2px}
+.prop-grid{display:grid;gap:10px;max-width:420px}
+.prop-btn{width:100%;display:flex;align-items:center;gap:13px;text-align:left;padding:15px 18px;border:1.5px solid var(--line);border-radius:999px;background:#fff;transition:all .15s}
+.prop-btn:hover{border-color:var(--accent);background:var(--soft)}
+.prop-btn .ico{font-size:20px}
 .prop-btn .t{font-weight:600;font-size:14.5px}
-.prop-btn .s{font-size:12px;color:var(--muted)}
-.prop-btn .radio{margin-left:auto;width:19px;height:19px;border-radius:50%;border:2px solid #ccc;display:flex;align-items:center;justify-content:center}
+.prop-btn .s{font-size:11.5px;color:var(--muted)}
+.prop-btn .go{margin-left:auto;font-size:16px;color:var(--accent);transition:transform .15s}
+.prop-btn:hover .go{transform:translateX(3px)}
 .prop-btn.sel{border-color:var(--accent);background:var(--accent);color:#fff}
 .prop-btn.sel .s{color:rgba(255,255,255,.8)}
-.prop-btn.sel .radio{border-color:#fff;background:#fff}
-.prop-btn.sel .radio::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--accent)}
-.start-btn{width:100%;padding:16px;border-radius:14px;background:#EFEAE0;color:#9b958a;font-weight:700;font-size:15px;margin-top:6px;transition:all .15s}
-.start-btn.ready{background:var(--accent);color:#fff;box-shadow:0 10px 24px rgba(185,87,47,.35)}
-.start-btn.ready:hover{background:var(--accent-dark)}
-.start-hint{text-align:center;font-size:12px;color:var(--muted);margin-top:9px}
+.prop-btn.sel .go{color:#fff}
+.landing-trust{margin-top:20px;font-size:11.5px;color:var(--muted)}
+.landing-art{flex:1 1 340px;display:flex;justify-content:center}
+.arch{width:min(380px,86vw);aspect-ratio:4/5;border-radius:999px 999px 22px 22px;overflow:hidden;box-shadow:0 26px 60px rgba(43,39,35,.18);position:relative}
+.arch img{width:100%;height:100%;object-fit:cover}
+.arch .tag{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.92);border-radius:99px;padding:7px 16px;font-size:11px;font-weight:600;color:var(--ink);white-space:nowrap}
+@media(max-width:760px){ .landing-inner{padding-top:30px} .arch{aspect-ratio:16/10;width:100%;border-radius:170px 170px 18px 18px} }
 
-/* ---------- App shell ---------- */
+/* ---------- App shell: centered column, serif headings, pill accents ---------- */
 #app{display:none;min-height:100vh;min-height:100dvh}
 #app.on{display:block}
-.shell{max-width:1120px;margin:0 auto;padding:0 0 90px}
-@media(min-width:900px){
-  .shell{display:grid;grid-template-columns:270px 1fr;gap:26px;padding:26px 22px 60px}
-}
-/* sidebar */
-.side{display:none}
-@media(min-width:900px){
-  .side{display:block}
-  .side-card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px 20px;position:sticky;top:22px}
-  .side .brand-mark{color:var(--ink)}
-  .side .brand-mark small{color:var(--accent)}
-  .prog-row{display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 6px;font-size:12.5px;font-weight:600}
-  .prog-row b{color:var(--accent)}
-  .prog-track{height:7px;border-radius:99px;background:var(--soft);overflow:hidden}
-  .prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--gold));width:0%;transition:width .4s}
-  .prog-eta{font-size:11px;color:var(--muted);margin-top:6px}
-  .step-list{list-style:none;margin-top:18px;display:grid;gap:4px}
-  .step-list li{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:10px;font-size:13px;color:var(--muted)}
-  .step-list li.cur{background:var(--soft);color:var(--ink);font-weight:600;border-left:3px solid var(--accent)}
-  .step-list li.done{color:var(--ink)}
-  .step-list .st-tick{margin-left:auto;color:var(--good);font-size:12px;opacity:0;transition:opacity .2s}
-  .step-list li.done .st-tick{opacity:1}
-  .side-est{margin-top:18px;background:var(--ink);color:#fff;border-radius:14px;padding:14px 16px}
-  .side-est .lbl{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:600}
-  .side-est .val{font-family:'Poppins';font-weight:700;font-size:19px;margin-top:3px}
-  .side-est .note{font-size:10.5px;color:rgba(255,255,255,.55);margin-top:3px}
-  .side-foot{margin-top:16px;font-size:10.5px;color:var(--muted)}
-}
-/* mobile top bar */
-.mtop{position:sticky;top:0;z-index:40;background:rgba(247,242,234,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:10px 16px 0}
-.mtop-row{display:flex;justify-content:space-between;align-items:center}
-.mtop .brand-mark{font-size:17px;color:var(--ink)}
-.mtop .brand-mark small{display:inline;margin-left:6px;letter-spacing:2px;font-size:8.5px;color:var(--accent)}
+.mtop{position:sticky;top:0;z-index:40;background:rgba(251,247,240,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:10px 18px 0}
+.mtop-row{display:flex;justify-content:space-between;align-items:center;max-width:680px;margin:0 auto}
+.mtop .brand-mark{font-size:19px}
+.mtop .brand-mark small{display:inline;margin-left:8px;letter-spacing:3px;font-size:8px}
 .mtop-step{font-size:11.5px;font-weight:600;color:var(--muted)}
-.mtop-track{height:4px;border-radius:99px;background:var(--soft);margin-top:8px;overflow:hidden;margin-bottom:-1px}
-.mtop-track .prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));width:0%;transition:width .4s}
-@media(min-width:900px){.mtop{display:none}}
-
-/* main panel */
-.main{padding:18px 16px 0}
-@media(min-width:900px){.main{padding:0}}
+.mtop-track{height:4px;background:var(--soft);margin-top:9px;overflow:hidden;max-width:680px;margin-left:auto;margin-right:auto;border-radius:99px 99px 0 0}
+.prog-fill{height:100%;background:var(--accent);width:0%;transition:width .4s;border-radius:99px}
+.shell{max-width:680px;margin:0 auto;padding:20px 16px 110px}
 .step-head{margin-bottom:16px}
-.step-head .eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--accent)}
-.step-head h2{font-size:clamp(20px,3vw,26px);font-weight:700;margin-top:4px}
-.step-head p{color:var(--muted);font-size:13.5px;margin-top:4px;max-width:560px}
-.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:14px}
+.step-head .eyebrow{font-size:10.5px;letter-spacing:3px;text-transform:uppercase;font-weight:700;color:var(--accent)}
+.step-head h2{font-size:clamp(23px,3.6vw,30px);margin-top:5px}
+.step-head p{color:var(--muted);font-size:13.5px;margin-top:5px;max-width:560px}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-bottom:14px}
 .card h3{font-size:14.5px;font-weight:600;margin-bottom:12px}
 .chip-row{display:flex;flex-wrap:wrap;gap:8px}
-.chip{padding:11px 16px;border:2px solid var(--line);border-radius:12px;font-size:13.5px;font-weight:600;background:#fff;transition:all .12s;min-width:52px;text-align:center}
+.chip{padding:11px 17px;border:1.5px solid var(--line);border-radius:999px;font-size:13.5px;font-weight:600;background:#fff;transition:all .12s;min-width:52px;text-align:center}
 .chip:hover{border-color:var(--accent)}
 .chip.sel{border-color:var(--accent);background:var(--accent);color:#fff}
 .lbl-sm{font-size:12px;font-weight:600;color:var(--muted);margin:12px 0 7px}
 .lbl-sm:first-of-type{margin-top:0}
 .size-row{display:flex;gap:8px}
-.size-row input{flex:1;min-width:0;padding:12px 14px;border:2px solid var(--line);border-radius:12px;outline:none;font-weight:600}
+.size-row input{flex:1;min-width:0;padding:12px 16px;border:1.5px solid var(--line);border-radius:999px;outline:none;font-weight:600;background:#fff}
 .size-row input:focus{border-color:var(--accent)}
-.unit-tog{display:flex;border:2px solid var(--line);border-radius:12px;overflow:hidden}
+.unit-tog{display:flex;border:1.5px solid var(--line);border-radius:999px;overflow:hidden}
 .unit-tog button{padding:0 15px;font-size:13px;font-weight:600;color:var(--muted)}
 .unit-tog button.sel{background:var(--accent);color:#fff}
 
 /* work cards */
-.work{border:2px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden;transition:border-color .15s;background:#fff}
+.work{border:1.5px solid var(--line);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;transition:border-color .15s;background:#fff}
 .work.on{border-color:var(--accent)}
-.work-head{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;cursor:pointer;user-select:none}
+.work-head{display:flex;gap:12px;align-items:flex-start;padding:15px 17px;cursor:pointer;user-select:none}
 .work-head .wt{font-weight:600;font-size:14.5px}
 .work-head .wd{font-size:12px;color:var(--muted);margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .work.on .work-head .wd{-webkit-line-clamp:unset}
-.work-tick{flex:0 0 22px;height:22px;border-radius:7px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;margin-top:1px;transition:all .12s}
+.work-tick{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;margin-top:1px;transition:all .12s}
 .work.on .work-tick{background:var(--accent);border-color:var(--accent)}
-.work-body{display:none;padding:0 16px 15px}
+.work-body{display:none;padding:0 17px 15px}
 .work.on .work-body{display:block}
 .tier-row{display:flex;gap:7px;margin-bottom:10px}
-.tier-btn{flex:1;padding:9px 4px;border:2px solid var(--line);border-radius:10px;font-size:12.5px;font-weight:600;background:#fff}
-.tier-btn.sel{border-color:var(--accent);background:var(--soft);color:var(--accent)}
-.tier-cost{background:var(--soft);border-radius:10px;padding:10px 13px;font-size:12.5px}
-.tier-cost b{color:var(--accent);font-size:14px}
+.tier-btn{flex:1;padding:9px 4px;border:1.5px solid var(--line);border-radius:999px;font-size:12.5px;font-weight:600;background:#fff}
+.tier-btn.sel{border-color:var(--accent);background:var(--soft);color:var(--accent-dark)}
+.tier-cost{background:var(--soft);border-radius:12px;padding:10px 14px;font-size:12.5px}
+.tier-cost b{color:var(--accent-dark);font-size:14px}
 .tier-cost span{display:block;color:var(--muted);margin-top:2px;font-size:11.5px}
-.quickfill{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--accent);background:var(--soft);border:1px dashed var(--accent);padding:8px 14px;border-radius:99px;margin-bottom:14px}
-.quickfill:hover{background:#ece0cd}
+.quickfill{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--accent-dark);background:var(--soft);border:1px dashed var(--accent);padding:8px 15px;border-radius:99px;margin-bottom:14px}
+.quickfill:hover{background:#E7DECB}
 
 /* studio */
 .style-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
-@media(min-width:700px){.style-grid{grid-template-columns:repeat(3,1fr)}}
-.style-card{border:2px solid var(--line);border-radius:13px;padding:12px;text-align:left;background:#fff;transition:all .12s}
+@media(min-width:620px){.style-grid{grid-template-columns:repeat(3,1fr)}}
+.style-card{border:1.5px solid var(--line);border-radius:14px;padding:12px;text-align:left;background:#fff;transition:all .12s}
 .style-card .se{font-size:19px}
 .style-card .sl{font-weight:600;font-size:13px;margin-top:4px}
 .style-card .sd{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.35}
 .style-card.sel{border-color:var(--accent);background:var(--soft)}
-.style-writeup{margin-top:14px;background:var(--soft);border:1px solid var(--line);border-radius:13px;padding:14px 16px;font-size:12.5px;color:var(--ink);line-height:1.55}
-.style-writeup b{color:var(--accent)}
+.style-writeup{margin-top:14px;background:var(--soft);border-radius:14px;padding:14px 17px;font-size:12.5px;line-height:1.6}
+.style-writeup b{color:var(--accent-dark)}
 .render-grid{display:grid;gap:12px;margin-top:14px}
-@media(min-width:700px){.render-grid{grid-template-columns:1fr 1fr}}
-.render-card{position:relative;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,var(--soft),#e9ddca);aspect-ratio:16/9}
+@media(min-width:620px){.render-grid{grid-template-columns:1fr 1fr}}
+.render-card{position:relative;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,var(--soft),#E7DECB);aspect-ratio:16/9}
 .render-card img{width:100%;height:100%;object-fit:cover}
-.render-card.main-render{grid-column:1/-1}
-.render-tag{position:absolute;left:10px;top:10px;background:rgba(23,20,16,.72);color:#fff;font-size:11px;font-weight:600;padding:5px 11px;border-radius:99px;backdrop-filter:blur(4px)}
+.render-card.main-render{grid-column:1/-1;border-radius:110px 110px 16px 16px}
+.render-tag{position:absolute;left:12px;top:12px;background:rgba(43,39,35,.72);color:#fff;font-size:11px;font-weight:600;padding:5px 12px;border-radius:99px;backdrop-filter:blur(4px)}
+.render-card.main-render .render-tag{left:50%;transform:translateX(-50%);top:auto;bottom:12px}
 .render-card.locked img{filter:blur(16px) saturate(1.1);transform:scale(1.06)}
-.lock-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#fff;background:rgba(23,20,16,.35);text-align:center;padding:10px}
+.lock-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#fff;background:rgba(43,39,35,.36);text-align:center;padding:10px}
 .lock-overlay .li{font-size:22px}
 .lock-overlay .lt{font-size:12px;font-weight:600;text-shadow:0 1px 6px rgba(0,0,0,.5)}
 .render-card.img-missing img{display:none}
-.render-card.img-missing::before{content:'🛋️';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px;opacity:.5}
-.upload-box{border:2px dashed var(--line);border-radius:13px;padding:22px;text-align:center;color:var(--muted);font-size:13px;transition:all .15s;width:100%}
+.render-card.img-missing::before{content:'🌿';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px;opacity:.5}
+.upload-box{border:1.5px dashed var(--line);border-radius:16px;padding:22px;text-align:center;color:var(--muted);font-size:13px;transition:all .15s;width:100%;background:#fff}
 .upload-box:hover{border-color:var(--accent);background:var(--soft)}
-.upload-done{display:flex;align-items:center;gap:11px;background:var(--soft);border:1px solid var(--accent);border-radius:13px;padding:13px 15px;font-size:13px}
+.upload-done{display:flex;align-items:center;gap:11px;background:var(--soft);border:1px solid var(--accent);border-radius:16px;padding:13px 16px;font-size:13px}
 .upload-done .fn{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .upload-done button{margin-left:auto;color:var(--muted);font-size:16px}
 
 /* lead gate */
 .gate-hero{position:relative;border-radius:var(--radius);overflow:hidden;margin-bottom:14px;background:var(--ink)}
-.gate-hero img{width:100%;height:170px;object-fit:cover;opacity:.85}
-.gate-hero .gh-grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 20%,rgba(23,20,16,.88))}
-.gate-hero .gh-txt{position:absolute;left:18px;right:18px;bottom:14px;color:#fff}
-.gate-hero .gh-txt h2{font-size:19px;font-weight:700}
-.gate-hero .gh-txt p{font-size:12.5px;color:rgba(255,255,255,.85);margin-top:3px}
-.gate-list{list-style:none;display:grid;gap:8px;margin:4px 0 14px}
+.gate-hero img{width:100%;height:120px;object-fit:cover;opacity:.85}
+.gate-hero .gh-grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 10%,rgba(43,39,35,.88))}
+.gate-hero .gh-txt{position:absolute;left:18px;right:18px;bottom:12px;color:#fff}
+.gate-hero .gh-txt h2{font-size:19px}
+.gate-hero .gh-txt p{font-size:12px;color:rgba(255,255,255,.85);margin-top:2px}
+.gate-list{list-style:none;display:grid;gap:7px;margin:2px 0 14px}
 .gate-list li{display:flex;gap:9px;font-size:13px;align-items:flex-start}
 .gate-list .tick{color:var(--good);font-weight:700}
 .f-row{display:grid;gap:10px;grid-template-columns:1fr}
 @media(min-width:560px){.f-row.two{grid-template-columns:1fr 1fr}}
-.f-in{width:100%;padding:13px 15px;border:2px solid var(--line);border-radius:12px;outline:none;font-weight:500;background:#fff}
+.f-in{width:100%;padding:13px 17px;border:1.5px solid var(--line);border-radius:999px;outline:none;font-weight:500;background:#fff}
 .f-in:focus{border-color:var(--accent)}
 .f-in.err{border-color:var(--bad)}
-.consent{display:flex;gap:9px;font-size:11.5px;color:var(--muted);margin-top:11px;align-items:flex-start;line-height:1.45}
-.consent input{margin-top:2px;accent-color:var(--accent);width:15px;height:15px;flex:none}
-.consent.err{color:var(--bad)}
 .gate-err{color:var(--bad);font-size:12.5px;font-weight:600;margin-top:9px;display:none}
 .gate-err.on{display:block}
-.submit-btn{width:100%;margin-top:14px;padding:16px;border-radius:13px;background:var(--accent);color:#fff;font-weight:700;font-size:15px;box-shadow:0 10px 24px rgba(185,87,47,.35)}
+.submit-btn{width:100%;margin-top:14px;padding:16px;border-radius:999px;background:var(--accent);color:#fff;font-weight:700;font-size:15px;box-shadow:0 12px 26px rgba(95,112,80,.32)}
 .submit-btn:hover{background:var(--accent-dark)}
 .submit-btn:disabled{opacity:.6;cursor:wait}
-.gate-privacy{font-size:11px;color:var(--muted);margin-top:10px;text-align:center;line-height:1.5}
-.gate-quote{margin-top:13px;background:var(--soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 14px;font-size:12.5px;color:var(--muted);font-style:italic}
+.gate-privacy{font-size:10.5px;color:var(--muted);margin-top:10px;text-align:center;line-height:1.5}
+.gate-quote{margin-top:13px;background:var(--soft);border-radius:14px;padding:13px 16px;font-size:12.5px;color:var(--muted);font-style:italic}
 .gate-quote b{display:block;font-style:normal;color:var(--ink);margin-top:5px;font-size:11.5px}
 
 /* report */
-.rep-hero{background:var(--ink);color:#fff;border-radius:var(--radius);padding:26px 22px;margin-bottom:14px;text-align:center}
-.rep-hero .re{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:700}
-.rep-hero h2{font-size:clamp(21px,3.4vw,27px);margin:8px 0 4px}
-.rep-hero .big{font-family:'Poppins';font-weight:800;font-size:clamp(30px,6vw,44px);color:var(--gold);margin:8px 0 2px}
-.rep-hero .rn{font-size:12px;color:rgba(255,255,255,.6)}
+.rep-hero{background:var(--ink);color:#FBF7F0;border-radius:var(--radius);padding:28px 22px;margin-bottom:14px;text-align:center}
+.rep-hero .re{font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:#B9C6A8;font-weight:700;font-family:'Inter'}
+.rep-hero h2{font-size:clamp(21px,3.5vw,28px);margin:8px 0 4px}
+.rep-hero .big{font-family:'Fraunces';font-weight:700;font-size:clamp(30px,6vw,44px);color:#CBD8B9;margin:8px 0 2px}
+.rep-hero .rn{font-size:12px;color:rgba(251,247,240,.6)}
 .rep-meta{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:14px}
-.rep-meta span{font-size:11.5px;font-weight:600;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:6px 12px;border-radius:99px}
+.rep-meta span{font-size:11.5px;font-weight:600;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);padding:6px 13px;border-radius:99px;font-family:'Inter'}
 .brk-room{border-bottom:1px solid var(--line);padding:13px 0}
 .brk-room:last-child{border-bottom:0}
 .brk-rt{display:flex;justify-content:space-between;font-weight:600;font-size:14px}
-.brk-rt .sub{color:var(--accent)}
+.brk-rt .sub{color:var(--accent-dark)}
 .brk-item{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--muted);margin-top:6px}
 .brk-item b{color:var(--ink);font-weight:600}
 .brk-total{display:flex;justify-content:space-between;padding-top:14px;font-weight:700;font-size:16px}
-.brk-total .tv{color:var(--accent)}
+.brk-total .tv{color:var(--accent-dark)}
 .cta-grid{display:grid;gap:10px;margin-top:4px}
 @media(min-width:640px){.cta-grid{grid-template-columns:1fr 1fr}}
-.cta-a{display:flex;align-items:center;justify-content:center;gap:9px;padding:16px;border-radius:13px;font-weight:700;font-size:14.5px;text-decoration:none;text-align:center}
-.cta-book{background:var(--accent);color:#fff;box-shadow:0 10px 24px rgba(185,87,47,.3)}
+.cta-a{display:flex;align-items:center;justify-content:center;gap:9px;padding:16px;border-radius:999px;font-weight:700;font-size:14.5px;text-decoration:none;text-align:center}
+.cta-book{background:var(--accent);color:#fff;box-shadow:0 12px 26px rgba(95,112,80,.3)}
 .cta-book:hover{background:var(--accent-dark)}
 .cta-wa{background:#1FAF38;color:#fff}
 .cta-wa:hover{background:#188C2D}
-.cta-print{background:var(--soft);color:var(--ink);border:2px solid var(--line)}
+.cta-print{background:var(--soft);color:var(--ink);border:1.5px solid var(--line)}
 .rep-disc{font-size:10.5px;color:var(--muted);margin-top:16px;line-height:1.5}
 
 /* bottom nav */
-.bnav{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom))}
-.bnav-in{max-width:1120px;margin:0 auto;display:flex;align-items:center;gap:10px}
-.bnav .back{padding:13px 18px;border-radius:12px;background:var(--soft);font-weight:600;font-size:14px;color:var(--muted)}
+.bnav{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom))}
+.bnav-in{max-width:680px;margin:0 auto;display:flex;align-items:center;gap:10px}
+.bnav .back{padding:13px 18px;border-radius:999px;background:var(--soft);font-weight:600;font-size:14px;color:var(--muted)}
 .bnav .back:disabled{opacity:.4;cursor:default}
 .bnav-est{flex:1;text-align:center;line-height:1.15}
 .bnav-est .l{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700}
-.bnav-est .v{font-family:'Poppins';font-weight:700;font-size:15px;color:var(--accent)}
-.bnav .next{padding:13px 26px;border-radius:12px;background:var(--accent);color:#fff;font-weight:700;font-size:14px;box-shadow:0 8px 20px rgba(185,87,47,.3)}
+.bnav-est .v{font-family:'Fraunces';font-weight:700;font-size:16px;color:var(--accent-dark)}
+.bnav .next{padding:13px 24px;border-radius:999px;background:var(--accent);color:#fff;font-weight:700;font-size:14px;box-shadow:0 8px 20px rgba(95,112,80,.3);white-space:nowrap}
 .bnav .next:hover{background:var(--accent-dark)}
-.bnav .next:disabled{background:#d9cfc0;box-shadow:none;cursor:default}
-@media(min-width:900px){.bnav-est{display:none}}
+.bnav .next:disabled{background:#D8D2C4;box-shadow:none;cursor:default}
 
 /* print */
 @media print{
   body{background:#fff}
-  .bnav,.mtop,.side,#landing,.no-print{display:none!important}
-  .shell{display:block;padding:0}
+  .bnav,.mtop,#landing,.no-print{display:none!important}
+  .shell{padding:0}
   .card,.rep-hero{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
   .rep-hero{color:#000;background:#fff}
-  .rep-hero .big{color:var(--accent)}
-  .rep-hero .re{color:var(--accent)}
+  .rep-hero .big,.rep-hero .re{color:var(--accent-dark)}
   .rep-meta span{border:1px solid #ccc}
 }
 </style>
@@ -252,24 +215,25 @@ img{max-width:100%;display:block}
 
 <!-- ============ LANDING ============ -->
 <section id="landing">
-  <div class="bg"></div><div class="bg-grad"></div>
   <div class="landing-inner">
     <div class="landing-copy">
-      <div class="brand-mark" id="l-brand">Trio<small>Design Studio</small></div>
-      <h1>See your new home — and what it'll <span class="hl">actually cost</span> — before you talk to any ID.</h1>
-      <p class="landing-sub">Free A.I 3D renders of your home in 6 designer styles, plus an instant itemised renovation estimate. Takes about 60 seconds.</p>
+      <div class="brand-mark" id="l-brand">June<small>Interior Design</small></div>
+      <h1>See your new home <em>before</em> you renovate.</h1>
+      <p class="landing-sub">Less is more — a calm, honest, itemised estimate plus free A.I 3D renders of your home. About 60 seconds, no sales call.</p>
       <ul class="landing-points">
-        <li><span class="tick">✓</span><span>Instant, itemised cost estimate — line by line, like a real ID quote</span></li>
-        <li><span class="tick">✓</span><span>Free A.I 3D renderings of your dream home — no waiting, no email chase</span></li>
-        <li><span class="tick">✓</span><span>Personalised budget report you can keep &amp; compare quotes against</span></li>
-        <li><span class="tick">✓</span><span>Backed by real Singapore renovation pricing data</span></li>
+        <li><span class="tick">✓</span><span>Instant itemised estimate — line by line, like a real ID quote</span></li>
+        <li><span class="tick">✓</span><span>Free A.I 3D renders of your home in 6 designer styles</span></li>
+        <li><span class="tick">✓</span><span>A budget report you can keep &amp; compare quotes against</span></li>
+        <li><span class="tick">✓</span><span>Over 10 years designing Singapore BTO, resale &amp; condo homes</span></li>
       </ul>
-      <p class="landing-trust" id="l-trust">100% free · No obligation · PDPA-compliant</p>
+      <div class="prop-grid" id="prop-list"></div>
+      <p class="landing-trust" id="l-trust">Tap your home type to begin · 100% free · No obligation · PDPA-compliant</p>
     </div>
-    <div class="landing-card">
-      <h2>Which home are we renovating?</h2>
-      <div id="prop-list"></div>
-      <p class="start-hint" id="start-hint">Tap your home type to start · takes about 60 seconds</p>
+    <div class="landing-art">
+      <div class="arch">
+        <img src="../reno-calculator/renders/japandi-living.jpg" alt="A.I render of a renovated Singapore living room" onerror="this.parentElement.style.display='none'">
+        <span class="tag">A.I render — yours is free ✨</span>
+      </div>
     </div>
   </div>
 </section>
@@ -278,34 +242,19 @@ img{max-width:100%;display:block}
 <div id="app">
   <div class="mtop">
     <div class="mtop-row">
-      <div class="brand-mark">Trio<small>DESIGN STUDIO</small></div>
+      <div class="brand-mark">June<small>INTERIOR DESIGN</small></div>
       <div class="mtop-step" id="m-step">Step 1</div>
     </div>
     <div class="mtop-track"><div class="prog-fill" id="m-fill"></div></div>
   </div>
 
   <div class="shell">
-    <aside class="side">
-      <div class="side-card">
-        <div class="brand-mark">Trio<small>Design Studio</small></div>
-        <div class="prog-row"><span>My progress</span><b id="d-count">1/8</b></div>
-        <div class="prog-track"><div class="prog-fill" id="d-fill"></div></div>
-        <p class="prog-eta" id="d-eta">About 2 mins left</p>
-        <ul class="step-list" id="d-steps"></ul>
-        <div class="side-est">
-          <div class="lbl">Live estimate</div>
-          <div class="val" id="d-est">S$0</div>
-          <div class="note">Updates as you build your scope</div>
-        </div>
-        <p class="side-foot" id="d-foot">© 2026 The Trio Design Studio</p>
-      </div>
-    </aside>
-    <main class="main" id="main"></main>
+    <main id="main"></main>
   </div>
 
   <nav class="bnav no-print" id="bnav">
     <div class="bnav-in">
-      <button class="back" id="nav-back">← Back</button>
+      <button class="back" id="nav-back">←</button>
       <div class="bnav-est"><div class="l">Est. budget</div><div class="v" id="m-est">S$0</div></div>
       <button class="next" id="nav-next">Next →</button>
     </div>
@@ -317,14 +266,14 @@ img{max-width:100%;display:block}
    CONFIG — everything brand/wiring specific lives here.
    ===================================================================== */
 const CONFIG = {
-  brandName: "The Trio Design Studio",
-  brandShort: "Trio",
-  brandSub: "Design Studio",
-  // GHL / n8n inbound webhook — receives the full lead payload as JSON POST.
+  brandName: "June Interior Design",
+  brandShort: "June",
+  brandSub: "Interior Design",
+  // GHL workflow Inbound Webhook trigger URL (or n8n webhook) — full lead JSON POSTs here.
   webhookUrl: "",
-  // WhatsApp number in international format without "+", e.g. "6591234567".
-  whatsappNumber: "",
-  // GHL calendar / booking page for the free consult CTA.
+  // Business WhatsApp (from GHL location record). Change if the setter runs on another number.
+  whatsappNumber: "6591556958",
+  // GHL calendar / booking page for the consult CTA (optional).
   bookingUrl: "",
   // Meta pixel id — fires PageView + Lead + step events when set.
   pixelId: "",
@@ -332,15 +281,14 @@ const CONFIG = {
   emailRequired: false,
   // Optional testimonial on the lead gate. Leave quote empty to hide.
   testimonial: { quote: "", author: "" },
-  projectsLine: "Backed by real Singapore renovation pricing data",
-  copyrightLine: "© 2026 The Trio Design Studio",
   privacyLine: "By submitting, you agree to be contacted about your renovation enquiry (PDPA). Your data is never sold.",
+  copyrightLine: "© 2026 June Interior Design",
 };
+const RENDER_BASE = "../reno-calculator/renders/";
 
 /* =====================================================================
-   PRICING DATA — work categories with Light/Moderate/Extensive tiers.
-   Cost model mirrors monarch-reno-calculator.com exactly:
-   shown high = costHigh × 0.8; bedrooms/bathrooms multiply by count.
+   PRICING DATA — Light/Moderate/Extensive tiers (market table).
+   Displayed high = costHigh × 0.8; bedrooms/bathrooms multiply by count.
    ===================================================================== */
 const TIERS = {
   hacking:[{level:"Light",lo:150,hi:300,note:"Minor hacking of a small section of floor or wall tiles."},{level:"Moderate",lo:300,hi:550,note:"Dismantling of a few built-in fixtures and/or false ceiling, hacking a portion of wall."},{level:"Extensive",lo:550,hi:1200,note:"Full hacking of floors, walls and dismantling of all built-in fixtures and false ceilings."}],
@@ -406,7 +354,6 @@ const ROOM_WORKS = {
   ],
 };
 
-/* One-tap "typical scope" per room (tier Moderate) — speeds completion. */
 const TYPICAL = {
   "living-room":["flooring","carpentry","painting","electrical"],
   kitchen:["carpentry","appliances","electrical","masonry"],
@@ -415,9 +362,6 @@ const TYPICAL = {
   "other-works":["haulage","doors","painting"],
 };
 
-/* =====================================================================
-   DESIGN STYLES — pre-rendered A.I gallery (renders/{id}-{room}.jpg)
-   ===================================================================== */
 const STYLES = [
   {id:"modern-minimalist",label:"Modern Minimalist",emoji:"🪟",desc:"Clean lines, neutral palette, clutter-free",
    writeup:"A Modern Minimalist home embraces simplicity and calm. Every element serves a purpose, with clutter hidden by smart built-in storage. Warm whites and soft greys let natural light take centre stage, over large-format matte tiles or light oak vinyl. Serene, timeless, never dated."},
@@ -444,17 +388,13 @@ const AREA_TO_ROOM = {"Living/Dining":"living-room",Kitchen:"kitchen",Bedrooms:"
 const ROOM_LABELS = {"living-room":"Living Room",kitchen:"Kitchen",bedrooms:"Bedrooms",bathrooms:"Bathrooms","other-works":"Other Works"};
 const TIMELINES = ["ASAP — keys collected","1–3 months","3–6 months","6+ months / exploring"];
 
-/* =====================================================================
-   STATE
-   ===================================================================== */
+/* ===================================================================== */
 const state = {
   propertyType:"", unitStatus:"", bedrooms:0, bathrooms:0, size:"", sizeUnit:"m²",
-  areas:[], works:{}, style:"", floorPlan:null, submitted:false, lead:{},
-  stepIndex:0,
+  areas:[], works:{}, style:"", floorPlan:null, submitted:false, lead:{}, stepIndex:0,
 };
 let lastEstimate = {lo:0, hi:0};
 
-/* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
 const fmt = n => CONFIG.currency + Math.round(n).toLocaleString("en-SG");
 const effHi = hi => Math.round(hi * 0.8);
@@ -468,17 +408,15 @@ if(CONFIG.pixelId){
   fbq("init", CONFIG.pixelId); fbq("track","PageView");
 }
 
-/* ---------- steps model ---------- */
 function getSteps(){
-  const steps = [{id:"home",label:"Home Details",sub:"Tell us about your home"}];
-  state.areas.forEach(a=>{ const r=AREA_TO_ROOM[a]; if(r) steps.push({id:r,label:ROOM_LABELS[r],sub:"Select works & scope"}); });
-  steps.push({id:"other-works",label:"Other Works",sub:"Whole-home items"});
-  steps.push({id:"studio",label:"A.I Design Studio",sub:"Pick your style & see it"});
-  steps.push({id:"gate",label:"Your Report",sub:"Unlock estimate + renders"});
+  const steps = [{id:"home",label:"Home Details"}];
+  state.areas.forEach(a=>{ const r=AREA_TO_ROOM[a]; if(r) steps.push({id:r,label:ROOM_LABELS[r]}); });
+  steps.push({id:"other-works",label:"Other Works"});
+  steps.push({id:"studio",label:"A.I Design Studio"});
+  steps.push({id:"gate",label:"Your Report"});
   return steps;
 }
 
-/* ---------- estimate (Monarch-exact math) ---------- */
 function estimate(){
   let lo=0, hi=0; const sections=[];
   const order=["living-room","kitchen","bedrooms","bathrooms","other-works"];
@@ -491,8 +429,7 @@ function estimate(){
       const def = defs.find(d=>d.id===wid); if(!def) return;
       const t = def.t.find(x=>x.level===tier); if(!t) return;
       const l=t.lo*mult, h=effHi(t.hi)*mult;
-      items.push({label:def.label,tier,lo:l,hi:h});
-      lo+=l; hi+=h;
+      items.push({label:def.label,tier,lo:l,hi:h}); lo+=l; hi+=h;
     });
     if(items.length) sections.push({room,label:ROOM_LABELS[room],mult,items,
       lo:items.reduce((a,b)=>a+b.lo,0), hi:items.reduce((a,b)=>a+b.hi,0)});
@@ -500,7 +437,6 @@ function estimate(){
   return {lo,hi,sections};
 }
 
-/* ---------- estimate ticker (count-up) ---------- */
 function updateTicker(){
   const {lo,hi} = estimate();
   animateEst(lastEstimate, {lo,hi});
@@ -514,26 +450,22 @@ function animateEst(from,to){
     const p=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-p,3);
     const lo=from.lo+(to.lo-from.lo)*e, hi=from.hi+(to.hi-from.hi)*e;
     const txt = to.lo===0&&to.hi===0 ? fmt(0) : fmt(lo)+" – "+fmt(hi);
-    const d=$("#d-est"), m=$("#m-est");
-    if(d) d.textContent=txt; if(m) m.textContent=txt;
+    const m=$("#m-est"); if(m) m.textContent=txt;
     if(p<1) animFrame=requestAnimationFrame(frame);
   }
   animFrame=requestAnimationFrame(frame);
 }
 
-/* =====================================================================
-   RENDERERS
-   ===================================================================== */
+/* ---------- renderers ---------- */
 function renderLanding(){
   const list=$("#prop-list"); list.innerHTML="";
   PROPERTY_TYPES.forEach(p=>{
     const b=document.createElement("button");
     b.className="prop-btn"+(state.propertyType===p.value?" sel":"");
-    b.innerHTML=`<span class="ico">${p.icon}</span><span><span class="t">${p.label}</span><br><span class="s">${p.sub}</span></span><span class="radio"></span>`;
+    b.innerHTML=`<span class="ico">${p.icon}</span><span><span class="t">${p.label}</span><br><span class="s">${p.sub}</span></span><span class="go">→</span>`;
     b.onclick=()=>{
       state.propertyType=p.value; renderLanding();
       track("StartCalculator",{property_type:p.value});
-      /* CRO: auto-advance — tap is the start */
       setTimeout(()=>{ $("#landing").style.display="none"; $("#app").classList.add("on"); render(); }, 320);
     };
     list.appendChild(b);
@@ -548,7 +480,7 @@ function renderHome(){
   const beds=["1","2","3","4","5+"], baths=["1","2","3","4","5+"];
   const chip=(list,cur,attr)=>list.map(v=>`<button class="chip ${String(cur)===v?"sel":""}" data-${attr}="${v}">${v}</button>`).join("");
   return `
-  ${stepHead("Step 1 — Home Details","Tell us about your "+state.propertyType,"This shapes your estimate and your A.I renders.")}
+  ${stepHead("Step 1 — Home Details","Tell us about your "+state.propertyType,"30 seconds — this shapes your estimate and your A.I renders.")}
   <div class="card">
     <h3>Is it a new or resale unit?</h3>
     <div class="chip-row">
@@ -583,7 +515,7 @@ function renderRoom(room){
   const defs=ROOM_WORKS[room], sel=state.works[room]||{};
   const idx=getSteps().findIndex(s=>s.id===room);
   const mult = room==="bedrooms"?(state.bedrooms||1):room==="bathrooms"?(state.bathrooms||1):1;
-  const multNote = mult>1?`<p style="font-size:12px;color:var(--muted);margin:-8px 0 12px">Costs shown are per ${room==="bedrooms"?"bedroom":"bathroom"} × ${mult} ${room==="bedrooms"?"bedrooms":"bathrooms"}.</p>`:"";
+  const multNote = mult>1?`<p style="font-size:12px;color:var(--muted);margin:-8px 0 12px">Costs shown are per ${room==="bedrooms"?"bedroom":"bathroom"} × ${mult}.</p>`:"";
   return `
   ${stepHead(`Step ${idx+1} — ${ROOM_LABELS[room]}`,
     room==="other-works"?"Any whole-home works?":"What are we doing in the "+ROOM_LABELS[room].toLowerCase()+"?",
@@ -607,7 +539,7 @@ function renderStudio(){
   const idx=getSteps().findIndex(s=>s.id==="studio");
   const st=STYLES.find(s=>s.id===state.style);
   return `
-  ${stepHead(`Step ${idx+1} — A.I Design Studio`,"Now see your new home ✨","Pick a designer style and our A.I shows you what your home could look like — instantly.")}
+  ${stepHead(`Step ${idx+1} — A.I Design Studio`,"Now see your new home ✨","Pick a designer style — our A.I shows you your home instantly.")}
   <div class="card">
     <h3>Choose your design style</h3>
     <div class="style-grid">${STYLES.map(s=>`
@@ -623,9 +555,9 @@ function renderStudio(){
   <div class="card">
     <h3>Your home in ${st.label}</h3>
     <div class="render-grid">
-      <div class="render-card main-render"><img src="renders/${st.id}-living.jpg" alt="${st.label} living room" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.living}</span></div>
-      <div class="render-card locked"><img src="renders/${st.id}-bedroom.jpg" alt="" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.bedroom}</span><div class="lock-overlay"><span class="li">🔒</span><span class="lt">Unlocked in your free report</span></div></div>
-      <div class="render-card locked"><img src="renders/${st.id}-kitchen.jpg" alt="" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.kitchen}</span><div class="lock-overlay"><span class="li">🔒</span><span class="lt">Unlocked in your free report</span></div></div>
+      <div class="render-card main-render"><img src="${RENDER_BASE}${st.id}-living.jpg" alt="${st.label} living room" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.living}</span></div>
+      <div class="render-card locked"><img loading="lazy" src="${RENDER_BASE}${st.id}-bedroom.jpg" alt="" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.bedroom}</span><div class="lock-overlay"><span class="li">🔒</span><span class="lt">Unlocked in your free report</span></div></div>
+      <div class="render-card locked"><img loading="lazy" src="${RENDER_BASE}${st.id}-kitchen.jpg" alt="" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.kitchen}</span><div class="lock-overlay"><span class="li">🔒</span><span class="lt">Unlocked in your free report</span></div></div>
     </div>
     <p style="font-size:11px;color:var(--muted);margin-top:10px">A.I draft visualisations of a typical ${state.propertyType} in this style — your designer tailors the real design to your exact floor plan.</p>
   </div>`:""}
@@ -641,17 +573,18 @@ function renderStudio(){
 function renderGate(){
   const st=STYLES.find(s=>s.id===state.style);
   const {lo,hi}=estimate();
+  const tq=CONFIG.testimonial&&CONFIG.testimonial.quote;
   return `
   <div class="gate-hero">
-    ${st?`<img src="renders/${st.id}-living.jpg" alt="" onerror="this.style.display='none'">`:""}
+    ${st?`<img src="${RENDER_BASE}${st.id}-living.jpg" alt="" onerror="this.style.display='none'">`:""}
     <div class="gh-grad"></div>
-    <div class="gh-txt"><h2>Your personalised reno report is ready 🎉</h2><p>Estimate range, itemised breakdown &amp; your ${st?st.label:""} renders</p></div>
+    <div class="gh-txt"><h2>Your report is ready 🌿</h2><p>Estimate, itemised breakdown &amp; your ${st?st.label:""} renders</p></div>
   </div>
   <div class="card">
     <ul class="gate-list">
-      <li><span class="tick">✓</span><span>Your estimated budget range ${lo?`(<b>${fmt(lo)} – ${fmt(hi)}</b>)`:""} — itemised room by room</span></li>
-      <li><span class="tick">✓</span><span>All 3 A.I renders of your home in ${st?("<b>"+st.label+"</b>"):"your style"} — unlocked</span></li>
-      <li><span class="tick">✓</span><span>A copy you can save/print and compare ID quotes against</span></li>
+      <li><span class="tick">✓</span><span>Your budget range ${lo?`(<b>${fmt(lo)} – ${fmt(hi)}</b>)`:""} itemised room by room</span></li>
+      <li><span class="tick">✓</span><span>All 3 A.I renders in ${st?("<b>"+st.label+"</b>"):"your style"} — unlocked</span></li>
+      <li><span class="tick">✓</span><span>A copy to keep &amp; compare ID quotes against</span></li>
     </ul>
     <div class="f-row two">
       <input class="f-in" id="g-name" placeholder="Name" autocomplete="name">
@@ -663,9 +596,9 @@ function renderGate(){
     <div class="lbl-sm" style="margin-top:14px">When are you intending to renovate?</div>
     <div class="chip-row" id="g-timeline">${TIMELINES.map(t=>`<button class="chip ${state.lead.timeline===t?"sel":""}" data-timeline="${t}">${t}</button>`).join("")}</div>
     <p class="gate-err" id="g-err"></p>
-    <button class="submit-btn" id="g-submit">Unlock my full report →</button>
+    <button class="submit-btn" id="g-submit">Show me my report →</button>
     <p class="gate-privacy">${CONFIG.privacyLine}<br>100% free · No obligation</p>
-    ${CONFIG.testimonial&&CONFIG.testimonial.quote?`<div class="gate-quote">“${CONFIG.testimonial.quote}”<b>— ${CONFIG.testimonial.author||""}</b></div>`:""}
+    ${tq?`<div class="gate-quote">“${CONFIG.testimonial.quote}”<b>— ${CONFIG.testimonial.author||""}</b></div>`:""}
   </div>`;
 }
 
@@ -702,9 +635,9 @@ function renderReport(){
   <div class="card">
     <h3>Your home in ${st.emoji} ${st.label}</h3>
     <div class="render-grid">
-      <div class="render-card main-render"><img src="renders/${st.id}-living.jpg" alt="" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.living}</span></div>
-      <div class="render-card"><img src="renders/${st.id}-bedroom.jpg" alt="" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.bedroom}</span></div>
-      <div class="render-card"><img src="renders/${st.id}-kitchen.jpg" alt="" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.kitchen}</span></div>
+      <div class="render-card main-render"><img src="${RENDER_BASE}${st.id}-living.jpg" alt="" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.living}</span></div>
+      <div class="render-card"><img loading="lazy" src="${RENDER_BASE}${st.id}-bedroom.jpg" alt="" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.bedroom}</span></div>
+      <div class="render-card"><img loading="lazy" src="${RENDER_BASE}${st.id}-kitchen.jpg" alt="" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.kitchen}</span></div>
     </div>
     <div class="style-writeup" style="margin-top:12px"><b>${st.emoji} ${st.label}</b> — ${st.writeup}</div>
   </div>`:""}
@@ -721,16 +654,11 @@ function renderReport(){
   <p class="rep-disc">* This is an indicative estimate based on typical Singapore renovation pricing for the scope you selected — not a quotation. A.I renders are draft visualisations for inspiration; the final design is tailored to your actual floor plan. ${CONFIG.privacyLine}</p>`;
 }
 
-/* =====================================================================
-   NAVIGATION + EVENTS
-   ===================================================================== */
+/* ---------- nav + events ---------- */
 function currentStep(){ return getSteps()[state.stepIndex]; }
-
 function validateStep(){
   const s=currentStep();
-  if(s.id==="home"){
-    return state.unitStatus && state.bedrooms && state.bathrooms && Number(state.size)>0 && state.areas.length>0;
-  }
+  if(s.id==="home") return state.unitStatus && state.bedrooms && state.bathrooms && Number(state.size)>0 && state.areas.length>0;
   if(s.id==="studio") return !!state.style;
   return true;
 }
@@ -746,24 +674,11 @@ function render(){
   $("#main").innerHTML=html;
   window.scrollTo({top:0});
 
-  /* sidebar + progress */
   const n=steps.length, i=state.stepIndex;
-  $("#d-count").textContent=(i+1)+"/"+n;
   const pct=Math.round(((i)/(n-1))*100);
-  $("#d-fill").style.width=pct+"%"; $("#m-fill").style.width=pct+"%";
-  const mins=Math.max(1,Math.round((n-1-i)*0.7));
-  $("#d-eta").textContent = state.submitted?"Done — report ready 🎉":"About "+mins+" min"+(mins>1?"s":"")+" left";
-  $("#m-step").textContent = state.submitted?"Report":"Step "+(i+1)+" of "+n;
-  const list=$("#d-steps"); list.innerHTML="";
-  steps.forEach((st,idx)=>{
-    const li=document.createElement("li");
-    li.className = idx===i?"cur":(idx<i||state.submitted?"done":"");
-    li.innerHTML=`<span>${st.label}</span><span class="st-tick">✓</span>`;
-    list.appendChild(li);
-  });
-  $("#d-foot").textContent=CONFIG.copyrightLine;
+  $("#m-fill").style.width=pct+"%";
+  $("#m-step").textContent = state.submitted?"Report":"Step "+(i+1)+" of "+n+" · ~"+Math.max(1,Math.round((n-1-i)*0.7))+" min left";
 
-  /* nav buttons */
   $("#nav-back").disabled = i===0;
   const next=$("#nav-next");
   if(state.submitted && s.id==="gate"){ $("#bnav").style.display="none"; }
@@ -779,7 +694,6 @@ function render(){
 
 function bindStep(){
   const s=currentStep();
-  /* home details */
   if(s.id==="home"){
     document.querySelectorAll("[data-status]").forEach(b=>b.onclick=()=>{state.unitStatus=b.dataset.status;render();});
     document.querySelectorAll("[data-beds]").forEach(b=>b.onclick=()=>{state.bedrooms=b.dataset.beds==="5+"?5:+b.dataset.beds;render();});
@@ -790,12 +704,10 @@ function bindStep(){
     document.querySelectorAll("[data-area]").forEach(b=>b.onclick=()=>{
       const a=b.dataset.area;
       state.areas.includes(a) ? state.areas=state.areas.filter(x=>x!==a) : state.areas.push(a);
-      /* keep room order canonical */
       state.areas.sort((x,y)=>AREAS.indexOf(x)-AREAS.indexOf(y));
       render();
     });
   }
-  /* room works */
   if(ROOM_WORKS[s.id]){
     document.querySelectorAll(".work").forEach(w=>{
       const room=w.dataset.room, wid=w.dataset.work;
@@ -823,7 +735,6 @@ function bindStep(){
       render();
     };
   }
-  /* studio */
   if(s.id==="studio"){
     document.querySelectorAll("[data-style]").forEach(b=>b.onclick=()=>{
       state.style=b.dataset.style; track("StyleSelected",{style:state.style}); render();
@@ -839,7 +750,6 @@ function bindStep(){
     const fpRm=$("#fp-remove");
     if(fpRm) fpRm.onclick=()=>{ state.floorPlan=null; render(); };
   }
-  /* gate */
   if(s.id==="gate" && !state.submitted){
     ["g-name","g-phone","g-email"].forEach(id=>{
       const el=$("#"+id), key=id.slice(2);
@@ -853,7 +763,6 @@ function bindStep(){
   }
 }
 
-/* ---------- lead submit ---------- */
 async function submitLead(){
   const name=$("#g-name").value.trim(), phone=$("#g-phone").value.trim(), email=$("#g-email").value.trim();
   const errs=[];
@@ -879,8 +788,7 @@ async function submitLead(){
     source:"reno-calculator", brand:CONFIG.brandShort,
     name, phone, email,
     timeline:state.lead.timeline,
-    property_type:state.propertyType,
-    unit_status:state.unitStatus,
+    property_type:state.propertyType, unit_status:state.unitStatus,
     bedrooms:state.bedrooms, bathrooms:state.bathrooms,
     size:state.size, size_unit:state.sizeUnit,
     areas:state.areas,
@@ -905,7 +813,6 @@ async function submitLead(){
   render();
 }
 
-/* ---------- nav ---------- */
 $("#nav-back").onclick=()=>{ if(state.stepIndex>0){ state.stepIndex--; render(); } };
 $("#nav-next").onclick=()=>{
   if(!validateStep()) return;
@@ -914,13 +821,7 @@ $("#nav-next").onclick=()=>{
   if(state.stepIndex<getSteps().length-1){ state.stepIndex++; render(); }
 };
 
-/* ---------- brand text + iframe autosize ---------- */
 (function(){
-  document.title = "Free A.I Reno Calculator — "+CONFIG.brandName;
-  document.querySelectorAll(".brand-mark").forEach(el=>{
-    el.childNodes[0].textContent=CONFIG.brandShort;
-    const small=el.querySelector("small"); if(small) small.textContent=CONFIG.brandSub;
-  });
   function postH(){
     const h=document.documentElement.scrollHeight;
     try{ parent.postMessage({renoCalcHeight:h, trioFrameHeight:h},"*"); }catch(e){}
