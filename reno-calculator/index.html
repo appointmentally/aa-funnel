@@ -686,6 +686,12 @@ function band(est){
 }
 /* window.print() is a no-op inside FB/IG in-app WebViews — hide the print link there. */
 const IN_APP=/FBAN|FBAV|FB_IAB|Instagram|Line\//i.test(navigator.userAgent);
+function goLanding(){
+  $("#app").classList.remove("on");
+  var lz=$("#landing"); if(lz) lz.style.display="";
+  renderLanding();
+  window.scrollTo({top:0});
+}
 const BNAV_HTML=document.querySelector(".bnav-in").innerHTML;
 
 function track(ev, data){
@@ -762,7 +768,7 @@ function renderLanding(){
     b.className="prop-btn"+(state.propertyType===p.value?" sel":"");
     b.innerHTML=`<span class="ico">${icon(p.icon)}</span><span><span class="t">${p.label}</span><br><span class="s">${p.sub}</span></span><span class="radio"></span>`;
     b.onclick=()=>{
-      state.propertyType=p.value; renderLanding();
+      if(state.propertyType&&state.propertyType!==p.value){state.flatType="";} state.propertyType=p.value; renderLanding();
       track("StartCalculator",{property_type:p.value});
       /* CRO: auto-advance — tap is the start */
       setTimeout(()=>{ $("#landing").style.display="none"; $("#app").classList.add("on"); render(); }, 320);
@@ -1075,7 +1081,7 @@ function render(){
   else{
     if(!$("#nav-next")){ document.querySelector(".bnav-in").innerHTML=BNAV_HTML; bindNav(); }
     $("#bnav").style.display="";
-    $("#nav-back").disabled = i===0;
+    $("#nav-back").disabled = false;
     const next=$("#nav-next");
     next.textContent = s.id==="gate" ? "" : (s.id==="studio" ? "Build my Reno Blueprint →" : "Next →");
     next.style.display = s.id==="gate" ? "none" : "";
@@ -1246,7 +1252,7 @@ async function submitLead(){
 
 /* ---------- nav ---------- */
 function bindNav(){
-  $("#nav-back").onclick=()=>{ if(state.stepIndex>0){ state.stepIndex--; render(); } };
+  $("#nav-back").onclick=()=>{ if(state.stepIndex>0){ state.stepIndex--; render(); } else { goLanding(); } };
   $("#nav-next").onclick=()=>{
     const s=currentStep();
     if(s.id==="home" && !validateStep()){
