@@ -146,9 +146,7 @@ iframe#cal{width:100%;min-height:640px;border:0;display:block}
       <h2>Pick a time that suits you 👇</h2>
       <p class="cal-note">⏳ We only take a handful of new consults each week, and slots fill fast. Please choose a time you can keep — <b>we're not able to offer reschedules.</b></p>
     </div>
-    <iframe id="cal"
-      src="https://api.leadconnectorhq.com/widget/booking/W8KGKywKNE9qRfICyrco"
-      scrolling="no" title="Book your free design consult"></iframe>
+    <iframe id="cal" scrolling="no" title="Book your free design consult"></iframe>
   </div>
 
   <div class="risk">
@@ -173,6 +171,8 @@ iframe#cal{width:100%;min-height:640px;border:0;display:block}
   </p>
 </div>
 
+<!-- Prefill the calendar with any first_name/last_name/email/phone passed in the URL -->
+<script>document.getElementById("cal").src="https://api.leadconnectorhq.com/widget/booking/W8KGKywKNE9qRfICyrco"+(window.location.search||"");</script>
 <!-- GHL widget auto-resize -->
 <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
 <script>

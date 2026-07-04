@@ -346,6 +346,10 @@ const CONFIG = {
   calendarUrl: "https://api.leadconnectorhq.com/widget/booking/W8KGKywKNE9qRfICyrco",
   // Fallback external booking link (used only when calendarUrl is empty).
   bookingUrl: "",
+  // On submit, redirect the WHOLE page to this GHL Book Consult funnel step (instead of the
+  // in-app booking screen). Lead first/last name, email + phone are appended for calendar prefill.
+  // Leave "" to keep the in-app booking screen.
+  bookConsultUrl: "https://june-interior.com/book-consult",
   // Meta pixel id — fires PageView + Lead + step events when set.
   pixelId: "",
   currency: "S$",
@@ -1097,6 +1101,16 @@ async function submitLead(){
   }
   track("Lead",{value:lo,currency:"SGD",property_type:state.propertyType,style:payload.design_style,variant:AD_KEY||"default"});
   state.submitted=true;
+  if(CONFIG.bookConsultUrl){
+    const parts=(state.lead.name||"").trim().split(" ");
+    const q="?first_name="+encodeURIComponent(parts[0]||"")
+      +"&last_name="+encodeURIComponent(parts.slice(1).join(" "))
+      +"&email="+encodeURIComponent(state.lead.email||"")
+      +"&phone="+encodeURIComponent(state.lead.phone||"");
+    try{ window.top.location.href=CONFIG.bookConsultUrl+q; }
+    catch(e){ window.location.href=CONFIG.bookConsultUrl+q; }
+    return;
+  }
   render();
 }
 
