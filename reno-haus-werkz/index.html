@@ -346,6 +346,12 @@ const TIERS = {
   carpentryLiving:[{level:"Light",lo:700,hi:1200,exact:true,note:"One piece — e.g. a 5–8 ft TV console or shoe cabinet at $140–150 per foot run."},{level:"Moderate",lo:2100,hi:3800,exact:true,note:"2–3 pieces — roughly 15–25 ft of carpentry at $140–150 per foot run."},{level:"Extensive",lo:4200,hi:7500,exact:true,note:"Full feature wall + storage suite — roughly 30–50 ft at $140–150 per foot run."}],
   kitchenCabinets:[{level:"Light",lo:1100,hi:1500,exact:true,note:"Partial — replace roughly 8–10 ft of base or wall cabinets at $140–150 per foot run."},{level:"Moderate",lo:2500,hi:3300,exact:true,note:"Full galley set — roughly 18–22 ft of base + wall cabinets at $140–150 per foot run."},{level:"Extensive",lo:3600,hi:4800,exact:true,note:"Large or L-shaped kitchen — roughly 26–32 ft of cabinets at $140–150 per foot run."}],
   countertop:[{level:"Quartz",lo:1000,hi:1400,exact:true,note:"Quartz at $100 per foot run — typical 10–14 ft counter."},{level:"Granite",lo:1300,hi:2100,exact:true,note:"Granite at $130–150 per foot run — typical 10–14 ft counter."},{level:"Sintered stone",lo:1200,hi:2500,exact:true,note:"Sintered stone at $120–180 per foot run — typical 10–14 ft counter."}],
+  hackingWhole:[{level:"Kitchen + bathrooms",exact:true,calc:calcHackKB,note:"Package: hack kitchen and 2 bathrooms only — $2,800 (condos +5%)."},{level:"Whole house",exact:true,calc:calcHackWhole,note:"Whole-house hacking package, standard items: 3-room $3,500 · 4-room $3,800 · 5-room $4,200 · Executive $4,600 (condos +5%)."}],
+  paintingWhole:[{level:"Whole house",exact:true,calc:calcPaint,note:"Whole-house painting: 3-room $1,250 · 4-room $1,450 · 5-room $1,650."}],
+  sealantWhole:[{level:"Whole house",exact:true,calc:calcSealant,note:"Silicon sealant works throughout: 3-room $300 · 4-room $400 · 5-room $500."}],
+  flooringWhole:[{level:"Tiles (incl labour)",exact:true,calc:calcTileFloor,note:"Tiles at $11.80/sqft including labour, + 10% wastage, across your floor area (condo & landed +10%)."},{level:"Vinyl overlay",exact:true,calc:calcVinyl,note:"Vinyl at $5.80/sqft + 10% wastage, across your floor area."}],
+  rewiringWhole:[{level:"Full rewiring",exact:true,calc:calcRewire,note:"Full rewiring: 3-room $2,700–3,200 · 4-room $3,500–4,200 · 5-room $4,200–5,000 · Executive $5,200–6,800 (condos +8–10%)."}],
+  walltiles:[{level:"Cooking zone",exact:true,calc:calcWallTilesZone,note:"Roughly 60–100 sqft around the cooking zone at $11.80/sqft incl labour + 10% wastage."},{level:"Full walls",exact:true,calc:calcWallTilesFull,note:"Roughly 120–200 sqft of kitchen wall tiling at $11.80/sqft incl labour + 10% wastage."}],
   wardrobe:[{level:"Light",lo:1100,hi:1400,exact:true,note:"Compact 4 ft full-height wardrobe at $280–350 per foot run."},{level:"Moderate",lo:1700,hi:2800,exact:true,note:"Standard 6–8 ft full-height wardrobe at $280–350 per foot run."},{level:"Extensive",lo:3400,hi:5000,exact:true,note:"Full wardrobe wall (8–10 ft at $280–350/ft) plus study or storage carpentry at $140–150/ft."}],
   vanity:[{level:"Light",lo:400,hi:600,exact:true,note:"3–4 ft vanity cabinet at $140–150 per foot run."},{level:"Moderate",lo:800,hi:1200,exact:true,note:"Vanity + mirror cabinet — roughly 6–8 ft combined at $140–150 per foot run."},{level:"Extensive",lo:1400,hi:2100,exact:true,note:"Full vanity wall with tall storage — roughly 10–14 ft at $140–150 per foot run."}],
   painting:[{level:"Light",lo:300,hi:600,note:"Single coat on one room's walls."},{level:"Moderate",lo:600,hi:1200,note:"Two coats on walls and ceiling of one room."},{level:"Extensive",lo:1200,hi:3000,note:"Full repaint of entire area including ceilings and feature walls."}],
@@ -362,43 +368,34 @@ const TIERS = {
 
 const ROOM_WORKS = {
   "living-room":[
-    {id:"hacking",label:"Hacking",desc:"Labour for floor hacking, dismantling false ceilings and built-in fixtures. For HDB flats, wall hacking needs an HDB permit — your designer handles the application.",t:TIERS.hacking},
     {id:"masonry",label:"Masonry",desc:"Tiling and wet construction tasks. Priced by total area and labour required.",t:TIERS.masonry},
-    {id:"flooring",label:"Flooring",desc:"New flooring laid on cement or overlaid on existing — tiles, hardwood, vinyl or laminate.",t:TIERS.flooring},
     {id:"ceiling",label:"Ceiling & Partition",desc:"Partition walls and/or false ceilings, priced by size and design style.",t:TIERS.ceiling},
     {id:"carpentry",label:"Carpentry",desc:"Custom carpentry — TV consoles, shoe cabinets, feature storage — at the standard $140–150 per foot run.",t:TIERS.carpentryLiving},
-    {id:"painting",label:"Painting",desc:"Labour to paint over existing walls and ceilings.",t:TIERS.painting},
-    {id:"electrical",label:"Electrical",desc:"Power points, lighting points and other electrical works.",t:TIERS.electrical},
   ],
   kitchen:[
-    {id:"hacking",label:"Hacking",desc:"Labour for floor hacking, dismantling false ceilings and built-in fixtures. For HDB flats, wall hacking needs an HDB permit — your designer handles the application.",t:TIERS.hacking},
     {id:"masonry",label:"Masonry",desc:"Tiling and wet construction tasks.",t:TIERS.masonry},
-    {id:"flooring",label:"Flooring",desc:"New kitchen-suitable flooring — tiles, vinyl or similar.",t:TIERS.flooring},
     {id:"carpentry",label:"Carpentry / Cabinets",desc:"Kitchen base + wall cabinets and built-in storage at $140–150 per foot run.",t:TIERS.kitchenCabinets},
     {id:"countertop",label:"Countertop",desc:"Solid-surface worktop, priced per foot run: quartz $100 · granite $130–150 · sintered stone $120–180.",t:TIERS.countertop},
+    {id:"walltiles",label:"Wall tiles",desc:"Kitchen wall tiling at $11.80/sqft including labour, + 10% wastage (condo & landed +10%).",t:TIERS.walltiles},
     {id:"appliances",label:"Appliances & Fitting",desc:"Installation of kitchen appliances, sinks and fittings.",t:TIERS.appliances},
-    {id:"electrical",label:"Electrical",desc:"Power points and lighting for the kitchen.",t:TIERS.electrical},
-    {id:"painting",label:"Painting",desc:"Labour to paint over existing walls and ceilings.",t:TIERS.painting},
   ],
   bedrooms:[
-    {id:"hacking",label:"Hacking",desc:"Labour for floor hacking and dismantling built-in fixtures. For HDB flats, wall hacking needs an HDB permit — your designer handles the application.",t:TIERS.hacking},
-    {id:"flooring",label:"Flooring",desc:"New flooring — timber, vinyl or carpet.",t:TIERS.flooring},
     {id:"carpentry",label:"Carpentry / Wardrobe",desc:"Full-height wardrobes at $280–350 per foot run; other built-ins at $140–150/ft.",t:TIERS.wardrobe},
     {id:"ceiling",label:"Ceiling & Partition",desc:"Partition walls and/or false ceilings.",t:TIERS.ceiling},
-    {id:"painting",label:"Painting",desc:"Labour to paint over existing walls and ceilings.",t:TIERS.painting},
-    {id:"electrical",label:"Electrical",desc:"Power points and lighting.",t:TIERS.electrical},
   ],
   bathrooms:[
-    {id:"hacking",label:"Hacking",desc:"Labour for floor and wall hacking. For HDB flats, wall hacking needs an HDB permit — your designer handles the application.",t:TIERS.hacking},
     {id:"masonry",label:"Masonry / Tiling",desc:"Tiling of floors and walls in the bathroom.",t:TIERS.masonryBathroom},
     {id:"sanitary",label:"Sanitary Fitting",desc:"Toilets, basins, showers and bathtubs.",t:TIERS.sanitary},
     {id:"carpentry",label:"Carpentry / Vanity",desc:"Vanity and mirror cabinets at $140–150 per foot run.",t:TIERS.vanity},
     {id:"waterproofing",label:"Waterproofing",desc:"Essential for wet areas to prevent water seepage.",t:TIERS.waterproofing},
-    {id:"electrical",label:"Electrical",desc:"Lighting and exhaust fans.",t:TIERS.electrical},
   ],
   "other-works":[
+    {id:"hacking",label:"Hacking package",desc:"Hacking priced as a package — kitchen + bathrooms only, or the whole house (standard items). Condos +5%. For HDB flats, wall hacking needs an HDB permit — your designer handles the application.",t:TIERS.hackingWhole},
+    {id:"painting",label:"Painting (whole house)",desc:"Full repaint of the whole home: 3-room $1,250 · 4-room $1,450 · 5-room $1,650.",t:TIERS.paintingWhole},
+    {id:"flooring",label:"Flooring (whole house)",desc:"Priced on your floor area: vinyl overlay $5.80/sqft or tiles $11.80/sqft including labour, + 10% wastage. Condo & landed tiling +10%.",t:TIERS.flooringWhole},
+    {id:"rewiring",label:"Electrical rewiring",desc:"Full-house rewiring — power points, switches and lighting. Priced by flat type; condos +8–10%.",t:TIERS.rewiringWhole},
+    {id:"sealant",label:"Sealant works",desc:"Silicon sealant works throughout the home.",t:TIERS.sealantWhole},
     {id:"plastering",label:"Plastering",desc:"Patching uneven walls/ceilings and smoothing surfaces before painting.",t:TIERS.plastering},
-    {id:"painting",label:"Painting (whole home)",desc:"Labour to paint over existing walls and ceilings.",t:TIERS.painting},
     {id:"haulage",label:"Haulage & Cleaning",desc:"Hauling materials, clearing debris and post-renovation cleaning.",t:TIERS.haulage},
     {id:"glass",label:"Glass & Aluminium",desc:"Custom glass and aluminium components such as doors and windows.",t:TIERS.glass},
     {id:"doors",label:"Doors",desc:"Custom door frames and doors fitted to existing entryways.",t:TIERS.doors},
@@ -407,13 +404,19 @@ const ROOM_WORKS = {
 };
 
 const TYPICAL = {
-  "living-room":["flooring","carpentry","painting","electrical"],
-  kitchen:["carpentry","countertop","appliances","electrical","masonry"],
-  bedrooms:["carpentry","painting","electrical"],
-  bathrooms:["masonry","sanitary","waterproofing"],
-  "other-works":["haulage","doors","painting"],
+  "living-room":["carpentry"],
+  kitchen:["carpentry","countertop","appliances"],
+  bedrooms:["carpentry"],
+  bathrooms:["sanitary","carpentry"],
+  "other-works":["painting","sealant"],
 };
-const TYPICAL_RESALE={"living-room":["hacking","masonry","flooring","carpentry","painting","electrical"],kitchen:["hacking","masonry","flooring","carpentry","countertop","appliances","electrical","painting"],bedrooms:["hacking","flooring","carpentry","painting","electrical"],bathrooms:["hacking","masonry","sanitary","waterproofing","electrical"],"other-works":["plastering","haulage","doors","painting"]};
+const TYPICAL_RESALE={
+  "living-room":["masonry","carpentry"],
+  kitchen:["masonry","carpentry","countertop","walltiles","appliances"],
+  bedrooms:["carpentry"],
+  bathrooms:["masonry","sanitary","waterproofing","carpentry"],
+  "other-works":["hacking","painting","sealant","flooring","rewiring","haulage","doors"],
+};
 
 const STYLES = [
   {id:"modern-minimalist",label:"Modern Minimalist",emoji:"🪟",swatch:["#F5F4EF","#D9D8D2","#9C9B94"],desc:"Clean lines, neutral palette, clutter-free",
@@ -438,7 +441,7 @@ const PROPERTY_TYPES = [
 ];
 const AREAS = ["Living/Dining","Kitchen","Bedrooms","Bathrooms","Study","Others"];
 const AREA_TO_ROOM = {"Living/Dining":"living-room",Kitchen:"kitchen",Bedrooms:"bedrooms",Bathrooms:"bathrooms"};
-const ROOM_LABELS = {"living-room":"Living Room",kitchen:"Kitchen",bedrooms:"Bedrooms",bathrooms:"Bathrooms","other-works":"Other Works"};
+const ROOM_LABELS = {"living-room":"Living Room",kitchen:"Kitchen",bedrooms:"Bedrooms",bathrooms:"Bathrooms","other-works":"Whole House"};
 const TIMELINES = ["Keys in hand — ready to start","Collecting keys in 1–3 months","Collecting keys in 3–6 months","No keys yet — still exploring"];
 const HDB_FLAT_TYPES=[{label:"2-room Flexi",beds:1,baths:1,size:45},{label:"3-room",beds:2,baths:2,size:65},{label:"4-room",beds:3,baths:2,size:90},{label:"5-room",beds:3,baths:2,size:110},{label:"Executive / Maisonette",beds:4,baths:2,size:130}];
 
@@ -467,6 +470,39 @@ const icon=(n,cls)=>'<svg class="'+(cls||"ico-svg")+'" viewBox="0 0 24 24" fill=
 const fmt = n => CONFIG.currency + Math.round(n).toLocaleString("en-SG");
 const effHi = hi => Math.round(hi * 0.8);
 const tierHi = t => t.exact ? Math.round(t.hi) : effHi(t.hi); /* rate-derived tiers show true highs */
+const fmtRange=(l,h)=>l===h?fmt(l):fmt(l)+" – "+fmt(h);
+function sizeSqft(){ const s=Number(state.size)||0; if(!s) return 0; return state.sizeUnit==="m²"?Math.round(s*10.764):Math.round(s); }
+function flatBand(){
+  const ft=state.flatType||"";
+  if(ft.indexOf("2-room")===0||ft.indexOf("3-room")===0) return "3rm";
+  if(ft.indexOf("4-room")===0) return "4rm";
+  if(ft.indexOf("5-room")===0) return "5rm";
+  if(ft.indexOf("Executive")===0) return "EA";
+  const sq=sizeSqft();
+  if(sq){ if(sq<750)return "3rm"; if(sq<1050)return "4rm"; if(sq<1250)return "5rm"; if(sq<1500)return "EA"; return "EM"; }
+  const b=state.bedrooms||3;
+  return b<=2?"3rm":b===3?"4rm":b===4?"EA":"EM";
+}
+const PKG_SQFT={"3rm":700,"4rm":970,"5rm":1180,"EA":1400,"EM":1550};
+/* Owner package rates (2026-07-04). EA/EM painting & sealant use the highest quoted band. */
+const PKG={
+  paint:{"3rm":1250,"4rm":1450,"5rm":1650,"EA":1650,"EM":1650},
+  sealant:{"3rm":300,"4rm":400,"5rm":500,"EA":500,"EM":500},
+  hackWhole:{"3rm":3500,"4rm":3800,"5rm":4200,"EA":4600,"EM":4600},
+  rewire:{"3rm":[2700,3200],"4rm":[3500,4200],"5rm":[4200,5000],"EA":[5200,6500],"EM":[5500,6800]},
+};
+const isCondo=()=>state.propertyType==="Condominium";
+const tileSurcharge=()=>(state.propertyType==="Condominium"||state.propertyType==="Landed")?1.10:1;
+function calcPaint(){const v=PKG.paint[flatBand()];return{lo:v,hi:v};}
+function calcSealant(){const v=PKG.sealant[flatBand()];return{lo:v,hi:v};}
+function calcHackKB(){const v=isCondo()?Math.round(2800*1.05):2800;return{lo:v,hi:v};}
+function calcHackWhole(){let v=PKG.hackWhole[flatBand()];if(isCondo())v=Math.round(v*1.05);return{lo:v,hi:v};}
+function calcRewire(){const r=PKG.rewire[flatBand()];let l=r[0],h=r[1];if(isCondo()){l=Math.round(l*1.08);h=Math.round(h*1.10);}return{lo:l,hi:h};}
+function calcVinyl(){const sq=sizeSqft()||PKG_SQFT[flatBand()];const v=Math.round(sq*5.8*1.1/10)*10;return{lo:v,hi:v};}
+function calcTileFloor(){const sq=sizeSqft()||PKG_SQFT[flatBand()];const v=Math.round(sq*11.8*1.1*tileSurcharge()/10)*10;return{lo:v,hi:v};}
+function calcWallTilesFull(){const m=11.8*1.1*tileSurcharge();return{lo:Math.round(120*m/10)*10,hi:Math.round(200*m/10)*10};}
+function calcWallTilesZone(){const m=11.8*1.1*tileSurcharge();return{lo:Math.round(60*m/10)*10,hi:Math.round(100*m/10)*10};}
+const resolveTier=t=>t.calc?Object.assign({},t,t.calc()):t;
 /* Most-likely band: midpoint ± k, where k tightens as line items stack (sqrt N),
    floored at ±15% (finish choices correlate across lines). The raw lo–hi span
    assumes EVERY line lands at its extreme at once — that overstates uncertainty,
@@ -493,7 +529,7 @@ if(CONFIG.pixelId){
 function getSteps(){
   const steps = [{id:"home",label:"Home Details"}];
   state.areas.forEach(a=>{ const r=AREA_TO_ROOM[a]; if(r) steps.push({id:r,label:ROOM_LABELS[r]}); });
-  steps.push({id:"other-works",label:"Other Works"});
+  steps.push({id:"other-works",label:"Whole House"});
   steps.push({id:"studio",label:"A.I Design Studio"});
   steps.push({id:"gate",label:"Your Build Plan"});
   return steps;
@@ -509,7 +545,8 @@ function estimate(){
     Object.entries(sel).forEach(([wid,tier])=>{
       if(!tier) return;
       const def = defs.find(d=>d.id===wid); if(!def) return;
-      const t = def.t.find(x=>x.level===tier); if(!t) return;
+      const t0 = def.t.find(x=>x.level===tier); if(!t0) return;
+      const t = resolveTier(t0);
       const l=t.lo*mult, h=tierHi(t)*mult;
       items.push({label:def.label,tier,lo:l,hi:h}); lo+=l; hi+=h;
     });
@@ -608,19 +645,20 @@ function renderRoom(room){
   const mult = room==="bedrooms"?(state.bedrooms||1):room==="bathrooms"?(state.bathrooms||1):1;
   const multNote = mult>1?`<p style="font-size:12px;color:var(--muted);margin:-8px 0 12px">Costs shown are per ${room==="bedrooms"?"bedroom":"bathroom"} × ${mult}.</p>`:"";
   return `
-  ${stepHead(`Step ${idx+1} — ${ROOM_LABELS[room]}`,
-    room==="other-works"?"Any whole-home works?":"What are we doing in the "+ROOM_LABELS[room].toLowerCase()+"?",
-    "Tap the works you intend to do, then pick how extensive. Skip anything you're not sure about.")}
+  ${stepHead(`Step ${idx+1} of ${getSteps().length} — select works`,
+    ROOM_LABELS[room],
+    (room==="other-works"?"Whole-house packages and finishing works, priced for your home.":"You're pricing the "+ROOM_LABELS[room].toLowerCase()+" now.")+" Tap the works you intend to do, then pick the option that fits. Skip anything you're not sure about.")}
   ${multNote}
   <button class="quickfill" data-room="${room}">${icon("bolt","ico-sm")} Not sure? Apply a typical ${state.unitStatus==="New"?"BTO":"resale"} scope</button>
   ${defs.map(d=>{
     const tier=sel[d.id]; const on=!!tier;
-    const t=on?d.t.find(x=>x.level===tier):null;
+    const t0=on?d.t.find(x=>x.level===tier):null;
+    const t=t0?resolveTier(t0):null;
     return `<div class="work ${on?"on":""}" data-room="${room}" data-work="${d.id}">
       <div class="work-head"><span class="work-tick">✓</span><span><span class="wt">${d.label}</span><br><span class="wd">${d.desc}</span></span></div>
       <div class="work-body">
         <div class="tier-row">${d.t.map(x=>`<button class="tier-btn ${tier===x.level?"sel":""}" data-tier="${x.level}">${x.level}</button>`).join("")}</div>
-        ${t?`<div class="tier-cost">Approx. cost: <b>${fmt(t.lo*mult)} – ${fmt(tierHi(t)*mult)}</b><span>${t.note}</span></div>`:""}
+        ${t?`<div class="tier-cost">Approx. cost: <b>${fmtRange(t.lo*mult, tierHi(t)*mult)}</b><span>${t.note}</span></div>`:""}
       </div>
     </div>`;
   }).join("")}`;
@@ -766,8 +804,8 @@ function renderReport(){
     <h3>Itemised breakdown</h3>
     ${sections.length?sections.map(s=>`
       <div class="brk-room">
-        <div class="brk-rt"><span>${s.label}${s.mult>1?` <span style="color:var(--muted);font-weight:400">× ${s.mult}</span>`:""}</span><span class="sub">${fmt(s.lo)} – ${fmt(s.hi)}</span></div>
-        ${s.items.map(i=>`<div class="brk-item"><span>${i.label} <span style="opacity:.7">· ${i.tier}</span></span><b>${fmt(i.lo)} – ${fmt(i.hi)}</b></div>`).join("")}
+        <div class="brk-rt"><span>${s.label}${s.mult>1?` <span style="color:var(--muted);font-weight:400">× ${s.mult}</span>`:""}</span><span class="sub">${fmtRange(s.lo,s.hi)}</span></div>
+        ${s.items.map(i=>`<div class="brk-item"><span>${i.label} <span style="opacity:.7">· ${i.tier}</span></span><b>${fmtRange(i.lo,i.hi)}</b></div>`).join("")}
       </div>`).join("")+`
       <div class="brk-total"><span>Estimated total <span style="font-weight:400;color:var(--muted);font-size:12px">(most likely)</span></span><span class="tv">${fmt(lo)} – ${fmt(hi)}</span></div>\n      <p style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right">Full span if every line landed at its extreme: ${fmt(spanLo)} – ${fmt(spanHi)}. Most projects land inside the range above.</p>`
     :""}
@@ -793,7 +831,7 @@ function render(){
     rooms.forEach(room=>{
       state.works[room]=state.works[room]||{};
       const src=(state.unitStatus==="Resale"?TYPICAL_RESALE:TYPICAL);
-      (src[room]||[]).forEach(wid=>{ if(!state.works[room][wid]){ const d=(ROOM_WORKS[room]||[]).find(x=>x.id===wid); state.works[room][wid]=d?d.t[1].level:"Moderate"; } });
+      (src[room]||[]).forEach(wid=>{ if(!state.works[room][wid]){ const d=(ROOM_WORKS[room]||[]).find(x=>x.id===wid); state.works[room][wid]=d?d.t[Math.min(1,d.t.length-1)].level:"Moderate"; } });
     });
     state.autoScope=true;
   }
@@ -810,7 +848,7 @@ function render(){
   const n=steps.length, i=state.stepIndex;
   const pct=Math.round(((i+1)/(n+1))*100);
   $("#m-fill").style.width=pct+"%";
-  $("#m-step").textContent = state.submitted?"Build Plan":"Step "+(i+1)+" of "+n+" · ~"+Math.max(1,Math.round((n-1-i)*0.35))+" min left";
+  $("#m-step").textContent = state.submitted?"Build Plan":steps[i].label+" · "+(i+1)+"/"+n+" · ~"+Math.max(1,Math.round((n-1-i)*0.35))+" min left";
 
   const bin=document.querySelector(".bnav-in");
   if(state.submitted && s.id==="gate"){
@@ -864,7 +902,7 @@ function bindStep(){
       w.querySelector(".work-head").onclick=()=>{
         state.works[room]=state.works[room]||{};
         if(state.works[room][wid]) delete state.works[room][wid];
-        else { const d=ROOM_WORKS[room].find(x=>x.id===wid); state.works[room][wid]=d?d.t[1].level:"Moderate"; }
+        else { const d=ROOM_WORKS[room].find(x=>x.id===wid); state.works[room][wid]=d?d.t[Math.min(1,d.t.length-1)].level:"Moderate"; }
         render();
       };
       w.querySelectorAll(".tier-btn").forEach(tb=>tb.onclick=e=>{
@@ -879,7 +917,7 @@ function bindStep(){
       const room=qf.dataset.room;
       state.works[room]=state.works[room]||{};
       const src=(state.unitStatus==="Resale"?TYPICAL_RESALE:TYPICAL);
-      (src[room]||[]).forEach(wid=>{ if(!state.works[room][wid]){ const d=(ROOM_WORKS[room]||[]).find(x=>x.id===wid); state.works[room][wid]=d?d.t[1].level:"Moderate"; } });
+      (src[room]||[]).forEach(wid=>{ if(!state.works[room][wid]){ const d=(ROOM_WORKS[room]||[]).find(x=>x.id===wid); state.works[room][wid]=d?d.t[Math.min(1,d.t.length-1)].level:"Moderate"; } });
       track("QuickFill",{room});
       render();
     };
@@ -964,6 +1002,7 @@ async function submitLead(){
     timeline:state.lead.timeline,
     property_type:state.propertyType, unit_status:state.unitStatus,
     flat_type:state.flatType||null,
+    flat_band:flatBand(),
     bedrooms:state.bedrooms, bathrooms:state.bathrooms,
     size:state.size, size_unit:state.sizeUnit,
     areas:state.areas,
