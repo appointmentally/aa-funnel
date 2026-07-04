@@ -3,15 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Free A.I Reno Calculator — See Your New Home + Real Cost in 60 Seconds</title>
-<meta name="description" content="Instant itemised renovation estimate for Singapore homes plus free A.I 3D renders of your new home in 6 designer styles. HDB, condo & landed.">
+<title>Free A.I Reno Calculator — See Your New Home + Real Cost in 2 Minutes</title>
+<meta name="description" content="Instant itemised renovation estimate for Singapore homes plus free A.I concept renders of a home like yours in 6 designer styles. HDB, condo & landed.">
 <meta property="og:title" content="Free A.I Reno Calculator — See Your New Home Before You Renovate">
-<meta property="og:description" content="Instant itemised renovation estimate + free A.I 3D renders of your home in 6 designer styles. Takes 60 seconds.">
+<meta property="og:description" content="Instant itemised renovation estimate + free A.I concept renders of a home like yours in 6 designer styles. Takes about 2 minutes.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏠</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,800&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,800&family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,800&family=Inter:wght@400;500;600&display=swap"></noscript>
+<link rel="preload" as="image" href="renders/japandi-living.jpg" fetchpriority="high">
 <style>
 :root{
   --paper:#F7F2EA; --ink:#211D18; --muted:#5C554C; --accent:#B9572F; --accent-dark:#98441F;
@@ -19,18 +22,19 @@
   --radius:14px; --shadow:0 10px 30px rgba(33,29,24,.08);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--paper);color:var(--ink);line-height:1.5;font-size:15px}
 h1,h2,h3,h4,.font-head{font-family:'Poppins',system-ui,sans-serif}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
-input,select{font-family:inherit;font-size:15px}
+input,select{font-family:inherit;font-size:16px}
 img{max-width:100%;display:block}
 .hidden{display:none!important}
 
 /* ---------- Landing ---------- */
 #landing{min-height:100vh;min-height:100dvh;position:relative;display:flex;align-items:center;justify-content:center;background:var(--ink)}
-#landing .bg{position:absolute;inset:0;background-image:url('renders/smart-luxury-living.jpg');background-size:cover;background-position:center;opacity:.42;filter:saturate(.9)}
-#landing .bg-grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,20,16,.55),rgba(23,20,16,.82))}
+#landing .bg{position:absolute;inset:0;background-image:url('renders/japandi-living.jpg');background-size:cover;background-position:center;opacity:.62;filter:saturate(1)}
+#landing .bg-grad{position:absolute;inset:0;background:linear-gradient(100deg,rgba(23,20,16,.9) 0%,rgba(23,20,16,.72) 42%,rgba(23,20,16,.28) 100%)}
+@media(max-width:659px){#landing .bg-grad{background:linear-gradient(180deg,rgba(23,20,16,.85),rgba(23,20,16,.5) 55%,rgba(23,20,16,.85))}}
 .landing-inner{position:relative;z-index:2;width:100%;max-width:1060px;margin:0 auto;padding:36px 20px 44px;display:flex;gap:44px;align-items:center;flex-wrap:wrap}
 .landing-copy{flex:1 1 400px;color:#fff}
 .brand-mark{font-family:'Poppins';font-weight:800;font-style:italic;font-size:26px;letter-spacing:.5px;color:#fff}
@@ -42,6 +46,7 @@ img{max-width:100%;display:block}
 .landing-points li{display:flex;gap:11px;align-items:flex-start;font-weight:500;font-size:14.5px;color:#fff}
 .landing-points .tick{flex:0 0 20px;height:20px;border-radius:50%;background:rgba(201,162,74,.25);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gold);margin-top:1px}
 .landing-trust{margin-top:18px;font-size:12px;color:rgba(255,255,255,.55)}
+@media(max-width:759px){ .landing-copy{display:contents} .landing-copy>*{flex:0 0 100%} .landing-card{order:4;flex:0 0 100%} .landing-points{order:5} .landing-trust{order:6} }
 .landing-card{flex:0 1 400px;background:var(--card);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.4);padding:28px 26px}
 .landing-card h2{font-size:17px;font-weight:700;color:var(--accent);margin-bottom:16px}
 .prop-btn{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:14px;border:2px solid var(--line);border-radius:14px;margin-bottom:10px;transition:all .15s;background:#fff}
@@ -61,7 +66,7 @@ img{max-width:100%;display:block}
 /* ---------- App shell ---------- */
 #app{display:none;min-height:100vh;min-height:100dvh}
 #app.on{display:block}
-.shell{max-width:1120px;margin:0 auto;padding:0 0 90px}
+.shell{max-width:1120px;margin:0 auto;padding:0 0 calc(96px + env(safe-area-inset-bottom))}
 @media(min-width:900px){
   .shell{display:grid;grid-template-columns:270px 1fr;gap:26px;padding:26px 22px 60px}
 }
@@ -133,7 +138,7 @@ img{max-width:100%;display:block}
 .work-body{display:none;padding:0 16px 15px}
 .work.on .work-body{display:block}
 .tier-row{display:flex;gap:7px;margin-bottom:10px}
-.tier-btn{flex:1;padding:9px 4px;border:2px solid var(--line);border-radius:10px;font-size:12.5px;font-weight:600;background:#fff}
+.tier-btn{flex:1;padding:12px 4px;border:2px solid var(--line);border-radius:10px;font-size:12.5px;font-weight:600;background:#fff}
 .tier-btn.sel{border-color:var(--accent);background:var(--soft);color:var(--accent)}
 .tier-cost{background:var(--soft);border-radius:10px;padding:10px 13px;font-size:12.5px}
 .tier-cost b{color:var(--accent);font-size:14px}
@@ -144,11 +149,12 @@ img{max-width:100%;display:block}
 /* studio */
 .style-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
 @media(min-width:700px){.style-grid{grid-template-columns:repeat(3,1fr)}}
-.style-card{border:2px solid var(--line);border-radius:13px;padding:12px;text-align:left;background:#fff;transition:all .12s}
-.style-card .se{font-size:19px}
-.style-card .sl{font-weight:600;font-size:13px;margin-top:4px}
-.style-card .sd{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.35}
-.style-card.sel{border-color:var(--accent);background:var(--soft)}
+.style-card{border:2px solid var(--line);border-radius:13px;padding:0;overflow:hidden;text-align:left;background:#fff;transition:all .12s}
+.style-card .sc-img{display:block;aspect-ratio:16/10;background:var(--soft)}
+.style-card .sc-img img{width:100%;height:100%;object-fit:cover}
+.style-card .sl{font-weight:600;font-size:13px;margin:8px 10px 0}
+.style-card .sd{font-size:11px;color:var(--muted);margin:2px 10px 10px;line-height:1.35}
+.style-card.sel{border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
 .style-writeup{margin-top:14px;background:var(--soft);border:1px solid var(--line);border-radius:13px;padding:14px 16px;font-size:12.5px;color:var(--ink);line-height:1.55}
 .style-writeup b{color:var(--accent)}
 .render-grid{display:grid;gap:12px;margin-top:14px}
@@ -157,7 +163,7 @@ img{max-width:100%;display:block}
 .render-card img{width:100%;height:100%;object-fit:cover}
 .render-card.main-render{grid-column:1/-1}
 .render-tag{position:absolute;left:10px;top:10px;background:rgba(23,20,16,.72);color:#fff;font-size:11px;font-weight:600;padding:5px 11px;border-radius:99px;backdrop-filter:blur(4px)}
-.render-card.locked img{filter:blur(16px) saturate(1.1);transform:scale(1.06)}
+.render-card.locked img{filter:blur(9px) saturate(1.1);transform:scale(1.06)}
 .lock-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#fff;background:rgba(23,20,16,.35);text-align:center;padding:10px}
 .lock-overlay .li{font-size:22px}
 .lock-overlay .lt{font-size:12px;font-weight:600;text-shadow:0 1px 6px rgba(0,0,0,.5)}
@@ -172,9 +178,14 @@ img{max-width:100%;display:block}
 /* lead gate */
 .gate-hero{position:relative;border-radius:var(--radius);overflow:hidden;margin-bottom:14px;background:var(--ink)}
 .gate-hero img{width:100%;height:170px;object-fit:cover;opacity:.85}
+.gate-strip{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:4px;height:150px}
+.gate-strip .gs{position:relative;overflow:hidden;display:block}
+.gate-strip img{width:100%;height:100%;object-fit:cover}
+.gate-strip .lock img{filter:blur(14px);transform:scale(1.1)}
+.gate-strip .lock i{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:normal;color:#fff}
 .gate-hero .gh-grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 20%,rgba(23,20,16,.88))}
 .gate-hero .gh-txt{position:absolute;left:18px;right:18px;bottom:14px;color:#fff}
-.gate-hero .gh-txt h2{font-size:19px;font-weight:700}
+.gate-hero .gh-txt h2{font-size:22px;font-weight:700}
 .gate-hero .gh-txt p{font-size:12.5px;color:rgba(255,255,255,.85);margin-top:3px}
 .gate-list{list-style:none;display:grid;gap:8px;margin:4px 0 14px}
 .gate-list li{display:flex;gap:9px;font-size:13px;align-items:flex-start}
@@ -189,12 +200,21 @@ img{max-width:100%;display:block}
 .consent.err{color:var(--bad)}
 .gate-err{color:var(--bad);font-size:12.5px;font-weight:600;margin-top:9px;display:none}
 .gate-err.on{display:block}
+#g-timeline.err{border-radius:12px;outline:2px solid var(--bad);outline-offset:6px}
+#g-timeline.err .chip{border-color:var(--bad)}
 .submit-btn{width:100%;margin-top:14px;padding:16px;border-radius:13px;background:var(--accent);color:#fff;font-weight:700;font-size:15px;box-shadow:0 10px 24px rgba(185,87,47,.35)}
 .submit-btn:hover{background:var(--accent-dark)}
 .submit-btn:disabled{opacity:.6;cursor:wait}
 .gate-privacy{font-size:11px;color:var(--muted);margin-top:10px;text-align:center;line-height:1.5}
 .gate-quote{margin-top:13px;background:var(--soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 14px;font-size:12.5px;color:var(--muted);font-style:italic}
 .gate-quote b{display:block;font-style:normal;color:var(--ink);margin-top:5px;font-size:11.5px}
+
+/* booking step (post-submit) */
+.book-hero{background:var(--card);border:2px solid var(--accent);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 18px 16px;margin-bottom:14px;text-align:center}
+.book-hero .bh-eyebrow{font-size:12px;font-weight:700;color:var(--good);margin-bottom:6px}
+.book-hero h2{font-size:clamp(20px,3.2vw,26px);font-weight:700}
+.book-hero p{font-size:13px;color:var(--muted);margin:8px auto 14px;max-width:520px}
+.cal-frame{width:100%;height:760px;border:0;border-radius:12px;background:#fff}
 
 /* report */
 .rep-hero{background:var(--ink);color:#fff;border-radius:var(--radius);padding:26px 22px;margin-bottom:14px;text-align:center}
@@ -213,7 +233,6 @@ img{max-width:100%;display:block}
 .brk-total{display:flex;justify-content:space-between;padding-top:14px;font-weight:700;font-size:16px}
 .brk-total .tv{color:var(--accent)}
 .cta-grid{display:grid;gap:10px;margin-top:4px}
-@media(min-width:640px){.cta-grid{grid-template-columns:1fr 1fr}}
 .cta-a{display:flex;align-items:center;justify-content:center;gap:9px;padding:16px;border-radius:13px;font-weight:700;font-size:14.5px;text-decoration:none;text-align:center}
 .cta-book{background:var(--accent);color:#fff;box-shadow:0 10px 24px rgba(185,87,47,.3)}
 .cta-book:hover{background:var(--accent-dark)}
@@ -229,7 +248,7 @@ img{max-width:100%;display:block}
 .bnav .back:disabled{opacity:.4;cursor:default}
 .bnav-est{flex:1;text-align:center;line-height:1.15}
 .bnav-est .l{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700}
-.bnav-est .v{font-family:'Poppins';font-weight:700;font-size:15px;color:var(--accent)}
+.bnav-est .v{font-family:'Poppins';font-weight:700;font-size:13.5px;color:var(--accent);font-variant-numeric:tabular-nums}
 .bnav .next{padding:13px 26px;border-radius:12px;background:var(--accent);color:#fff;font-weight:700;font-size:14px;box-shadow:0 8px 20px rgba(185,87,47,.3)}
 .bnav .next:hover{background:var(--accent-dark)}
 .bnav .next:disabled{background:#d9cfc0;box-shadow:none;cursor:default}
@@ -246,6 +265,20 @@ img{max-width:100%;display:block}
   .rep-hero .re{color:var(--accent)}
   .rep-meta span{border:1px solid #ccc}
 }
+
+/* ---------- ui-ux-pro-max compliance ---------- */
+.ico-svg{width:22px;height:22px;flex:none}
+.ico-sm{width:15px;height:15px;flex:none;vertical-align:-2px}
+.ico-btn{width:17px;height:17px;flex:none}
+.ico-lock{width:26px;height:26px;flex:none}
+.sw{display:inline-flex;gap:4px;align-items:center}
+.sw i{width:13px;height:13px;border-radius:50%;border:1px solid rgba(0,0,0,.1);display:inline-block}
+input,select,textarea{font-size:16px}
+.chip,.tier-btn,.unit-tog button,.prop-btn{min-height:44px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
 </style>
 </head>
 <body>
@@ -257,19 +290,19 @@ img{max-width:100%;display:block}
     <div class="landing-copy">
       <div class="brand-mark" id="l-brand">Trio<small>Design Studio</small></div>
       <h1>See your new home — and what it'll <span class="hl">actually cost</span> — before you talk to any ID.</h1>
-      <p class="landing-sub">Free A.I 3D renders of your home in 6 designer styles, plus an instant itemised renovation estimate. Takes about 60 seconds.</p>
+      <p class="landing-sub">Free A.I concept renders of a home like yours in 6 designer styles, plus an instant itemised renovation estimate. Takes about 2 minutes.</p>
       <ul class="landing-points">
-        <li><span class="tick">✓</span><span>Instant, itemised cost estimate — line by line, like a real ID quote</span></li>
-        <li><span class="tick">✓</span><span>Free A.I 3D renderings of your dream home — no waiting, no email chase</span></li>
-        <li><span class="tick">✓</span><span>Personalised budget report you can keep &amp; compare quotes against</span></li>
-        <li><span class="tick">✓</span><span>Backed by real Singapore renovation pricing data</span></li>
+        <li><span class="tick">✓</span><span>Every work priced line by line — hacking, carpentry, wet works — the same headings you'll see on a real ID quotation</span></li>
+        <li><span class="tick">✓</span><span>A.I concept renders of a home like yours in 6 designer styles — shown on the spot, no email chase</span></li>
+        <li><span class="tick">✓</span><span>Keep your Reno Blueprint — check every ID quote against it and spot the padding</span></li>
+        <li><span class="tick">✓</span><span>Factory-direct pricing — Trio owns its own factories, no middleman markups</span></li>
       </ul>
-      <p class="landing-trust" id="l-trust">100% free · No obligation · PDPA-compliant</p>
+      <p class="landing-trust" id="l-trust">100% free · No obligation · Your data protected under the PDPA</p>
     </div>
     <div class="landing-card">
       <h2>Which home are we renovating?</h2>
       <div id="prop-list"></div>
-      <p class="start-hint" id="start-hint">Tap your home type to start · takes about 60 seconds</p>
+      <p class="start-hint" id="start-hint">Tap your home type to start · about 2 minutes</p>
     </div>
   </div>
 </section>
@@ -288,7 +321,7 @@ img{max-width:100%;display:block}
     <aside class="side">
       <div class="side-card">
         <div class="brand-mark">Trio<small>Design Studio</small></div>
-        <div class="prog-row"><span>My progress</span><b id="d-count">1/8</b></div>
+        <div class="prog-row"><span>Your Reno Blueprint</span><b id="d-count">1/8</b></div>
         <div class="prog-track"><div class="prog-fill" id="d-fill"></div></div>
         <p class="prog-eta" id="d-eta">About 2 mins left</p>
         <ul class="step-list" id="d-steps"></ul>
@@ -297,7 +330,7 @@ img{max-width:100%;display:block}
           <div class="val" id="d-est">S$0</div>
           <div class="note">Updates as you build your scope</div>
         </div>
-        <p class="side-foot" id="d-foot">© 2026 The Trio Design Studio</p>
+        <p class="side-foot" id="d-foot">100% free · Your data protected under the PDPA · Never sold</p>
       </div>
     </aside>
     <main class="main" id="main"></main>
@@ -305,7 +338,7 @@ img{max-width:100%;display:block}
 
   <nav class="bnav no-print" id="bnav">
     <div class="bnav-in">
-      <button class="back" id="nav-back">← Back</button>
+      <button class="back" id="nav-back" aria-label="Back">←</button>
       <div class="bnav-est"><div class="l">Est. budget</div><div class="v" id="m-est">S$0</div></div>
       <button class="next" id="nav-next">Next →</button>
     </div>
@@ -324,7 +357,10 @@ const CONFIG = {
   webhookUrl: "",
   // WhatsApp number in international format without "+", e.g. "6591234567".
   whatsappNumber: "",
-  // GHL calendar / booking page for the free consult CTA.
+  // GHL calendar EMBED URL — becomes the booking page shown right after lead submit,
+  // prefilled with the lead's details. e.g. https://api.leadconnectorhq.com/widget/booking/<calendarId>
+  calendarUrl: "",
+  // Fallback external booking link (used only when calendarUrl is empty).
   bookingUrl: "",
   // Meta pixel id — fires PageView + Lead + step events when set.
   pixelId: "",
@@ -332,15 +368,37 @@ const CONFIG = {
   emailRequired: false,
   // Optional testimonial on the lead gate. Leave quote empty to hide.
   testimonial: { quote: "", author: "" },
-  projectsLine: "Backed by real Singapore renovation pricing data",
+  projectsLine: "Every line item shows exactly what it covers — check it against any quote you receive",
   copyrightLine: "© 2026 The Trio Design Studio",
-  privacyLine: "By submitting, you agree to be contacted about your renovation enquiry (PDPA). Your data is never sold.",
+  privacyLine: "By tapping the button, you consent to The Trio Design Studio contacting you via WhatsApp, SMS or phone call about your renovation enquiry and sending you this report (PDPA). Opt out anytime — just reply 'stop'. We never sell or share your data.",
 };
 
 /* =====================================================================
+   AD → LP CONGRUENCE ENGINE — zero-backend. Every ad URL carries
+   ?h=<angle>&type=<hdb|condo|landed>[&u=<bto|resale>].
+   ===================================================================== */
+const QS=new URLSearchParams(location.search);
+const AD_HOME=(()=>{const t=(QS.get("type")||"").toLowerCase(),u=(QS.get("u")||"").toLowerCase(); if(u==="bto")return "BTO"; if(u==="resale")return t==="condo"?"resale condo":"resale flat"; return {hdb:"HDB",condo:"condo",landed:"landed home"}[t]||"home";})();
+const AD_SUB="A free itemised estimate built on typical Singapore market rates, plus A.I concept renders of a home like yours in 6 designer styles. About 2 minutes.";
+const HEADLINES={
+  cost:{h1:'See what your {home} reno will <span class="hl">actually cost</span> — line by line, in 2 minutes.',sub:AD_SUB,gate:"Your real number is ready",close:"You've seen your number — now see how to hit it."},
+  see:{h1:'See your new {home} <span class="hl">before</span> you renovate — in the style you\'d actually pick.',sub:AD_SUB,gate:"Your renders are ready",close:"You've seen it — now see what it takes to build it."},
+  quote:{h1:'Check any ID quote against <span class="hl">typical market rates</span> — line by line, free.',sub:AD_SUB,gate:"Your comparison sheet is ready",close:"Put us to the same test — bring this report to your free consult."},
+  keys:{h1:'Collecting keys soon? See your {home} <span class="hl">designed & priced</span> before day one.',sub:AD_SUB,gate:"Your key-day plan is ready",close:"Keys in hand soon — book your free consult and start on day one."},
+  resale:{h1:'Renovating a <span class="hl">resale</span> {home}? Price the works most people forget.',sub:AD_SUB,gate:"Your resale breakdown is ready",close:"Now let a designer sanity-check your scope — free."},
+  budget:{h1:'Set your reno budget <span class="hl">before the showroom</span> sets it for you.',sub:AD_SUB,gate:"Your budget is ready",close:"Your budget, your terms — the free consult keeps it that way."},
+};
+const AD_KEY=HEADLINES[(QS.get("h")||"").toLowerCase()]?(QS.get("h")||"").toLowerCase():"";
+const AD=AD_KEY?HEADLINES[AD_KEY]:null;
+const adTxt=s=>s.replaceAll("{home}",AD_HOME);
+if(AD){
+  const h1=document.querySelector("#landing h1"); if(h1)h1.innerHTML=adTxt(AD.h1);
+  const sub=document.querySelector(".landing-sub"); if(sub)sub.textContent=adTxt(AD.sub);
+}
+
+/* =====================================================================
    PRICING DATA — work categories with Light/Moderate/Extensive tiers.
-   Cost model mirrors monarch-reno-calculator.com exactly:
-   shown high = costHigh × 0.8; bedrooms/bathrooms multiply by count.
+   Cost model: shown high = costHigh × 0.8; bedrooms/bathrooms multiply by count.
    ===================================================================== */
 const TIERS = {
   hacking:[{level:"Light",lo:150,hi:300,note:"Minor hacking of a small section of floor or wall tiles."},{level:"Moderate",lo:300,hi:550,note:"Dismantling of a few built-in fixtures and/or false ceiling, hacking a portion of wall."},{level:"Extensive",lo:550,hi:1200,note:"Full hacking of floors, walls and dismantling of all built-in fixtures and false ceilings."}],
@@ -363,7 +421,7 @@ const TIERS = {
 
 const ROOM_WORKS = {
   "living-room":[
-    {id:"hacking",label:"Hacking",desc:"Labour for floor hacking, dismantling false ceilings and built-in fixtures.",t:TIERS.hacking},
+    {id:"hacking",label:"Hacking",desc:"Labour for floor hacking, dismantling false ceilings and built-in fixtures. For HDB flats, wall hacking needs an HDB permit — your designer handles the application.",t:TIERS.hacking},
     {id:"masonry",label:"Masonry",desc:"Tiling and wet construction tasks. Priced by total area and labour required.",t:TIERS.masonry},
     {id:"flooring",label:"Flooring",desc:"New flooring laid on cement or overlaid on existing — tiles, hardwood, vinyl or laminate.",t:TIERS.flooring},
     {id:"ceiling",label:"Ceiling & Partition",desc:"Partition walls and/or false ceilings, priced by size and design style.",t:TIERS.ceiling},
@@ -372,7 +430,7 @@ const ROOM_WORKS = {
     {id:"electrical",label:"Electrical",desc:"Power points, lighting points and other electrical works.",t:TIERS.electrical},
   ],
   kitchen:[
-    {id:"hacking",label:"Hacking",desc:"Labour for floor hacking, dismantling false ceilings and built-in fixtures.",t:TIERS.hacking},
+    {id:"hacking",label:"Hacking",desc:"Labour for floor hacking, dismantling false ceilings and built-in fixtures. For HDB flats, wall hacking needs an HDB permit — your designer handles the application.",t:TIERS.hacking},
     {id:"masonry",label:"Masonry",desc:"Tiling and wet construction tasks.",t:TIERS.masonry},
     {id:"flooring",label:"Flooring",desc:"New kitchen-suitable flooring — tiles, vinyl or similar.",t:TIERS.flooring},
     {id:"carpentry",label:"Carpentry / Cabinets",desc:"Kitchen cabinets, countertops and built-in storage.",t:TIERS.carpentry},
@@ -381,7 +439,7 @@ const ROOM_WORKS = {
     {id:"painting",label:"Painting",desc:"Labour to paint over existing walls and ceilings.",t:TIERS.painting},
   ],
   bedrooms:[
-    {id:"hacking",label:"Hacking",desc:"Labour for floor hacking and dismantling built-in fixtures.",t:TIERS.hacking},
+    {id:"hacking",label:"Hacking",desc:"Labour for floor hacking and dismantling built-in fixtures. For HDB flats, wall hacking needs an HDB permit — your designer handles the application.",t:TIERS.hacking},
     {id:"flooring",label:"Flooring",desc:"New flooring — timber, vinyl or carpet.",t:TIERS.flooring},
     {id:"carpentry",label:"Carpentry / Wardrobe",desc:"Wardrobes, built-in storage and study desks.",t:TIERS.carpentry},
     {id:"ceiling",label:"Ceiling & Partition",desc:"Partition walls and/or false ceilings.",t:TIERS.ceiling},
@@ -389,7 +447,7 @@ const ROOM_WORKS = {
     {id:"electrical",label:"Electrical",desc:"Power points and lighting.",t:TIERS.electrical},
   ],
   bathrooms:[
-    {id:"hacking",label:"Hacking",desc:"Labour for floor and wall hacking.",t:TIERS.hacking},
+    {id:"hacking",label:"Hacking",desc:"Labour for floor and wall hacking. For HDB flats, wall hacking needs an HDB permit — your designer handles the application.",t:TIERS.hacking},
     {id:"masonry",label:"Masonry / Tiling",desc:"Tiling of floors and walls in the bathroom.",t:TIERS.masonryBathroom},
     {id:"sanitary",label:"Sanitary Fitting",desc:"Toilets, basins, showers and bathtubs.",t:TIERS.sanitary},
     {id:"carpentry",label:"Carpentry / Vanity",desc:"Vanity cabinets and mirror cabinets.",t:TIERS.carpentry},
@@ -414,50 +472,70 @@ const TYPICAL = {
   bathrooms:["masonry","sanitary","waterproofing"],
   "other-works":["haulage","doors","painting"],
 };
+/* Resale scopes are heavier — realistic quick-fill for resale units. */
+const TYPICAL_RESALE={"living-room":["hacking","masonry","flooring","carpentry","painting","electrical"],kitchen:["hacking","masonry","flooring","carpentry","appliances","electrical","painting"],bedrooms:["hacking","flooring","carpentry","painting","electrical"],bathrooms:["hacking","masonry","sanitary","waterproofing","electrical"],"other-works":["plastering","haulage","doors","painting"]};
 
 /* =====================================================================
    DESIGN STYLES — pre-rendered A.I gallery (renders/{id}-{room}.jpg)
    ===================================================================== */
 const STYLES = [
-  {id:"modern-minimalist",label:"Modern Minimalist",emoji:"🪟",desc:"Clean lines, neutral palette, clutter-free",
+  {id:"modern-minimalist",label:"Modern Minimalist",emoji:"🪟",swatch:["#F5F4EF","#D9D8D2","#9C9B94"],desc:"Clean lines, neutral palette, clutter-free",
    writeup:"A Modern Minimalist home embraces simplicity and calm. Every element serves a purpose, with clutter hidden by smart built-in storage. Warm whites and soft greys let natural light take centre stage, over large-format matte tiles or light oak vinyl. Serene, timeless, never dated."},
-  {id:"scandinavian",label:"Scandinavian",emoji:"🌿",desc:"Light woods, whites, cosy warmth",
+  {id:"scandinavian",label:"Scandinavian",emoji:"🌿",swatch:["#F8F4EC","#E3D3BA","#A9BCA0"],desc:"Light woods, whites, cosy warmth",
    writeup:"Scandinavian design celebrates hygge — the art of cosiness. Light birch-toned timber flooring, white or pale grey walls to maximise brightness, and accents of sage, dusty blue or terracotta. Functional yet inviting, with soft linen and wool textures."},
-  {id:"japandi",label:"Japandi",emoji:"🎋",desc:"Japanese-Scandi fusion, zen & functional",
+  {id:"japandi",label:"Japandi",emoji:"🎋",swatch:["#EFE6D8","#C9A97F","#6B5B45"],desc:"Japanese-Scandi fusion, zen & functional",
    writeup:"Japandi merges Japanese wabi-sabi with Scandinavian minimalism into a deeply calming aesthetic. Warm mid-toned timber, earthy muted walls in beige, clay or greige, and natural rattan, bamboo and linen. Low-contrast, grounding, designed to reduce visual noise."},
-  {id:"muji",label:"Muji / Wabi-sabi",emoji:"🍵",desc:"Imperfect beauty, earthy tones, raw textures",
+  {id:"muji",label:"Muji / Wabi-sabi",emoji:"🍵",swatch:["#F5EFE4","#D9CBB2","#8F8574"],desc:"Imperfect beauty, earthy tones, raw textures",
    writeup:"Muji and Wabi-sabi interiors find beauty in imperfection and simplicity. Unfinished timber, handmade ceramics, linen and raw stone, in soft earthy tones of warm white and pale sand. No sharp contrasts — only quiet textures, gentle light and a philosophy of 'enough'."},
-  {id:"industrial",label:"Industrial",emoji:"🏗️",desc:"Raw materials, exposed textures, metal accents",
+  {id:"industrial",label:"Industrial",emoji:"🏗️",swatch:["#3B3F44","#8A8D91","#B06A4A"],desc:"Raw materials, exposed textures, metal accents",
    writeup:"Industrial interiors draw character from raw, unfinished materials. Concrete-effect tiles or dark timber floors, exposed ceiling tracks, walls in deep charcoal or warm brick tones, and matte black or brushed steel fixtures. Edge and personality throughout."},
-  {id:"smart-luxury",label:"Smart Luxury",emoji:"🖤",desc:"High-tech meets premium finishes",
+  {id:"smart-luxury",label:"Smart Luxury",emoji:"🖤",swatch:["#1E2126","#6E7681","#C0A062"],desc:"High-tech meets premium finishes",
    writeup:"Smart Luxury combines cutting-edge technology with premium materials. Polished marble-effect surfaces or dark engineered timber, concealed smart lighting, motorised blinds and hidden AV — sleek, precise and elevated. A home built for modern high achievers."},
 ];
 const ROOM_RENDER_LABELS = {living:"Living / Dining", bedroom:"Master Bedroom", kitchen:"Kitchen"};
 
 const PROPERTY_TYPES = [
-  {value:"HDB",label:"HDB",sub:"BTO & resale public housing",icon:"🏢"},
-  {value:"Condominium",label:"Condominium",sub:"Private condo & apartment",icon:"🏙️"},
-  {value:"Landed",label:"Landed Property",sub:"Terrace, semi-D & bungalow",icon:"🏡"},
+  {value:"HDB",label:"HDB",sub:"3-room to executive · BTO & resale",icon:"building"},
+  {value:"Condominium",label:"Condominium",sub:"New launch & resale condos",icon:"city"},
+  {value:"Landed",label:"Landed Property",sub:"Terrace · semi-D · bungalow",icon:"home"},
 ];
+const HDB_FLAT_TYPES=[{label:"2-room Flexi",beds:1,baths:1,size:45},{label:"3-room",beds:2,baths:2,size:65},{label:"4-room",beds:3,baths:2,size:90},{label:"5-room",beds:3,baths:2,size:110},{label:"Executive / Maisonette",beds:4,baths:2,size:130}];
 const AREAS = ["Living/Dining","Kitchen","Bedrooms","Bathrooms","Study","Others"];
 const AREA_TO_ROOM = {"Living/Dining":"living-room",Kitchen:"kitchen",Bedrooms:"bedrooms",Bathrooms:"bathrooms"};
 const ROOM_LABELS = {"living-room":"Living Room",kitchen:"Kitchen",bedrooms:"Bedrooms",bathrooms:"Bathrooms","other-works":"Other Works"};
-const TIMELINES = ["ASAP — keys collected","1–3 months","3–6 months","6+ months / exploring"];
+const TIMELINES = ["Keys in hand — ready to start","Collecting keys in 1–3 months","Collecting keys in 3–6 months","No keys yet — still exploring"];
 
 /* =====================================================================
    STATE
    ===================================================================== */
 const state = {
-  propertyType:"", unitStatus:"", bedrooms:0, bathrooms:0, size:"", sizeUnit:"m²",
-  areas:[], works:{}, style:"", floorPlan:null, submitted:false, lead:{},
+  propertyType:"", unitStatus:"", flatType:"", bedrooms:0, bathrooms:0, size:"", sizeUnit:"m²",
+  areas:[], works:{}, style:"", floorPlan:null, submitted:false, autoScope:false, lead:{},
   stepIndex:0,
 };
 let lastEstimate = {lo:0, hi:0};
+let lastRenderKey="";
 
 /* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
+const ICONS={
+  building:'<rect x="4" y="2" width="16" height="20" rx="1"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/>',
+  city:'<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/>',
+  home:'<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+  bolt:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+  lock:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+  calendar:'<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+  printer:'<polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>',
+  upload:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>',
+  file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>',
+};
+const icon=(n,cls)=>'<svg class="'+(cls||"ico-svg")+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+ICONS[n]+'</svg>';
+
 const fmt = n => CONFIG.currency + Math.round(n).toLocaleString("en-SG");
 const effHi = hi => Math.round(hi * 0.8);
+/* window.print() is a no-op inside FB/IG in-app WebViews — hide the print link there. */
+const IN_APP=/FBAN|FBAV|FB_IAB|Instagram|Line\//i.test(navigator.userAgent);
+const BNAV_HTML=document.querySelector(".bnav-in").innerHTML;
 
 function track(ev, data){
   try{ if(window.fbq){ ev==="Lead" ? fbq("track","Lead",data||{}) : fbq("trackCustom",ev,data||{}); } }catch(e){}
@@ -474,11 +552,11 @@ function getSteps(){
   state.areas.forEach(a=>{ const r=AREA_TO_ROOM[a]; if(r) steps.push({id:r,label:ROOM_LABELS[r],sub:"Select works & scope"}); });
   steps.push({id:"other-works",label:"Other Works",sub:"Whole-home items"});
   steps.push({id:"studio",label:"A.I Design Studio",sub:"Pick your style & see it"});
-  steps.push({id:"gate",label:"Your Report",sub:"Unlock estimate + renders"});
+  steps.push({id:"gate",label:"Your Reno Blueprint",sub:"Unlock estimate + renders"});
   return steps;
 }
 
-/* ---------- estimate (Monarch-exact math) ---------- */
+/* ---------- estimate ---------- */
 function estimate(){
   let lo=0, hi=0; const sections=[];
   const order=["living-room","kitchen","bedrooms","bathrooms","other-works"];
@@ -529,7 +607,7 @@ function renderLanding(){
   PROPERTY_TYPES.forEach(p=>{
     const b=document.createElement("button");
     b.className="prop-btn"+(state.propertyType===p.value?" sel":"");
-    b.innerHTML=`<span class="ico">${p.icon}</span><span><span class="t">${p.label}</span><br><span class="s">${p.sub}</span></span><span class="radio"></span>`;
+    b.innerHTML=`<span class="ico">${icon(p.icon)}</span><span><span class="t">${p.label}</span><br><span class="s">${p.sub}</span></span><span class="radio"></span>`;
     b.onclick=()=>{
       state.propertyType=p.value; renderLanding();
       track("StartCalculator",{property_type:p.value});
@@ -547,24 +625,31 @@ function stepHead(eyebrow,title,sub){
 function renderHome(){
   const beds=["1","2","3","4","5+"], baths=["1","2","3","4","5+"];
   const chip=(list,cur,attr)=>list.map(v=>`<button class="chip ${String(cur)===v?"sel":""}" data-${attr}="${v}">${v}</button>`).join("");
+  const isHDB=state.propertyType==="HDB";
   return `
   ${stepHead("Step 1 — Home Details","Tell us about your "+state.propertyType,"This shapes your estimate and your A.I renders.")}
-  <div class="card">
+  <div class="card" id="card-status">
     <h3>Is it a new or resale unit?</h3>
     <div class="chip-row">
       <button class="chip ${state.unitStatus==="New"?"sel":""}" data-status="New">New / BTO</button>
       <button class="chip ${state.unitStatus==="Resale"?"sel":""}" data-status="Resale">Resale</button>
     </div>
   </div>
-  <div class="card">
-    <h3>Bedrooms &amp; bathrooms</h3>
+  ${isHDB?`
+  <div class="card" id="card-flat">
+    <h3>Which flat type?</h3>
+    <div class="chip-row">${HDB_FLAT_TYPES.map(f=>`<button class="chip ${state.flatType===f.label?"sel":""}" data-flat="${f.label}">${f.label}</button>`).join("")}</div>
+  </div>`:""}
+  <div class="card" id="card-rooms">
+    <h3>${isHDB&&state.flatType?"Confirm bedrooms &amp; bathrooms":"Bedrooms &amp; bathrooms"}</h3>
+    ${isHDB&&state.flatType?`<p style="font-size:12px;color:var(--muted);margin:-6px 0 10px">Pre-filled from your flat type — adjust if yours differs.</p>`:""}
     <div class="lbl-sm">Number of bedrooms</div>
     <div class="chip-row">${chip(beds,state.bedrooms===5?"5+":state.bedrooms||"","beds")}</div>
     <div class="lbl-sm">Number of bathrooms</div>
     <div class="chip-row">${chip(baths,state.bathrooms===5?"5+":state.bathrooms||"","baths")}</div>
   </div>
-  <div class="card">
-    <h3>Size of your unit</h3>
+  <div class="card" id="card-size">
+    <h3>Size of your unit <span style="font-weight:400;color:var(--muted)">(optional — sharpens your estimate)</span></h3>
     <div class="size-row">
       <input type="number" inputmode="numeric" id="in-size" min="1" max="20000" placeholder="e.g. 90" value="${state.size}">
       <div class="unit-tog">
@@ -573,7 +658,7 @@ function renderHome(){
       </div>
     </div>
   </div>
-  <div class="card">
+  <div class="card" id="card-areas">
     <h3>Which areas are you renovating?</h3>
     <div class="chip-row">${AREAS.map(a=>`<button class="chip ${state.areas.includes(a)?"sel":""}" data-area="${a}">${a}</button>`).join("")}</div>
   </div>`;
@@ -589,7 +674,7 @@ function renderRoom(room){
     room==="other-works"?"Any whole-home works?":"What are we doing in the "+ROOM_LABELS[room].toLowerCase()+"?",
     "Tap the works you intend to do, then pick how extensive. Skip anything you're not sure about.")}
   ${multNote}
-  <button class="quickfill" data-room="${room}">⚡ Not sure? Apply a typical ${state.unitStatus==="New"?"BTO":"resale"} scope</button>
+  <button class="quickfill" data-room="${room}">${icon("bolt","ico-sm")} Not sure? Apply a typical ${state.unitStatus==="New"?"BTO":"resale"} scope</button>
   ${defs.map(d=>{
     const tier=sel[d.id]; const on=!!tier;
     const t=on?d.t.find(x=>x.level===tier):null;
@@ -612,29 +697,29 @@ function renderStudio(){
     <h3>Choose your design style</h3>
     <div class="style-grid">${STYLES.map(s=>`
       <button class="style-card ${state.style===s.id?"sel":""}" data-style="${s.id}">
-        <span class="se">${s.emoji}</span>
+        <span class="sc-img"><img loading="lazy" src="renders/${s.id}-living.jpg" alt="${s.label}" onerror="this.parentElement.style.display='none'"></span>
         <div class="sl">${s.label}</div>
         <div class="sd">${s.desc}</div>
       </button>`).join("")}
     </div>
-    ${st?`<div class="style-writeup"><b>${st.emoji} ${st.label}</b> — ${st.writeup}</div>`:""}
+    ${st?`<div class="style-writeup"><b>${st.label}</b> — ${st.writeup}</div>`:""}
   </div>
   ${st?`
   <div class="card">
     <h3>Your home in ${st.label}</h3>
     <div class="render-grid">
-      <div class="render-card main-render"><img src="renders/${st.id}-living.jpg" alt="${st.label} living room" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.living}</span></div>
-      <div class="render-card locked"><img src="renders/${st.id}-bedroom.jpg" alt="" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.bedroom}</span><div class="lock-overlay"><span class="li">🔒</span><span class="lt">Unlocked in your free report</span></div></div>
-      <div class="render-card locked"><img src="renders/${st.id}-kitchen.jpg" alt="" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.kitchen}</span><div class="lock-overlay"><span class="li">🔒</span><span class="lt">Unlocked in your free report</span></div></div>
+      <div class="render-card main-render"><img src="renders/${st.id}-living.jpg" alt="${st.label} living room" width="1376" height="768" decoding="async" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.living}</span></div>
+      <div class="render-card locked"><img src="renders/${st.id}-bedroom.jpg" alt="" width="1376" height="768" loading="lazy" decoding="async" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.bedroom}</span><div class="lock-overlay">${icon("lock","ico-lock")}<span class="lt">Unlocked in your free Reno Blueprint</span></div></div>
+      <div class="render-card locked"><img src="renders/${st.id}-kitchen.jpg" alt="" width="1376" height="768" loading="lazy" decoding="async" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.kitchen}</span><div class="lock-overlay">${icon("lock","ico-lock")}<span class="lt">Unlocked in your free Reno Blueprint</span></div></div>
     </div>
     <p style="font-size:11px;color:var(--muted);margin-top:10px">A.I draft visualisations of a typical ${state.propertyType} in this style — your designer tailors the real design to your exact floor plan.</p>
   </div>`:""}
   <div class="card">
     <h3>Have your floor plan? <span style="font-weight:400;color:var(--muted)">(optional)</span></h3>
-    <p style="font-size:12.5px;color:var(--muted);margin-bottom:12px">Attach it and our designer will tailor your concept &amp; quote to your exact layout.</p>
+    <p style="font-size:12.5px;color:var(--muted);margin-bottom:12px">Attach it and bring it to your free consult — your designer prices your exact layout from it.</p>
     ${state.floorPlan
-      ? `<div class="upload-done"><span>📐</span><span class="fn">${state.floorPlan.name}</span><button id="fp-remove">✕</button></div>`
-      : `<button class="upload-box" id="fp-btn">⬆️&nbsp; Click to attach floor plan<br><span style="font-size:11px">PNG, JPG or PDF</span></button><input type="file" id="fp-input" accept="image/*,.pdf" class="hidden">`}
+      ? `<div class="upload-done">${icon("file","ico-sm")}<span class="fn">${state.floorPlan.name}</span><button id="fp-remove">✕</button></div>`
+      : `<button class="upload-box" id="fp-btn">${icon("upload","ico-sm")}&nbsp; Click to attach floor plan<br><span style="font-size:11px">PNG, JPG or PDF</span></button><input type="file" id="fp-input" accept="image/*,.pdf" class="hidden">`}
   </div>`;
 }
 
@@ -643,71 +728,100 @@ function renderGate(){
   const {lo,hi}=estimate();
   return `
   <div class="gate-hero">
-    ${st?`<img src="renders/${st.id}-living.jpg" alt="" onerror="this.style.display='none'">`:""}
+    ${st?`<div class="gate-strip"><span class="gs"><img src="renders/${st.id}-living.jpg" alt=""></span><span class="gs lock"><img src="renders/${st.id}-bedroom.jpg" alt=""><i>${icon("lock","ico-lock")}</i></span><span class="gs lock"><img src="renders/${st.id}-kitchen.jpg" alt=""><i>${icon("lock","ico-lock")}</i></span></div>`:""}
     <div class="gh-grad"></div>
-    <div class="gh-txt"><h2>Your personalised reno report is ready 🎉</h2><p>Estimate range, itemised breakdown &amp; your ${st?st.label:""} renders</p></div>
+    <div class="gh-txt"><h2>${AD?adTxt(AD.gate):"Your Reno Blueprint is ready"} 🎉</h2><p>Estimate range, itemised breakdown &amp; your ${st?st.label:""} renders</p></div>
   </div>
   <div class="card">
     <ul class="gate-list">
-      <li><span class="tick">✓</span><span>Your estimated budget range ${lo?`(<b>${fmt(lo)} – ${fmt(hi)}</b>)`:""} — itemised room by room</span></li>
-      <li><span class="tick">✓</span><span>All 3 A.I renders of your home in ${st?("<b>"+st.label+"</b>"):"your style"} — unlocked</span></li>
-      <li><span class="tick">✓</span><span>A copy you can save/print and compare ID quotes against</span></li>
+      <li><span class="tick">✓</span><span>Your itemised breakdown — every work, every room, priced line by line${lo?` (<b>${fmt(lo)} – ${fmt(hi)}</b>)`:""}</span></li>
+      <li><span class="tick">✓</span><span>All 3 ${st?("<b>"+st.label+"</b>"):"your style"} concept renders — living, bedroom &amp; kitchen — unlocked</span></li>
+      <li><span class="tick">✓</span><span>Yours to keep — check every ID quote you collect against it, line by line</span></li>
     </ul>
-    <div class="f-row two">
-      <input class="f-in" id="g-name" placeholder="Name" autocomplete="name">
-      <input class="f-in" id="g-phone" placeholder="Mobile number" type="tel" inputmode="tel" autocomplete="tel">
+    ${state.autoScope?`<p style="font-size:12px;color:var(--muted);margin:-6px 0 12px">We pre-filled a typical ${state.unitStatus==="New"?"BTO":"resale"} scope so your report shows real numbers — adjust anything below or with your designer.</p>`:""}
+    <div class="lbl-sm">Where are you in the journey?</div>
+    <div class="chip-row" id="g-timeline">${TIMELINES.map(t=>`<button class="chip ${state.lead.timeline===t?"sel":""}" data-timeline="${t}">${t}</button>`).join("")}</div>
+    <div class="f-row two" style="margin-top:14px">
+      <input class="f-in" id="g-name" placeholder="Name" autocomplete="name" autocapitalize="words" enterkeyhint="next">
+      <input class="f-in" id="g-phone" placeholder="Mobile number" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="next" maxlength="13">
     </div>
     <div class="f-row" style="margin-top:10px">
-      <input class="f-in" id="g-email" placeholder="Email${CONFIG.emailRequired?"":" (optional)"}" type="email" autocomplete="email">
+      <input class="f-in" id="g-email" placeholder="Email${CONFIG.emailRequired?"":" (optional)"}" type="email" autocomplete="email" enterkeyhint="done" autocapitalize="none">
     </div>
-    <div class="lbl-sm" style="margin-top:14px">When are you intending to renovate?</div>
-    <div class="chip-row" id="g-timeline">${TIMELINES.map(t=>`<button class="chip ${state.lead.timeline===t?"sel":""}" data-timeline="${t}">${t}</button>`).join("")}</div>
+    <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:12px">Your Blueprint is already built — this takes 20 seconds.</p>
     <p class="gate-err" id="g-err"></p>
-    <button class="submit-btn" id="g-submit">Unlock my full report →</button>
-    <p class="gate-privacy">${CONFIG.privacyLine}<br>100% free · No obligation</p>
+    <button class="submit-btn" id="g-submit">Unlock my Reno Blueprint →</button>
+    <p class="gate-privacy">Your report opens instantly on this page — no email needed.<br>${CONFIG.privacyLine}<br>100% free · No obligation · Yours to keep even if we never speak.</p>
     ${CONFIG.testimonial&&CONFIG.testimonial.quote?`<div class="gate-quote">“${CONFIG.testimonial.quote}”<b>— ${CONFIG.testimonial.author||""}</b></div>`:""}
   </div>`;
+}
+
+function calendarSrc(){
+  if(!CONFIG.calendarUrl) return "";
+  const parts=(state.lead.name||"").trim().split(" ");
+  return CONFIG.calendarUrl + (CONFIG.calendarUrl.includes("?")?"&":"?") +
+    "first_name="+encodeURIComponent(parts[0]||"") +
+    "&last_name="+encodeURIComponent(parts.slice(1).join(" ")) +
+    "&email="+encodeURIComponent(state.lead.email||"") +
+    "&phone="+encodeURIComponent(state.lead.phone||"");
 }
 
 function renderReport(){
   const {lo,hi,sections}=estimate();
   const st=STYLES.find(s=>s.id===state.style);
   const name=(state.lead.name||"").split(" ")[0];
+  const cal=calendarSrc();
   const meta=[
-    state.propertyType + (state.unitStatus?` · ${state.unitStatus}`:""),
+    (state.flatType?state.flatType+" ":"")+state.propertyType + (state.unitStatus?` · ${state.unitStatus}`:""),
     state.size?`${state.size} ${state.sizeUnit}`:"",
     state.bedrooms?`${state.bedrooms===5?"5+":state.bedrooms} bed`:"",
     state.bathrooms?`${state.bathrooms===5?"5+":state.bathrooms} bath`:"",
     st?st.label:"",
   ].filter(Boolean);
-  const wa = CONFIG.whatsappNumber ? "https://wa.me/"+CONFIG.whatsappNumber+"?text="+encodeURIComponent(
-    `Hi ${CONFIG.brandShort}! I just completed the reno calculator.\n• ${state.propertyType}${state.unitStatus?" ("+state.unitStatus+")":""}, ${state.size||"?"} ${state.sizeUnit}\n• Estimate: ${fmt(lo)} – ${fmt(hi)}\n• Style: ${st?st.label:"-"}${state.floorPlan?"\n• I have my floor plan ready to send":""}\nI'd like to get a detailed design & quote.`) : "";
+  const ctaLabel=`${icon("calendar","ico-btn")} Get my exact quote — book my free consult`;
   return `
+  ${cal?`
+  <div class="book-hero no-print" id="booking">
+    <div class="bh-eyebrow">${name?name+", your":"Your"} report is saved — one last step</div>
+    <h2>Turn this estimate into your exact price</h2>
+    <p>${AD?adTxt(AD.close)+" ":""}This range is an A.I estimate built from typical ${state.propertyType} pricing — your real number depends on your floor plan. In a free consult, a designer prices your exact unit room by room and shows how ${st?st.label:"your style"} works in your actual layout. No pitch, no pressure — you keep the report, the renders and every idea from the session, even if you never work with us.</p>
+    <iframe class="cal-frame" src="${cal}" title="Book your free design consult"></iframe>
+  </div>`:""}
   <div class="rep-hero">
-    <div class="re">Your renovation budget report</div>
+    <div class="re">Your Reno Blueprint</div>
     <h2>${name?name+", here's":"Here's"} your estimate</h2>
     <div class="big">${fmt(lo)} – ${fmt(hi)}</div>
     <div class="rn">Estimated range based on your selected scope</div>
+    <div class="rn">Where you land in this range depends on your floor plan and finishes — your free consult pins down the exact number.</div>
+    ${state.autoScope?`<div class="rn" style="margin-top:4px">We pre-filled a typical ${state.unitStatus==="New"?"BTO":"resale"} scope so your report shows real numbers — adjust anything below or with your designer.</div>`:""}
     <div class="rep-meta">${meta.map(m=>`<span>${m}</span>`).join("")}</div>
-  </div>
-  <div class="card no-print">
-    <h3>What's next?</h3>
-    <div class="cta-grid">
-      ${wa?`<a class="cta-a cta-wa" href="${wa}" target="_blank" rel="noopener">💬 WhatsApp us my report</a>`:""}
-      ${CONFIG.bookingUrl?`<a class="cta-a cta-book" href="${CONFIG.bookingUrl}" target="_top">📅 Book my free design consult</a>`:""}
-      <button class="cta-a cta-print" onclick="window.print()">🖨️ Save / print my report</button>
-    </div>
   </div>
   ${st?`
   <div class="card">
-    <h3>Your home in ${st.emoji} ${st.label}</h3>
+    <h3>Your home in ${st.label}</h3>
     <div class="render-grid">
-      <div class="render-card main-render"><img src="renders/${st.id}-living.jpg" alt="" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.living}</span></div>
-      <div class="render-card"><img src="renders/${st.id}-bedroom.jpg" alt="" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.bedroom}</span></div>
-      <div class="render-card"><img src="renders/${st.id}-kitchen.jpg" alt="" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.kitchen}</span></div>
+      <div class="render-card main-render"><img src="renders/${st.id}-living.jpg" alt="" width="1376" height="768" decoding="async" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.living}</span></div>
+      <div class="render-card"><img src="renders/${st.id}-bedroom.jpg" alt="" width="1376" height="768" loading="lazy" decoding="async" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.bedroom}</span></div>
+      <div class="render-card"><img src="renders/${st.id}-kitchen.jpg" alt="" width="1376" height="768" loading="lazy" decoding="async" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.kitchen}</span></div>
     </div>
-    <div class="style-writeup" style="margin-top:12px"><b>${st.emoji} ${st.label}</b> — ${st.writeup}</div>
+    <div class="style-writeup" style="margin-top:12px"><b>${st.label}</b> — ${st.writeup}</div>
   </div>`:""}
+  <div class="card no-print">
+    <h3>This estimate is a range. Your quote shouldn't be.</h3>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:10px">Book your free design consult — bring your Reno Blueprint. In one session a Trio designer will:</p>
+    <ul class="gate-list">
+      <li><span class="tick">✓</span><span>Price your actual floor plan — so this range becomes a real number</span></li>
+      <li><span class="tick">✓</span><span>Show where your scope can flex to protect your budget</span></li>
+      <li><span class="tick">✓</span><span>Turn your ${st?st.label:"chosen"} renders into a concept for your exact layout</span></li>
+    </ul>
+    <div class="cta-grid">
+      ${cal?`<a class="cta-a cta-book" href="#booking">${ctaLabel}</a>`
+        :CONFIG.bookingUrl?`<a class="cta-a cta-book" href="${CONFIG.bookingUrl}" target="_top">${ctaLabel}</a>`
+        :`<button class="cta-a cta-book" id="cta-book-fb">${icon("calendar","ico-btn")} Book my free design consult</button>`}
+    </div>
+    ${IN_APP?"":`<button style="display:block;margin:12px auto 0;background:none;border:0;font-size:12.5px;color:var(--muted);text-decoration:underline;cursor:pointer" onclick="window.print()">Save / print this report</button>`}
+    <p style="font-size:11.5px;color:var(--muted);text-align:center;margin-top:10px">100% free · No obligation · Your Blueprint &amp; renders are yours to keep either way.</p>
+  </div>
   <div class="card">
     <h3>Itemised breakdown</h3>
     ${sections.length?sections.map(s=>`
@@ -716,7 +830,8 @@ function renderReport(){
         ${s.items.map(i=>`<div class="brk-item"><span>${i.label} <span style="opacity:.7">· ${i.tier}</span></span><b>${fmt(i.lo)} – ${fmt(i.hi)}</b></div>`).join("")}
       </div>`).join("")+`
       <div class="brk-total"><span>Estimated total</span><span class="tv">${fmt(lo)} – ${fmt(hi)}</span></div>`
-    :`<p style="font-size:13px;color:var(--muted)">No works selected — go back and pick your scope to see an itemised budget.</p>`}
+    :""}
+    <button id="rep-edit" class="no-print" style="margin-top:12px;font-size:12.5px;font-weight:600;color:var(--accent);text-decoration:underline">✎ Adjust my scope &amp; update this estimate</button>
   </div>
   <p class="rep-disc">* This is an indicative estimate based on typical Singapore renovation pricing for the scope you selected — not a quotation. A.I renders are draft visualisations for inspiration; the final design is tailored to your actual floor plan. ${CONFIG.privacyLine}</p>`;
 }
@@ -729,13 +844,23 @@ function currentStep(){ return getSteps()[state.stepIndex]; }
 function validateStep(){
   const s=currentStep();
   if(s.id==="home"){
-    return state.unitStatus && state.bedrooms && state.bathrooms && Number(state.size)>0 && state.areas.length>0;
+    return state.unitStatus && state.bedrooms && state.bathrooms && state.areas.length>0;
   }
   if(s.id==="studio") return !!state.style;
   return true;
 }
 
 function render(){
+  /* zero-scope rescue — the gate's value stack must always show real numbers */
+  if(currentStep().id==="gate" && !estimate().hi){
+    const rooms=state.areas.map(a=>AREA_TO_ROOM[a]).filter(Boolean).concat(["other-works"]);
+    rooms.forEach(room=>{
+      state.works[room]=state.works[room]||{};
+      const src=(state.unitStatus==="Resale"?TYPICAL_RESALE:TYPICAL);
+      (src[room]||[]).forEach(wid=>{ if(!state.works[room][wid]) state.works[room][wid]="Moderate"; });
+    });
+    state.autoScope=true;
+  }
   const steps=getSteps(), s=currentStep();
   let html="";
   if(state.submitted && s.id==="gate"){ html=renderReport(); }
@@ -744,16 +869,17 @@ function render(){
   else if(s.id==="gate") html=renderGate();
   else html=renderRoom(s.id);
   $("#main").innerHTML=html;
-  window.scrollTo({top:0});
+  const _rk=state.stepIndex+"|"+state.submitted;
+  if(_rk!==lastRenderKey){ window.scrollTo({top:0}); lastRenderKey=_rk; }
 
   /* sidebar + progress */
   const n=steps.length, i=state.stepIndex;
   $("#d-count").textContent=(i+1)+"/"+n;
-  const pct=Math.round(((i)/(n-1))*100);
+  const pct=Math.round(((i+1)/(n+1))*100);
   $("#d-fill").style.width=pct+"%"; $("#m-fill").style.width=pct+"%";
-  const mins=Math.max(1,Math.round((n-1-i)*0.7));
-  $("#d-eta").textContent = state.submitted?"Done — report ready 🎉":"About "+mins+" min"+(mins>1?"s":"")+" left";
-  $("#m-step").textContent = state.submitted?"Report":"Step "+(i+1)+" of "+n;
+  const mins=Math.max(1,Math.round((n-1-i)*0.35));
+  $("#d-eta").textContent = state.submitted?"Done — your Blueprint is ready 🎉":"About "+mins+" min"+(mins>1?"s":"")+" left";
+  $("#m-step").textContent = state.submitted?"Your Blueprint":"Step "+(i+1)+" of "+n;
   const list=$("#d-steps"); list.innerHTML="";
   steps.forEach((st,idx)=>{
     const li=document.createElement("li");
@@ -761,20 +887,28 @@ function render(){
     li.innerHTML=`<span>${st.label}</span><span class="st-tick">✓</span>`;
     list.appendChild(li);
   });
-  $("#d-foot").textContent=CONFIG.copyrightLine;
 
-  /* nav buttons */
-  $("#nav-back").disabled = i===0;
-  const next=$("#nav-next");
-  if(state.submitted && s.id==="gate"){ $("#bnav").style.display="none"; }
+  /* nav buttons — post-submit the bar becomes a sticky booking CTA */
+  if(state.submitted && s.id==="gate"){
+    const dest=CONFIG.calendarUrl?"#booking":CONFIG.bookingUrl;
+    if(dest){
+      document.querySelector(".bnav-in").innerHTML=`<a class="cta-a cta-book" style="flex:1" href="${dest}"${CONFIG.calendarUrl?"":' target="_top"'}>${icon("calendar","ico-btn")} Book my free design consult</a>`;
+      $("#bnav").style.display="";
+    } else { $("#bnav").style.display="none"; }
+  }
   else{
+    if(!$("#nav-next")){ document.querySelector(".bnav-in").innerHTML=BNAV_HTML; bindNav(); }
     $("#bnav").style.display="";
-    next.textContent = s.id==="gate" ? "" : (s.id==="studio" ? "See my report →" : "Next →");
+    $("#nav-back").disabled = i===0;
+    const next=$("#nav-next");
+    next.textContent = s.id==="gate" ? "" : (s.id==="studio" ? "Build my Reno Blueprint →" : "Next →");
     next.style.display = s.id==="gate" ? "none" : "";
-    next.disabled = !validateStep();
+    next.disabled = s.id==="home" ? false : !validateStep();
   }
   updateTicker();
   bindStep();
+  /* session persistence — Meta in-app webviews reload aggressively */
+  try{ sessionStorage.setItem('renoState:trio', JSON.stringify({...state, floorPlan: state.floorPlan?{name:state.floorPlan.name}:null})); }catch(e){}
 }
 
 function bindStep(){
@@ -782,11 +916,17 @@ function bindStep(){
   /* home details */
   if(s.id==="home"){
     document.querySelectorAll("[data-status]").forEach(b=>b.onclick=()=>{state.unitStatus=b.dataset.status;render();});
+    document.querySelectorAll("[data-flat]").forEach(b=>b.onclick=()=>{
+      const f=HDB_FLAT_TYPES.find(x=>x.label===b.dataset.flat); if(!f) return;
+      state.flatType=f.label; state.bedrooms=f.beds; state.bathrooms=f.baths;
+      if(!state.size){ state.size=f.size; state.sizeUnit="m²"; }
+      render();
+    });
     document.querySelectorAll("[data-beds]").forEach(b=>b.onclick=()=>{state.bedrooms=b.dataset.beds==="5+"?5:+b.dataset.beds;render();});
     document.querySelectorAll("[data-baths]").forEach(b=>b.onclick=()=>{state.bathrooms=b.dataset.baths==="5+"?5:+b.dataset.baths;render();});
     document.querySelectorAll("[data-unit]").forEach(b=>b.onclick=()=>{state.sizeUnit=b.dataset.unit;render();});
     const sz=$("#in-size");
-    sz.oninput=()=>{ state.size=sz.value; $("#nav-next").disabled=!validateStep(); };
+    sz.oninput=()=>{ state.size=sz.value; };
     document.querySelectorAll("[data-area]").forEach(b=>b.onclick=()=>{
       const a=b.dataset.area;
       state.areas.includes(a) ? state.areas=state.areas.filter(x=>x!==a) : state.areas.push(a);
@@ -816,9 +956,8 @@ function bindStep(){
     if(qf) qf.onclick=()=>{
       const room=qf.dataset.room;
       state.works[room]=state.works[room]||{};
-      (TYPICAL[room]||[]).forEach(wid=>{ if(!state.works[room][wid]) state.works[room][wid]="Moderate"; });
-      if(state.unitStatus==="Resale" && ROOM_WORKS[room].some(d=>d.id==="hacking") && !state.works[room].hacking)
-        state.works[room].hacking="Light";
+      const src=(state.unitStatus==="Resale"?TYPICAL_RESALE:TYPICAL);
+      (src[room]||[]).forEach(wid=>{ if(!state.works[room][wid]) state.works[room][wid]="Moderate"; });
       track("QuickFill",{room});
       render();
     };
@@ -845,11 +984,21 @@ function bindStep(){
       const el=$("#"+id), key=id.slice(2);
       if(el&&state.lead[key]) el.value=state.lead[key];
       if(el){ el.oninput=()=>{ state.lead[key]=el.value; };
-              el.onkeydown=e=>{ if(e.key==="Enter") $("#g-submit").click(); }; }
+              el.onkeydown=e=>{ if(e.key!=="Enter")return; e.preventDefault(); if(id==="g-name")$("#g-phone").focus(); else if(id==="g-phone")$("#g-email").focus(); else $("#g-submit").click(); }; }
     });
     document.querySelectorAll("[data-timeline]").forEach(b=>b.onclick=()=>{ state.lead.timeline=b.dataset.timeline; render(); });
     $("#g-submit").onclick=submitLead;
-    const nm=$("#g-name"); if(nm && !nm.value) setTimeout(()=>nm.focus(),150);
+    const nm=$("#g-name"); if(nm && !nm.value && matchMedia("(min-width:900px)").matches) setTimeout(()=>nm.focus(),150);
+  }
+  /* report (post-submit) */
+  if(s.id==="gate" && state.submitted){
+    const re=$("#rep-edit");
+    if(re) re.onclick=()=>{ state.stepIndex=1; render(); };
+    const fb=$("#cta-book-fb");
+    if(fb) fb.onclick=()=>{
+      track("BookIntent");
+      fb.outerHTML=`<div class="gate-list" style="text-align:center;font-weight:600">✓ Request received — we'll WhatsApp you at <b>${state.lead.phone}</b> to lock in a time${CONFIG.whatsappNumber?` — save <b>+${CONFIG.whatsappNumber}</b> so you don't miss us`:""}.</div>`;
+    };
   }
 }
 
@@ -859,7 +1008,7 @@ async function submitLead(){
   const errs=[];
   $("#g-name").classList.toggle("err",!name); if(!name) errs.push("name");
   const phoneOk=/^(\+?65)?\s?[3689]\d{3}\s?\d{4}$/.test(phone.replace(/[-\s]/g,""));
-  $("#g-phone").classList.toggle("err",!phoneOk); if(!phoneOk) errs.push("mobile number");
+  $("#g-phone").classList.toggle("err",!phoneOk);
   const emailOk = CONFIG.emailRequired
     ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
     : (!email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
@@ -867,11 +1016,20 @@ async function submitLead(){
   document.getElementById("g-timeline").classList.toggle("err",!state.lead.timeline);
   if(!state.lead.timeline) errs.push("timeline");
   const errEl=$("#g-err");
-  if(errs.length){ errEl.textContent="Please check: "+errs.join(", ")+"."; errEl.classList.add("on"); return; }
+  if(!phoneOk || errs.length){
+    errEl.textContent = !phoneOk
+      ? "Please enter a valid Singapore mobile (8 digits, starts with 8 or 9) — that's where your report goes."
+      : "Almost done — please add your "+errs.join(" and ")+".";
+    errEl.classList.add("on");
+    errEl.scrollIntoView({block:"center",behavior:"smooth"});
+    const firstBad=[["#g-name",!name],["#g-phone",!phoneOk],["#g-email",!emailOk]].find(x=>x[1]);
+    if(firstBad) $(firstBad[0]).focus();
+    return;
+  }
   errEl.classList.remove("on");
 
   Object.assign(state.lead,{name,phone,email});
-  const btn=$("#g-submit"); btn.disabled=true; btn.textContent="Preparing your report…";
+  const btn=$("#g-submit"); btn.disabled=true; btn.textContent="Building your Blueprint…";
 
   const {lo,hi,sections}=estimate();
   const st=STYLES.find(x=>x.id===state.style);
@@ -881,6 +1039,7 @@ async function submitLead(){
     timeline:state.lead.timeline,
     property_type:state.propertyType,
     unit_status:state.unitStatus,
+    flat_type:state.flatType||null,
     bedrooms:state.bedrooms, bathrooms:state.bathrooms,
     size:state.size, size_unit:state.sizeUnit,
     areas:state.areas,
@@ -892,6 +1051,8 @@ async function submitLead(){
     floor_plan_base64:state.floorPlan&&state.floorPlan.dataUrl?state.floorPlan.dataUrl:null,
     page_url:location.href, query:location.search, referrer:document.referrer,
     submitted_at:new Date().toISOString(),
+    consent_text:CONFIG.privacyLine, consent_method:"form-submit",
+    headline_variant:AD_KEY||"default", ad_identity:AD_HOME,
   };
   if(CONFIG.webhookUrl){
     try{
@@ -900,19 +1061,35 @@ async function submitLead(){
       try{ navigator.sendBeacon(CONFIG.webhookUrl, new Blob([JSON.stringify(payload)],{type:"application/json"})); }catch(e2){}
     }
   }
-  track("Lead",{value:lo,currency:"SGD",property_type:state.propertyType,style:payload.design_style});
+  track("Lead",{value:lo,currency:"SGD",property_type:state.propertyType,style:payload.design_style,variant:AD_KEY||"default"});
   state.submitted=true;
   render();
 }
 
 /* ---------- nav ---------- */
-$("#nav-back").onclick=()=>{ if(state.stepIndex>0){ state.stepIndex--; render(); } };
-$("#nav-next").onclick=()=>{
-  if(!validateStep()) return;
-  const s=currentStep();
-  track("StepCompleted",{step:s.id});
-  if(state.stepIndex<getSteps().length-1){ state.stepIndex++; render(); }
-};
+function bindNav(){
+  $("#nav-back").onclick=()=>{ if(state.stepIndex>0){ state.stepIndex--; render(); } };
+  $("#nav-next").onclick=()=>{
+    const s=currentStep();
+    if(s.id==="home" && !validateStep()){
+      const missing=[!state.unitStatus&&"new or resale",!state.bedrooms&&"bedrooms",!state.bathrooms&&"bathrooms",!state.areas.length&&"areas to renovate"].filter(Boolean);
+      const cardId=!state.unitStatus?"card-status":(!state.bedrooms||!state.bathrooms)?"card-rooms":"card-areas";
+      const card=$("#"+cardId);
+      if(card){
+        let err=card.querySelector(".gate-err");
+        if(!err){ err=document.createElement("p"); err.className="gate-err"; card.appendChild(err); }
+        err.textContent=`Almost there — just tap ${missing[0]} above to continue.`;
+        err.classList.add("on");
+        card.scrollIntoView({block:"center"});
+      }
+      return;
+    }
+    if(!validateStep()) return;
+    track("StepCompleted",{step:s.id});
+    if(state.stepIndex<getSteps().length-1){ state.stepIndex++; render(); }
+  };
+}
+bindNav();
 
 /* ---------- brand text + iframe autosize ---------- */
 (function(){
@@ -929,7 +1106,26 @@ $("#nav-next").onclick=()=>{
   setInterval(postH,800);
 })();
 
-renderLanding();
+/* ---------- boot: session restore → ad-param skip → landing ---------- */
+(function(){
+  try{
+    const sv=JSON.parse(sessionStorage.getItem('renoState:trio')||'null');
+    if(sv && sv.propertyType && !sv.submitted){
+      Object.assign(state,sv);
+      $("#landing").style.display="none"; $("#app").classList.add("on"); render();
+      return;
+    }
+  }catch(e){}
+  const TYPE_MAP={hdb:"HDB",condo:"Condominium",landed:"Landed"};
+  const preType=TYPE_MAP[(QS.get("type")||"").toLowerCase()];
+  if(preType && QS.get("start")!=="land"){
+    state.propertyType=preType;
+    const u=(QS.get("u")||"").toLowerCase();
+    if(u==="bto")state.unitStatus="New"; else if(u==="resale")state.unitStatus="Resale";
+    track("StartCalculator",{property_type:preType,via:"ad_param",variant:AD_KEY||"default"});
+    $("#landing").style.display="none"; $("#app").classList.add("on"); render();
+  } else { renderLanding(); }
+})();
 </script>
 </body>
 </html>
