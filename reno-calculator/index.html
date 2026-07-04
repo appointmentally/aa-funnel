@@ -293,6 +293,7 @@ input,select,textarea{font-size:16px}
 .rq-row .rd{flex:1;border-bottom:2px dotted var(--line);margin:0 6px 4px}
 .rq-row .rv{font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,monospace;font-weight:500;font-variant-numeric:tabular-nums}
 .rq-receipt .rq-foot{font-size:10.5px;color:var(--muted);margin-top:8px}
+.rq-receipt .rv-hidden{color:var(--muted);letter-spacing:1px;opacity:.75}
 </style>
 </head>
 <body>
@@ -317,11 +318,11 @@ input,select,textarea{font-size:16px}
       <h2>Which home are we renovating?</h2>
       <div id="prop-list"></div>
       <div class="rq-receipt">
-        <div class="rq-head">Sample — 4-room resale</div>
-        <div class="rq-row"><span class="rl">Whole-house painting</span><span class="rd"></span><span class="rv">S$1,450</span></div>
-        <div class="rq-row"><span class="rl">Vinyl flooring · 969 sqft</span><span class="rd"></span><span class="rv">S$6,180</span></div>
-        <div class="rq-row"><span class="rl">Kitchen cabinets · 20 ft</span><span class="rd"></span><span class="rv">S$2,900</span></div>
-        <div class="rq-foot">Your Reno Blueprint prices every line like this.</div>
+        <div class="rq-head">Your Reno Blueprint — line by line</div>
+        <div class="rq-row"><span class="rl">Whole-house painting</span><span class="rd"></span><span class="rv rv-hidden">S$ •••••</span></div>
+        <div class="rq-row"><span class="rl">Vinyl flooring · by sqft</span><span class="rd"></span><span class="rv rv-hidden">S$ •••••</span></div>
+        <div class="rq-row"><span class="rl">Kitchen cabinets · by ft run</span><span class="rd"></span><span class="rv rv-hidden">S$ •••••</span></div>
+        <div class="rq-foot">Every line priced for your exact home — in about 2 minutes.</div>
       </div>
       <p class="start-hint" id="start-hint">Tap your home type to start · about 2 minutes</p>
     </div>
