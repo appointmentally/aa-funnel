@@ -294,6 +294,48 @@ input,select,textarea{font-size:16px}
 .rq-row .rv{font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,monospace;font-weight:500;font-variant-numeric:tabular-nums}
 .rq-receipt .rq-foot{font-size:10.5px;color:var(--muted);margin-top:8px}
 .rq-receipt .rv-hidden{color:var(--muted);letter-spacing:1px;opacity:.75}
+
+/* ---------- ledger system: carry the receipt language through the app ---------- */
+/* 1 — every S$ figure runs in the ledger mono (Plex Mono is loaded at 500 only) */
+.tier-cost b,.bnav-est .v,.side-est .val,#d-est,.brk-item b,.brk-rt .sub,.brk-total .tv,.rep-hero .big{
+  font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,monospace;font-weight:500;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.tier-cost b{font-size:13px}
+.bnav-est .v{font-size:12.5px}
+.side-est .val,#d-est{font-size:18px}
+.brk-rt .sub{font-size:13px}
+.brk-item b{font-size:12px}
+.brk-total .tv{font-size:15px}
+.rep-hero .big{font-size:clamp(28px,5.6vw,42px)}
+/* 2 — itemised breakdown reads as the receipt: dotted leaders, landing's .rd pattern */
+.brk-item{align-items:baseline}
+.brk-item .rd{flex:1;min-width:16px;border-bottom:2px dotted var(--line);margin:0 0 3px}
+/* 3 — work cards: selected = terracotta left rail on cream; tiers = segmented control */
+.work-head .wt{font-size:15px;font-weight:600}
+.work.on{background:var(--soft);box-shadow:inset 3px 0 0 var(--accent)}
+.work.on .tier-cost{background:#fff}
+.tier-row{gap:0}
+.tier-btn{border-radius:0;background:#fff}
+.tier-btn+.tier-btn{margin-left:-2px}
+.tier-btn:first-child{border-radius:10px 0 0 10px}
+.tier-btn:last-child{border-radius:0 10px 10px 0}
+.tier-btn:focus-visible{position:relative;z-index:2}
+.tier-btn.sel{position:relative;z-index:1;border-color:var(--accent);background:var(--accent);color:#fff}
+/* 4 — ledger-flat cards; gold top rule marks the gate & offer */
+@media screen{.card,.side-card,.book-hero{box-shadow:0 1px 0 rgba(33,29,24,.06)}}
+.card,.side-card{border:1px solid var(--line)}
+.gate-card,.offer-card{border-top:2px solid var(--gold)}
+/* 5 — sidebar: receipt header treatment */
+.prog-row>span:first-child{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700}
+/* 6 — step eyebrow: terracotta dash */
+.step-head .eyebrow::before{content:"";display:inline-block;width:18px;height:2px;background:var(--accent);vertical-align:middle;margin-right:8px}
+/* motion — step content rises in like ledger lines */
+@media (prefers-reduced-motion: no-preference){
+  @keyframes trRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  #main>*{animation:trRise .28s ease-out both}
+  #main>*:nth-child(2){animation-delay:.05s}
+  #main>*:nth-child(3){animation-delay:.1s}
+  #main>*:nth-child(n+4){animation-delay:.15s}
+}
 </style>
 </head>
 <body>
@@ -428,17 +470,17 @@ const TIERS = {
   masonryBathroom:[{level:"Light",lo:375,hi:625,note:"Minor patching or cementing of small areas."},{level:"Moderate",lo:625,hi:1000,note:"Patch up 2–3 areas affected by hacking, or cement screed a portion of floor or walls."},{level:"Extensive",lo:1000,hi:4500,note:"Full tiling or wet works across the entire bathroom."}],
   flooring:[{level:"Light",lo:800,hi:1500,note:"Vinyl or laminate overlay on a small area."},{level:"Moderate",lo:1500,hi:3500,note:"Full room flooring with mid-range materials such as engineered timber or quality vinyl."},{level:"Extensive",lo:3500,hi:7000,note:"Premium hardwood or large-format tiles across multiple areas."}],
   ceiling:[{level:"Light",lo:500,hi:1200,note:"Simple false ceiling box-up in one area."},{level:"Moderate",lo:1200,hi:3000,note:"False ceiling across the room with cove lighting."},{level:"Extensive",lo:3000,hi:6000,note:"Full false ceiling with partitions and feature lighting throughout."}],
-  carpentryLiving:[{level:"Light",lo:700,hi:1200,exact:true,note:"One piece — e.g. a 5–8 ft TV console or shoe cabinet at $140–150 per foot run."},{level:"Moderate",lo:2100,hi:3800,exact:true,note:"2–3 pieces — roughly 15–25 ft of carpentry at $140–150 per foot run."},{level:"Extensive",lo:4200,hi:7500,exact:true,note:"Full feature wall + storage suite — roughly 30–50 ft at $140–150 per foot run."}],
-  kitchenCabinets:[{level:"Light",lo:1100,hi:1500,exact:true,note:"Partial — replace roughly 8–10 ft of base or wall cabinets at $140–150 per foot run."},{level:"Moderate",lo:2500,hi:3300,exact:true,note:"Full galley set — roughly 18–22 ft of base + wall cabinets at $140–150 per foot run."},{level:"Extensive",lo:3600,hi:4800,exact:true,note:"Large or L-shaped kitchen — roughly 26–32 ft of cabinets at $140–150 per foot run."}],
-  countertop:[{level:"Quartz",lo:1000,hi:1400,exact:true,note:"Quartz at $100 per foot run — typical 10–14 ft counter."},{level:"Granite",lo:1300,hi:2100,exact:true,note:"Granite at $130–150 per foot run — typical 10–14 ft counter."},{level:"Sintered stone",lo:1200,hi:2500,exact:true,note:"Sintered stone at $120–180 per foot run — typical 10–14 ft counter."}],
-  hackingWhole:[{level:"Kitchen + bathrooms",exact:true,calc:calcHackKB,note:"Package: hack kitchen and 2 bathrooms only — $2,800 (condos +5%)."},{level:"Whole house",exact:true,calc:calcHackWhole,note:"Whole-house hacking package, standard items: 3-room $3,500 · 4-room $3,800 · 5-room $4,200 · Executive $4,600 (condos +5%)."}],
-  paintingWhole:[{level:"Whole house",exact:true,calc:calcPaint,note:"Whole-house painting: 3-room $1,250 · 4-room $1,450 · 5-room $1,650."}],
-  sealantWhole:[{level:"Whole house",exact:true,calc:calcSealant,note:"Silicon sealant works throughout: 3-room $300 · 4-room $400 · 5-room $500."}],
-  flooringWhole:[{level:"Tiles (incl labour)",exact:true,calc:calcTileFloor,note:"Tiles at $11.80/sqft including labour, + 10% wastage, across your floor area (condo & landed +10%)."},{level:"Vinyl overlay",exact:true,calc:calcVinyl,note:"Vinyl at $5.80/sqft + 10% wastage, across your floor area."}],
-  rewiringWhole:[{level:"Full rewiring",exact:true,calc:calcRewire,note:"Full rewiring: 3-room $2,700–3,200 · 4-room $3,500–4,200 · 5-room $4,200–5,000 · Executive $5,200–6,800 (condos +8–10%)."}],
-  walltiles:[{level:"Cooking zone",exact:true,calc:calcWallTilesZone,note:"Roughly 60–100 sqft around the cooking zone at $11.80/sqft incl labour + 10% wastage."},{level:"Full walls",exact:true,calc:calcWallTilesFull,note:"Roughly 120–200 sqft of kitchen wall tiling at $11.80/sqft incl labour + 10% wastage."}],
-  wardrobe:[{level:"Light",lo:1100,hi:1400,exact:true,note:"Compact 4 ft full-height wardrobe at $280–350 per foot run."},{level:"Moderate",lo:1700,hi:2800,exact:true,note:"Standard 6–8 ft full-height wardrobe at $280–350 per foot run."},{level:"Extensive",lo:3400,hi:5000,exact:true,note:"Full wardrobe wall (8–10 ft at $280–350/ft) plus study or storage carpentry at $140–150/ft."}],
-  vanity:[{level:"Light",lo:400,hi:600,exact:true,note:"3–4 ft vanity cabinet at $140–150 per foot run."},{level:"Moderate",lo:800,hi:1200,exact:true,note:"Vanity + mirror cabinet — roughly 6–8 ft combined at $140–150 per foot run."},{level:"Extensive",lo:1400,hi:2100,exact:true,note:"Full vanity wall with tall storage — roughly 10–14 ft at $140–150 per foot run."}],
+  carpentryLiving:[{level:"Light",lo:700,hi:1200,exact:true,note:"One piece — e.g. a 5–8 ft TV console or shoe cabinet."},{level:"Moderate",lo:2100,hi:3800,exact:true,note:"2–3 pieces — roughly 15–25 ft of carpentry."},{level:"Extensive",lo:4200,hi:7500,exact:true,note:"Full feature wall + storage suite — roughly 30–50 ft."}],
+  kitchenCabinets:[{level:"Light",lo:1100,hi:1500,exact:true,note:"Partial — replace roughly 8–10 ft of base or wall cabinets."},{level:"Moderate",lo:2500,hi:3300,exact:true,note:"Full galley set — roughly 18–22 ft of base + wall cabinets."},{level:"Extensive",lo:3600,hi:4800,exact:true,note:"Large or L-shaped kitchen — roughly 26–32 ft of cabinets."}],
+  countertop:[{level:"Quartz",lo:1000,hi:1400,exact:true,note:"Quartz — typical 10–14 ft counter."},{level:"Granite",lo:1300,hi:2100,exact:true,note:"Granite — typical 10–14 ft counter."},{level:"Sintered stone",lo:1200,hi:2500,exact:true,note:"Sintered stone — typical 10–14 ft counter."}],
+  hackingWhole:[{level:"Kitchen + bathrooms",exact:true,calc:calcHackKB,note:"Package: hack kitchen and 2 bathrooms only."},{level:"Whole house",exact:true,calc:calcHackWhole,note:"Whole-house hacking package — standard items, priced for your flat type."}],
+  paintingWhole:[{level:"Whole house",exact:true,calc:calcPaint,note:"Whole-house painting, priced for your flat type."}],
+  sealantWhole:[{level:"Whole house",exact:true,calc:calcSealant,note:"Silicon sealant works throughout, priced for your flat type."}],
+  flooringWhole:[{level:"Tiles (incl labour)",exact:true,calc:calcTileFloor,note:"Tiles including labour and wastage, across your floor area."},{level:"Vinyl overlay",exact:true,calc:calcVinyl,note:"Vinyl overlay including wastage, across your floor area."}],
+  rewiringWhole:[{level:"Full rewiring",exact:true,calc:calcRewire,note:"Full electrical rewiring, priced for your flat type."}],
+  walltiles:[{level:"Cooking zone",exact:true,calc:calcWallTilesZone,note:"Roughly 60–100 sqft around the cooking zone, including labour and wastage."},{level:"Full walls",exact:true,calc:calcWallTilesFull,note:"Roughly 120–200 sqft of kitchen wall tiling, including labour and wastage."}],
+  wardrobe:[{level:"Light",lo:1100,hi:1400,exact:true,note:"Compact 4 ft full-height wardrobe."},{level:"Moderate",lo:1700,hi:2800,exact:true,note:"Standard 6–8 ft full-height wardrobe."},{level:"Extensive",lo:3400,hi:5000,exact:true,note:"Full wardrobe wall (8–10 ft) plus study or storage carpentry."}],
+  vanity:[{level:"Light",lo:400,hi:600,exact:true,note:"3–4 ft vanity cabinet."},{level:"Moderate",lo:800,hi:1200,exact:true,note:"Vanity + mirror cabinet — roughly 6–8 ft combined."},{level:"Extensive",lo:1400,hi:2100,exact:true,note:"Full vanity wall with tall storage — roughly 10–14 ft."}],
   painting:[{level:"Light",lo:300,hi:600,note:"Single coat on one room's walls."},{level:"Moderate",lo:600,hi:1200,note:"Two coats on walls and ceiling of one room."},{level:"Extensive",lo:1200,hi:3000,note:"Full repaint of entire area including ceilings and feature walls."}],
   electrical:[{level:"Light",lo:300,hi:600,note:"A few additional power points or light fittings."},{level:"Moderate",lo:600,hi:1500,note:"Rewiring of power points, switches and lighting for one room."},{level:"Extensive",lo:1500,hi:4000,note:"Full electrical overhaul including DB upgrades and whole-area rewiring."}],
   appliances:[{level:"Light",lo:500,hi:1000,note:"Basic appliance installation (hood, hob)."},{level:"Moderate",lo:1000,hi:2500,note:"Mid-range built-in oven, hob, hood and sink fitting."},{level:"Extensive",lo:2500,hi:6000,note:"Full premium appliance package with dishwasher, oven and smart fittings."}],
@@ -455,30 +497,30 @@ const ROOM_WORKS = {
   "living-room":[
     {id:"masonry",label:"Masonry",desc:"Tiling and wet construction tasks. Priced by total area and labour required.",t:TIERS.masonry},
     {id:"ceiling",label:"Ceiling & Partition",desc:"Partition walls and/or false ceilings, priced by size and design style.",t:TIERS.ceiling},
-    {id:"carpentry",label:"Carpentry",desc:"Custom carpentry — TV consoles, shoe cabinets, feature storage — at the standard $140–150 per foot run.",t:TIERS.carpentryLiving},
+    {id:"carpentry",label:"Carpentry",desc:"Custom carpentry — TV consoles, shoe cabinets, feature storage — priced per foot run.",t:TIERS.carpentryLiving},
   ],
   kitchen:[
     {id:"masonry",label:"Masonry",desc:"Tiling and wet construction tasks.",t:TIERS.masonry},
-    {id:"carpentry",label:"Carpentry / Cabinets",desc:"Kitchen base + wall cabinets and built-in storage at $140–150 per foot run.",t:TIERS.kitchenCabinets},
-    {id:"countertop",label:"Countertop",desc:"Solid-surface worktop, priced per foot run: quartz $100 · granite $130–150 · sintered stone $120–180.",t:TIERS.countertop},
-    {id:"walltiles",label:"Wall tiles",desc:"Kitchen wall tiling at $11.80/sqft including labour, + 10% wastage (condo & landed +10%).",t:TIERS.walltiles},
+    {id:"carpentry",label:"Carpentry / Cabinets",desc:"Kitchen base + wall cabinets and built-in storage, priced per foot run.",t:TIERS.kitchenCabinets},
+    {id:"countertop",label:"Countertop",desc:"Solid-surface worktop — choose quartz, granite or sintered stone.",t:TIERS.countertop},
+    {id:"walltiles",label:"Wall tiles",desc:"Kitchen wall tiling, priced per sqft including labour.",t:TIERS.walltiles},
     {id:"appliances",label:"Appliances & Fitting",desc:"Installation of kitchen appliances, sinks and fittings.",t:TIERS.appliances},
   ],
   bedrooms:[
-    {id:"carpentry",label:"Carpentry / Wardrobe",desc:"Full-height wardrobes at $280–350 per foot run; other built-ins at $140–150/ft.",t:TIERS.wardrobe},
+    {id:"carpentry",label:"Carpentry / Wardrobe",desc:"Full-height wardrobes and other built-ins, priced per foot run.",t:TIERS.wardrobe},
     {id:"ceiling",label:"Ceiling & Partition",desc:"Partition walls and/or false ceilings.",t:TIERS.ceiling},
   ],
   bathrooms:[
     {id:"masonry",label:"Masonry / Tiling",desc:"Tiling of floors and walls in the bathroom.",t:TIERS.masonryBathroom},
     {id:"sanitary",label:"Sanitary Fitting",desc:"Toilets, basins, showers and bathtubs.",t:TIERS.sanitary},
-    {id:"carpentry",label:"Carpentry / Vanity",desc:"Vanity and mirror cabinets at $140–150 per foot run.",t:TIERS.vanity},
+    {id:"carpentry",label:"Carpentry / Vanity",desc:"Vanity and mirror cabinets, priced per foot run.",t:TIERS.vanity},
     {id:"waterproofing",label:"Waterproofing",desc:"Essential for wet areas to prevent water seepage.",t:TIERS.waterproofing},
   ],
   "other-works":[
-    {id:"hacking",label:"Hacking package",desc:"Hacking priced as a package — kitchen + bathrooms only, or the whole house (standard items). Condos +5%. For HDB flats, wall hacking needs an HDB permit — your designer handles the application.",t:TIERS.hackingWhole},
-    {id:"painting",label:"Painting (whole house)",desc:"Full repaint of the whole home: 3-room $1,250 · 4-room $1,450 · 5-room $1,650.",t:TIERS.paintingWhole},
-    {id:"flooring",label:"Flooring (whole house)",desc:"Priced on your floor area: vinyl overlay $5.80/sqft or tiles $11.80/sqft including labour, + 10% wastage. Condo & landed tiling +10%.",t:TIERS.flooringWhole},
-    {id:"rewiring",label:"Electrical rewiring",desc:"Full-house rewiring — power points, switches and lighting. Priced by flat type; condos +8–10%.",t:TIERS.rewiringWhole},
+    {id:"hacking",label:"Hacking package",desc:"Hacking priced as a package — kitchen + bathrooms only, or the whole house (standard items). For HDB flats, wall hacking needs an HDB permit — your designer handles the application.",t:TIERS.hackingWhole},
+    {id:"painting",label:"Painting (whole house)",desc:"Full repaint of the whole home, priced for your flat type.",t:TIERS.paintingWhole},
+    {id:"flooring",label:"Flooring (whole house)",desc:"Vinyl overlay or tiles — priced on your floor area, including labour and wastage.",t:TIERS.flooringWhole},
+    {id:"rewiring",label:"Electrical rewiring",desc:"Full-house rewiring — power points, switches and lighting, priced for your flat type.",t:TIERS.rewiringWhole},
     {id:"sealant",label:"Sealant works",desc:"Silicon sealant works throughout the home.",t:TIERS.sealantWhole},
     {id:"plastering",label:"Plastering",desc:"Patching uneven walls/ceilings and smoothing surfaces before painting.",t:TIERS.plastering},
     {id:"haulage",label:"Haulage & Cleaning",desc:"Hauling materials, clearing debris and post-renovation cleaning.",t:TIERS.haulage},
@@ -810,7 +852,7 @@ function renderGate(){
     <div class="gh-grad"></div>
     <div class="gh-txt"><h2>${AD?adTxt(AD.gate):"Your Reno Blueprint is ready"} 🎉</h2><p>Estimate range, itemised breakdown &amp; your ${st?st.label:""} renders</p></div>
   </div>
-  <div class="card">
+  <div class="card gate-card">
     <ul class="gate-list">
       <li><span class="tick">✓</span><span>Your itemised breakdown — every work, every room, priced line by line${lo?` (<b>${fmt(lo)} – ${fmt(hi)}</b>)`:""}</span></li>
       <li><span class="tick">✓</span><span>All 3 ${st?("<b>"+st.label+"</b>"):"your style"} concept renders — living, bedroom &amp; kitchen — unlocked</span></li>
@@ -884,7 +926,7 @@ function renderReport(){
     </div>
     <div class="style-writeup" style="margin-top:12px"><b>${st.label}</b> — ${st.writeup}</div>
   </div>`:""}
-  <div class="card no-print">
+  <div class="card offer-card no-print">
     <h3>This estimate is a range. Your quote shouldn't be.</h3>
     <p style="font-size:13px;color:var(--muted);margin-bottom:10px">Book your free design consult — bring your Reno Blueprint. In one session a Trio designer will:</p>
     <ul class="gate-list">
@@ -905,7 +947,7 @@ function renderReport(){
     ${sections.length?sections.map(s=>`
       <div class="brk-room">
         <div class="brk-rt"><span>${s.label}${s.mult>1?` <span style="color:var(--muted);font-weight:400">× ${s.mult}</span>`:""}</span><span class="sub">${fmtRange(s.lo,s.hi)}</span></div>
-        ${s.items.map(i=>`<div class="brk-item"><span>${i.label} <span style="opacity:.7">· ${i.tier}</span></span><b>${fmtRange(i.lo,i.hi)}</b></div>`).join("")}
+        ${s.items.map(i=>`<div class="brk-item"><span>${i.label} <span style="opacity:.7">· ${i.tier}</span></span><span class="rd"></span><b>${fmtRange(i.lo,i.hi)}</b></div>`).join("")}
       </div>`).join("")+`
       <div class="brk-total"><span>Estimated total <span style="font-weight:400;color:var(--muted);font-size:12px">(most likely)</span></span><span class="tv">${fmt(lo)} – ${fmt(hi)}</span></div>\n      <p style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right">Full span if every line landed at its extreme: ${fmt(spanLo)} – ${fmt(spanHi)}. Most projects land inside the range above.</p>`
     :""}
