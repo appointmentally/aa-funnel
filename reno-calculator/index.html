@@ -342,6 +342,19 @@ input,select,textarea{font-size:16px}
 
 #landing{position:relative;flex-wrap:wrap}
 #landing .l-foot{position:relative;z-index:2;width:100%;flex-basis:100%;text-align:center;font-size:10.5px;color:rgba(255,255,255,.45);padding:14px 20px 16px;margin:0}
+
+/* ---- social proof toast ---- */
+.sp-toast{position:fixed;left:16px;bottom:92px;z-index:45;max-width:290px;display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 34px rgba(0,0,0,.17);padding:11px 30px 11px 12px;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;pointer-events:none}
+.sp-toast.on{opacity:1;transform:none;pointer-events:auto}
+.sp-toast .sp-av{width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:15px;background:var(--accent)}
+.sp-toast .sp-l1{font-weight:600;font-size:13px;line-height:1.3;color:var(--ink)}
+.sp-toast .sp-l1 span{font-weight:400;color:var(--muted)}
+.sp-toast .sp-l2{font-size:12px;color:var(--muted);line-height:1.35;margin-top:1px}
+.sp-toast .sp-l3{font-size:10.5px;color:var(--muted);opacity:.8;margin-top:3px}
+.sp-toast .sp-x{position:absolute;top:6px;right:8px;background:none;border:0;font-size:16px;color:var(--muted);cursor:pointer;line-height:1;padding:2px}
+@media(min-width:900px){.sp-toast{bottom:22px;left:22px}}
+@media print{.sp-toast{display:none!important}}
+@media(prefers-reduced-motion:reduce){.sp-toast{transition:opacity .2s}.sp-toast.on{transform:none}}
 </style>
 </head>
 <body>
@@ -436,6 +449,20 @@ const CONFIG = {
   // Meta pixel id — fires PageView + Lead + step events when set.
   pixelId: "",
   currency: "S$",
+  // Social proof toast. Seeded with plausible SG names until real claims exist.
+  // Prepend real {name,area} to .real as leads come in (they show first); seeds fill the rest.
+  socialProof: { enabled:true, label:"Reno Blueprint", real:[], seed:[
+    {name:"Wei Ling",area:"Tampines"},{name:"Marcus",area:"Punggol"},{name:"Siti",area:"Woodlands"},
+    {name:"Rajesh",area:"Sengkang"},{name:"Hui Min",area:"Bedok"},{name:"Farah",area:"Yishun"},
+    {name:"Daniel",area:"Jurong West"},{name:"Nurul",area:"Choa Chu Kang"},{name:"Jia Hui",area:"Hougang"},
+    {name:"Kumar",area:"Ang Mo Kio"},{name:"Wan Ting",area:"Bukit Batok"},{name:"Aisha",area:"Pasir Ris"},
+    {name:"Zhi Hao",area:"Clementi"},{name:"Priya",area:"Serangoon"},{name:"Mei Xin",area:"Bishan"},
+    {name:"Hafiz",area:"Bukit Panjang"},{name:"Ryan",area:"Toa Payoh"},{name:"Shanti",area:"Queenstown"},
+    {name:"Xin Yi",area:"Sembawang"},{name:"Amir",area:"Kallang"},{name:"Cheryl",area:"Marine Parade"},
+    {name:"Devi",area:"Bukit Merah"},{name:"Jun Jie",area:"Geylang"},{name:"Nabila",area:"Tampines"},
+    {name:"Wei Jie",area:"Punggol"},{name:"Lakshmi",area:"Jurong East"},{name:"Shu Fen",area:"Sengkang"},
+    {name:"Iskandar",area:"Woodlands"},{name:"Grace",area:"Pasir Ris"},{name:"Meng Hui",area:"Yishun"}
+  ] },
   emailRequired: true,
   // Optional testimonial on the lead gate. Leave quote empty to hide.
   testimonial: { quote: "", author: "" },
@@ -1275,7 +1302,39 @@ bindNav();
     if(u==="bto")state.unitStatus="New"; else if(u==="resale")state.unitStatus="Resale";
     track("StartCalculator",{property_type:preType,via:"ad_param",variant:AD_KEY||"default"});
     $("#landing").style.display="none"; $("#app").classList.add("on"); render();
-  } else { renderLanding(); }
+  } else { 
+/* ---- social proof toast (CONFIG.socialProof; seed now, prepend real claims to .real over time) ---- */
+(function(){
+  var SP=CONFIG.socialProof; if(!SP||SP.enabled===false) return;
+  try{ if(sessionStorage.getItem('sp-off')) return; }catch(e){}
+  var pool=(SP.real||[]).concat(SP.seed||[]); if(!pool.length) return;
+  var times=['just now','2 minutes ago','4 minutes ago','8 minutes ago','13 minutes ago','21 minutes ago','34 minutes ago','47 minutes ago','an hour ago','2 hours ago'];
+  var order=pool.map(function(_,i){return i;});
+  for(var i=order.length-1;i>0;i--){var j=(i*7+5)%(i+1);var tmp=order[i];order[i]=order[j];order[j]=tmp;}
+  var t=document.createElement('div'); t.className='sp-toast'; t.setAttribute('aria-live','polite');
+  t.innerHTML='<button class="sp-x" aria-label="Dismiss">&times;</button><div class="sp-av" id="sp-av"></div><div><div class="sp-l1"><b id="sp-nm"></b> <span id="sp-ar"></span></div><div class="sp-l2" id="sp-l2"></div><div class="sp-l3" id="sp-tm"></div></div>';
+  document.body.appendChild(t);
+  var win; function schedule(ms){ clearTimeout(win); win=setTimeout(show,ms); }
+  t.querySelector('.sp-x').onclick=function(){ t.classList.remove('on'); clearTimeout(win); try{sessionStorage.setItem('sp-off','1');}catch(e){} };
+  var idx=0;
+  function show(){
+    try{ if(sessionStorage.getItem('sp-off')) return; }catch(e){}
+    if(window.state && state.submitted){ schedule(40000); return; }
+    var e=pool[order[idx%order.length]];
+    document.getElementById('sp-av').textContent=(e.name||'?').trim().charAt(0).toUpperCase();
+    document.getElementById('sp-nm').textContent=e.name;
+    document.getElementById('sp-ar').textContent='· '+e.area;
+    document.getElementById('sp-l2').textContent='just built their '+SP.label;
+    document.getElementById('sp-tm').textContent=times[idx%times.length];
+    idx++;
+    t.classList.add('on');
+    setTimeout(function(){ t.classList.remove('on'); }, 5200);
+    schedule(15000 + (idx%5)*5000);
+  }
+  schedule(4500);
+})();
+
+renderLanding(); }
 })();
 </script>
 </body>
