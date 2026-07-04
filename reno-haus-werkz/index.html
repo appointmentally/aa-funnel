@@ -317,7 +317,7 @@ const CONFIG = {
   brandShort: "Haus Werkz",
   brandSub: "Interior",
   // GHL workflow Inbound Webhook trigger URL (or n8n webhook) — full lead JSON POSTs here.
-  webhookUrl: "",
+  webhookUrl: "https://appointmentally.app.n8n.cloud/webhook/reno-report",
   // Business WhatsApp (from GHL location record). Change if the setter runs on another number.
   whatsappNumber: "6598303830",
   // GHL calendar EMBED URL — becomes the booking page shown right after lead submit,
@@ -328,7 +328,7 @@ const CONFIG = {
   // Meta pixel id — fires PageView + Lead + step events when set.
   pixelId: "",
   currency: "S$",
-  emailRequired: false,
+  emailRequired: true,
   // Optional testimonial on the lead gate. Leave quote empty to hide.
   testimonial: { quote: "", author: "" },
   privacyLine: "By tapping the button, you consent to Haus Werkz Interior contacting you via WhatsApp, SMS or phone call about your renovation enquiry and sending you this report (PDPA). Opt out anytime — just reply 'stop'. We never sell or share your data.",
@@ -734,7 +734,7 @@ function renderGate(){
   </div>
   <div class="card">
     <ul class="gate-list">
-      <li><span class="tick">✓</span><span>Your itemised breakdown — every work, every room, priced line by line ${lo?`(<b>${fmt(lo)} – ${fmt(hi)}</b>)`:""}</span></li>
+      <li><span class="tick">✓</span><span>Your full itemised breakdown — every work, every room — sent to your inbox as your <b>Build Plan</b></span></li>
       <li><span class="tick">✓</span><span>All 3 <b>${st?st.label:"designer"}</b> concept renders — living, bedroom &amp; kitchen — unlocked</span></li>
       <li><span class="tick">✓</span><span>Yours to keep — check every ID quote you collect against it, line by line</span></li>
       <li><span class="tick">✓</span><span>Prepared by Haus Werkz — HDB Licensed (HB-07-5638B), CaseTrust accredited, since 2016</span></li>
@@ -752,7 +752,7 @@ function renderGate(){
     <p class="gate-err" id="g-err"></p>
     <p style="font-size:12px;font-weight:600;color:var(--muted);text-align:center;margin-top:12px">Your Build Plan is already computed — 20 seconds.</p>
     <button class="submit-btn" id="g-submit">Unlock my Build Plan →</button>
-    <p class="gate-privacy">Your Build Plan opens instantly on this page — no email needed.<br>${CONFIG.privacyLine}<br>100% free · No obligation · Yours to keep even if we never speak.</p>
+    <p class="gate-privacy">Your Build Plan lands in your inbox within minutes — and your booking page opens right here.<br>${CONFIG.privacyLine}<br>100% free · No obligation · Yours to keep even if we never speak.</p>
     ${tq?`<div class="gate-quote">“${CONFIG.testimonial.quote}”<b>— ${CONFIG.testimonial.author||""}</b></div>`:""}
   </div>`;
 }
@@ -772,6 +772,9 @@ function renderReport(){
   const st=STYLES.find(s=>s.id===state.style);
   const name=(state.lead.name||"").split(" ")[0];
   const cal=calendarSrc();
+  /* Webhook wired + email captured → the itemised breakdown arrives by email as
+     the Build Plan, so the page becomes a booking-first thank-you instead. */
+  const EMAIL_FLOW = !!(CONFIG.webhookUrl && (state.lead.email||"").trim());
   const meta=[
     (state.flatType?state.flatType+" ":"")+state.propertyType + (state.unitStatus?` · ${state.unitStatus}`:""),
     state.size?`${state.size} ${state.sizeUnit}`:"",
@@ -785,7 +788,13 @@ function renderReport(){
       ? `<a class="cta-a cta-book" href="${CONFIG.bookingUrl}" target="_top">${icon("calendar","ico-btn")} Book my free consult — price my actual plan</a>`
       : `<button class="cta-a cta-book" id="cta-book-fb">${icon("calendar","ico-btn")} Book my free consult — price my actual plan</button>`;
   return `
-  ${cal?`
+  ${EMAIL_FLOW?`
+  <div class="book-hero no-print" id="booking">
+    <div class="bh-eyebrow">✉️ ${name?name+", your":"Your"} Build Plan is on its way to <span style="text-transform:none">${state.lead.email}</span></div>
+    <h2>Now — book your FREE design consult</h2>
+    <p>Your line-by-line Build Plan will land in your inbox in the next few minutes. Bring it to a free consult — a Haus Werkz designer prices your actual floor plan against it, locks the scope line by line, and shows exactly what gets built for the money. Every project carries a 2-year workmanship warranty. Free, no obligation — the plan is yours whatever you decide.</p>
+    ${cal?`<iframe class="cal-frame" src="${cal}" title="Book your free design consult"></iframe>`:`<div class="cta-grid">${bookCta}</div>`}
+  </div>`:cal?`
   <div class="book-hero no-print" id="booking">
     <div class="bh-eyebrow">${name?name+", your":"Your"} Build Plan is saved — one last step</div>
     <h2>Turn this estimate into your exact price</h2>
@@ -811,6 +820,7 @@ function renderReport(){
     </div>
     <div class="style-writeup" style="margin-top:12px"><b>${st.label}</b> — ${st.writeup}</div>
   </div>`:""}
+  ${EMAIL_FLOW?"":`
   <div class="card no-print">
     <h3>From plan to build — one consult.</h3>
     <p style="font-size:13px;color:var(--muted);margin-bottom:12px">A Haus Werkz designer prices your actual floor plan against this Build Plan, locks the scope with you line by line, and shows exactly what gets built for the money — the same team that's been building Singapore homes since 2016, with a 2-year workmanship warranty on every project. Free, no obligation — the plan is yours whatever you decide.</p>
@@ -833,7 +843,7 @@ function renderReport(){
       <div class="brk-total"><span>Estimated total <span style="font-weight:400;color:var(--muted);font-size:12px">(most likely)</span></span><span class="tv">${fmt(lo)} – ${fmt(hi)}</span></div>\n      <p style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right">Full span if every line landed at its extreme: ${fmt(spanLo)} – ${fmt(spanHi)}. Most projects land inside the range above.</p>`
     :""}
     <button id="rep-edit" class="no-print" style="margin-top:12px;font-size:12.5px;font-weight:600;color:var(--accent);text-decoration:underline">✎ Adjust my scope &amp; update this estimate</button>
-  </div>
+  </div>`}
   <p class="rep-disc">* This is an indicative estimate based on typical Singapore renovation pricing for the scope you selected — not a quotation. A.I renders are draft visualisations for inspiration; the final design is tailored to your actual floor plan. ${CONFIG.privacyLine}</p>`;
 }
 

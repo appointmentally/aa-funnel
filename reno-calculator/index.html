@@ -418,7 +418,7 @@ const CONFIG = {
   brandShort: "Trio",
   brandSub: "Design Studio",
   // GHL / n8n inbound webhook — receives the full lead payload as JSON POST.
-  webhookUrl: "",
+  webhookUrl: "https://appointmentally.app.n8n.cloud/webhook/reno-report",
   // WhatsApp number in international format without "+", e.g. "6591234567".
   whatsappNumber: "",
   // GHL calendar EMBED URL — becomes the booking page shown right after lead submit,
@@ -429,7 +429,7 @@ const CONFIG = {
   // Meta pixel id — fires PageView + Lead + step events when set.
   pixelId: "",
   currency: "S$",
-  emailRequired: false,
+  emailRequired: true,
   // Optional testimonial on the lead gate. Leave quote empty to hide.
   testimonial: { quote: "", author: "" },
   projectsLine: "Every line item shows exactly what it covers — check it against any quote you receive",
@@ -854,7 +854,7 @@ function renderGate(){
   </div>
   <div class="card gate-card">
     <ul class="gate-list">
-      <li><span class="tick">✓</span><span>Your itemised breakdown — every work, every room, priced line by line${lo?` (<b>${fmt(lo)} – ${fmt(hi)}</b>)`:""}</span></li>
+      <li><span class="tick">✓</span><span>Your full itemised breakdown — every work, every room — sent to your inbox as your <b>Reno Blueprint</b></span></li>
       <li><span class="tick">✓</span><span>All 3 ${st?("<b>"+st.label+"</b>"):"your style"} concept renders — living, bedroom &amp; kitchen — unlocked</span></li>
       <li><span class="tick">✓</span><span>Yours to keep — check every ID quote you collect against it, line by line</span></li>
     </ul>
@@ -871,7 +871,7 @@ function renderGate(){
     <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:12px">Your Blueprint is already built — this takes 20 seconds.</p>
     <p class="gate-err" id="g-err"></p>
     <button class="submit-btn" id="g-submit">Unlock my Reno Blueprint →</button>
-    <p class="gate-privacy">Your report opens instantly on this page — no email needed.<br>${CONFIG.privacyLine}<br>100% free · No obligation · Yours to keep even if we never speak.</p>
+    <p class="gate-privacy">Your Reno Blueprint lands in your inbox within minutes — and your booking page opens right here.<br>${CONFIG.privacyLine}<br>100% free · No obligation · Yours to keep even if we never speak.</p>
     ${CONFIG.testimonial&&CONFIG.testimonial.quote?`<div class="gate-quote">“${CONFIG.testimonial.quote}”<b>— ${CONFIG.testimonial.author||""}</b></div>`:""}
   </div>`;
 }
@@ -899,14 +899,10 @@ function renderReport(){
     st?st.label:"",
   ].filter(Boolean);
   const ctaLabel=`${icon("calendar","ico-btn")} Get my exact quote — book my free consult`;
-  return `
-  ${cal?`
-  <div class="book-hero no-print" id="booking">
-    <div class="bh-eyebrow">${name?name+", your":"Your"} report is saved — one last step</div>
-    <h2>Turn this estimate into your exact price</h2>
-    <p>${AD?adTxt(AD.close)+" ":""}This range is an A.I estimate built from typical ${state.propertyType} pricing — your real number depends on your floor plan. In a free consult, a designer prices your exact unit room by room and shows how ${st?st.label:"your style"} works in your actual layout. No pitch, no pressure — you keep the report, the renders and every idea from the session, even if you never work with us.</p>
-    <iframe class="cal-frame" src="${cal}" title="Book your free design consult"></iframe>
-  </div>`:""}
+  /* EMAIL_FLOW — webhook wired AND lead gave an email: the itemised breakdown
+     arrives in their inbox as the Reno Blueprint, so the page goes booking-first. */
+  const EMAIL_FLOW = !!(CONFIG.webhookUrl && (state.lead.email||"").trim());
+  const repHero=`
   <div class="rep-hero">
     <div class="re">Your Reno Blueprint</div>
     <h2>${name?name+", here's":"Here's"} your estimate</h2>
@@ -915,8 +911,8 @@ function renderReport(){
     <div class="rn">Where you land in this range depends on your floor plan and finishes — your free consult pins down the exact number.</div>
     ${state.autoScope?`<div class="rn" style="margin-top:4px">We pre-filled a typical ${state.unitStatus==="New"?"BTO":"resale"} scope so your report shows real numbers — adjust anything below or with your designer.</div>`:""}
     <div class="rep-meta">${meta.map(m=>`<span>${m}</span>`).join("")}</div>
-  </div>
-  ${st?`
+  </div>`;
+  const rendersCard=st?`
   <div class="card">
     <h3>Your home in ${st.label}</h3>
     <div class="render-grid">
@@ -925,7 +921,33 @@ function renderReport(){
       <div class="render-card"><img src="renders/${st.id}-kitchen.jpg" alt="" width="1376" height="768" loading="lazy" decoding="async" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.kitchen}</span></div>
     </div>
     <div class="style-writeup" style="margin-top:12px"><b>${st.label}</b> — ${st.writeup}</div>
+  </div>`:"";
+  const repDisc=`
+  <p class="rep-disc">* This is an indicative estimate based on typical Singapore renovation pricing for the scope you selected — not a quotation. A.I renders are draft visualisations for inspiration; the final design is tailored to your actual floor plan. ${CONFIG.privacyLine}</p>`;
+  if(EMAIL_FLOW){
+    return `
+  <div class="book-hero no-print" id="booking">
+    <div class="bh-eyebrow">✉️ ${name?name+", your":"Your"} Reno Blueprint is on its way to ${state.lead.email}</div>
+    <h2>Now — book your FREE design consult</h2>
+    <p>Your full line-by-line Blueprint will land in your inbox in the next few minutes. Bring it to a free consult and a Trio designer will price your actual floor plan, show where your scope can flex, and turn your ${st?st.label+" ":""}renders into a concept for your exact layout. 100% free · no obligation · your Blueprint is yours to keep either way.</p>
+    ${cal?`<iframe class="cal-frame" src="${cal}" title="Book your free design consult"></iframe>`
+      :CONFIG.bookingUrl?`<div class="cta-grid"><a class="cta-a cta-book" href="${CONFIG.bookingUrl}" target="_top">${ctaLabel}</a></div>`
+      :`<div class="cta-grid"><button class="cta-a cta-book" id="cta-book-fb">${icon("calendar","ico-btn")} Book my free design consult</button></div>`}
+  </div>
+  ${repHero}
+  ${rendersCard}
+  ${repDisc}`;
+  }
+  return `
+  ${cal?`
+  <div class="book-hero no-print" id="booking">
+    <div class="bh-eyebrow">${name?name+", your":"Your"} report is saved — one last step</div>
+    <h2>Turn this estimate into your exact price</h2>
+    <p>${AD?adTxt(AD.close)+" ":""}This range is an A.I estimate built from typical ${state.propertyType} pricing — your real number depends on your floor plan. In a free consult, a designer prices your exact unit room by room and shows how ${st?st.label:"your style"} works in your actual layout. No pitch, no pressure — you keep the report, the renders and every idea from the session, even if you never work with us.</p>
+    <iframe class="cal-frame" src="${cal}" title="Book your free design consult"></iframe>
   </div>`:""}
+  ${repHero}
+  ${rendersCard}
   <div class="card offer-card no-print">
     <h3>This estimate is a range. Your quote shouldn't be.</h3>
     <p style="font-size:13px;color:var(--muted);margin-bottom:10px">Book your free design consult — bring your Reno Blueprint. In one session a Trio designer will:</p>
@@ -953,7 +975,7 @@ function renderReport(){
     :""}
     <button id="rep-edit" class="no-print" style="margin-top:12px;font-size:12.5px;font-weight:600;color:var(--accent);text-decoration:underline">✎ Adjust my scope &amp; update this estimate</button>
   </div>
-  <p class="rep-disc">* This is an indicative estimate based on typical Singapore renovation pricing for the scope you selected — not a quotation. A.I renders are draft visualisations for inspiration; the final design is tailored to your actual floor plan. ${CONFIG.privacyLine}</p>`;
+  ${repDisc}`;
 }
 
 /* =====================================================================

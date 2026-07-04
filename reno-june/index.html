@@ -318,7 +318,7 @@ const CONFIG = {
   brandShort: "June",
   brandSub: "Interior Design",
   // GHL workflow Inbound Webhook trigger URL (or n8n webhook) — full lead JSON POSTs here.
-  webhookUrl: "",
+  webhookUrl: "https://appointmentally.app.n8n.cloud/webhook/reno-report",
   // Business WhatsApp (from GHL location record). Change if the setter runs on another number.
   whatsappNumber: "6591556958",
   // GHL calendar EMBED URL — becomes the booking page shown right after lead submit,
@@ -329,7 +329,7 @@ const CONFIG = {
   // Meta pixel id — fires PageView + Lead + step events when set.
   pixelId: "",
   currency: "S$",
-  emailRequired: false,
+  emailRequired: true,
   // Optional testimonial on the lead gate. Leave quote empty to hide.
   testimonial: { quote: "", author: "" },
   privacyLine: "By tapping the button, you consent to June Interior Design contacting you via WhatsApp, SMS or phone call about your renovation enquiry and sending you this report (PDPA). Opt out anytime — just reply 'stop'. We never sell or share your data.",
@@ -739,7 +739,7 @@ function renderGate(){
   </div>
   <div class="card">
     <ul class="gate-list">
-      <li><span class="tick">✓</span><span>Your itemised breakdown — every work, every room, priced line by line ${lo?`(<b>${fmt(lo)} – ${fmt(hi)}</b>)`:""}</span></li>
+      <li><span class="tick">✓</span><span>Your full itemised breakdown — every line explained — sent to your inbox as your <b>Honest Reno Report</b></span></li>
       <li><span class="tick">✓</span><span>All 3 ${st?("<b>"+st.label+"</b>"):"style"} concept renders — living, bedroom &amp; kitchen — unlocked</span></li>
       <li><span class="tick">✓</span><span>A copy to keep beside any quote you receive — including ours</span></li>
       <li><span class="tick">✓</span><span>Prepared by June — over 10 years designing Singapore BTO, resale &amp; condo homes</span></li>
@@ -757,7 +757,7 @@ function renderGate(){
     <p class="gate-err" id="g-err"></p>
     <p style="font-size:12.5px;font-weight:600;color:var(--accent-dark);text-align:center;margin-top:14px">Your report is ready — 20 quiet seconds.</p>
     <button class="submit-btn" id="g-submit" style="margin-top:8px">Unlock my Honest Reno Report →</button>
-    <p class="gate-privacy">Your report opens instantly on this page — no email needed.<br>${CONFIG.privacyLine}<br>100% free · No obligation · Yours to keep even if we never speak.</p>
+    <p class="gate-privacy">Your Honest Reno Report reaches your inbox within minutes — and your booking page opens right here.<br>${CONFIG.privacyLine}<br>100% free · No obligation · Yours to keep even if we never speak.</p>
     ${tq?`<div class="gate-quote">“${CONFIG.testimonial.quote}”<b>— ${CONFIG.testimonial.author||""}</b></div>`:""}
   </div>`;
 }
@@ -777,6 +777,9 @@ function renderReport(){
   const st=STYLES.find(s=>s.id===state.style);
   const name=(state.lead.name||"").split(" ")[0];
   const cal=calendarSrc();
+  /* EMAIL_FLOW: webhook wired AND the lead gave an email — the itemised report
+     travels by email, so the page becomes a quiet booking-first thank-you. */
+  const EMAIL_FLOW = !!(CONFIG.webhookUrl && (state.lead.email||"").trim());
   const meta=[
     (state.flatType?state.flatType+" ":"")+state.propertyType + (state.unitStatus?` · ${state.unitStatus}`:""),
     state.size?`${state.size} ${state.sizeUnit}`:"",
@@ -784,14 +787,7 @@ function renderReport(){
     state.bathrooms?`${state.bathrooms===5?"5+":state.bathrooms} bath`:"",
     st?st.label:"",
   ].filter(Boolean);
-  return `
-  ${cal?`
-  <div class="book-hero no-print" id="booking">
-    <div class="bh-eyebrow">🌿 ${name?name+", your":"Your"} report is saved — one last step</div>
-    <h2>Turn this estimate into your exact price</h2>
-    <p>${AD?adTxt(AD.close)+" ":""}This range is an A.I estimate built from typical ${state.propertyType} pricing — your real number depends on your floor plan. In a free consult, a designer prices your exact unit room by room and shows how ${st?st.label:"your style"} works in your actual layout. No pitch, no pressure — you keep the report, the renders and every idea from the session, even if you never work with us. Prepared by June — over 10 years designing Singapore BTO, resale &amp; condo homes.</p>
-    <iframe class="cal-frame" src="${cal}" title="Book your free design consult"></iframe>
-  </div>`:""}
+  const repHero=`
   <div class="rep-hero">
     <div class="re">Your Honest Reno Report</div>
     <h2>${name?name+", here's":"Here's"} your estimate</h2>
@@ -800,8 +796,8 @@ function renderReport(){
     <div class="rn" style="margin-top:4px">Where you land in this range depends on your floor plan and finishes — your free consult quietly pins down the exact number.</div>
     ${state.autoScope?`<div class="rn" style="margin-top:4px">We pre-filled a typical ${state.unitStatus==="New"?"BTO":"resale"} scope so your report shows real numbers — adjust anything below or with your designer.</div>`:""}
     <div class="rep-meta">${meta.map(m=>`<span>${m}</span>`).join("")}</div>
-  </div>
-  ${st?`
+  </div>`;
+  const rendersCard=st?`
   <div class="card">
     <h3>Your home in ${st.label}</h3>
     <div class="render-grid">
@@ -810,7 +806,30 @@ function renderReport(){
       <div class="render-card"><img loading="lazy" src="${RENDER_BASE}${st.id}-kitchen.jpg" alt="" width="1376" height="768" decoding="async" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.kitchen}</span></div>
     </div>
     <div class="style-writeup" style="margin-top:12px"><b>${st.label}</b> — ${st.writeup}</div>
+  </div>`:"";
+  const repDisc=`<p class="rep-disc">* This is an indicative estimate based on typical Singapore renovation pricing for the scope you selected — not a quotation. A.I renders are draft visualisations for inspiration; the final design is tailored to your actual floor plan. ${CONFIG.privacyLine}</p>`;
+  if(EMAIL_FLOW) return `
+  <div class="book-hero no-print" id="booking">
+    <div class="bh-eyebrow">🌿 ${name?name+", your":"Your"} Honest Reno Report is on its way to ${state.lead.email}</div>
+    <h2>Book your free design consult</h2>
+    <p>Your report — every line, quietly explained — will reach your inbox in the next few minutes. When you're ready, a free, no-pressure consult with a June designer turns it into an honest, itemised quote for your own floor plan. Over 10 years of Singapore BTO, resale &amp; condo homes. The report stays yours either way.</p>
+    ${cal?`<iframe class="cal-frame" src="${cal}" title="Book your free design consult"></iframe>`
+      :CONFIG.bookingUrl?`<div class="cta-grid"><a class="cta-a cta-book" href="${CONFIG.bookingUrl}" target="_top">${icon("calendar","ico-btn")} Book my free consult</a></div>`
+      :`<div class="cta-grid"><button class="cta-a cta-book" id="cta-book-fb">${icon("calendar","ico-btn")} Book my free design consult</button></div>`}
+  </div>
+  ${repHero}
+  ${rendersCard}
+  ${repDisc}`;
+  return `
+  ${cal?`
+  <div class="book-hero no-print" id="booking">
+    <div class="bh-eyebrow">🌿 ${name?name+", your":"Your"} report is saved — one last step</div>
+    <h2>Turn this estimate into your exact price</h2>
+    <p>${AD?adTxt(AD.close)+" ":""}This range is an A.I estimate built from typical ${state.propertyType} pricing — your real number depends on your floor plan. In a free consult, a designer prices your exact unit room by room and shows how ${st?st.label:"your style"} works in your actual layout. No pitch, no pressure — you keep the report, the renders and every idea from the session, even if you never work with us. Prepared by June — over 10 years designing Singapore BTO, resale &amp; condo homes.</p>
+    <iframe class="cal-frame" src="${cal}" title="Book your free design consult"></iframe>
   </div>`:""}
+  ${repHero}
+  ${rendersCard}
   <div class="card no-print">
     <h3>Make it exact — when you're ready.</h3>
     <p style="font-size:13px;color:var(--muted);margin-bottom:12px">A free, no-pressure consult with a June designer — over 10 years of Singapore BTO, resale &amp; condo homes — turns this range into an honest, itemised quote for your own floor plan. The report stays yours either way.</p>
@@ -832,7 +851,7 @@ function renderReport(){
     :""}
     <button id="rep-edit" class="no-print" style="margin-top:12px;font-size:12.5px;font-weight:600;color:var(--accent);text-decoration:underline">✎ Adjust my scope &amp; update this estimate</button>
   </div>
-  <p class="rep-disc">* This is an indicative estimate based on typical Singapore renovation pricing for the scope you selected — not a quotation. A.I renders are draft visualisations for inspiration; the final design is tailored to your actual floor plan. ${CONFIG.privacyLine}</p>`;
+  ${repDisc}`;
 }
 
 /* ---------- nav + events ---------- */
