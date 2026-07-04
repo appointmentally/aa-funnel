@@ -578,7 +578,7 @@ function estimate(){
       const t0 = def.t.find(x=>x.level===tier); if(!t0) return;
       const t = resolveTier(t0);
       const l=t.lo*mult, h=tierHi(t)*mult;
-      items.push({label:def.label,tier,lo:l,hi:h}); lo+=l; hi+=h;
+      items.push({label:def.label,tier,lo:l,hi:h,note:t.note||""}); lo+=l; hi+=h;
     });
     if(items.length) sections.push({room,label:ROOM_LABELS[room],mult,items,
       lo:items.reduce((a,b)=>a+b.lo,0), hi:items.reduce((a,b)=>a+b.hi,0)});
