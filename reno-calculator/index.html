@@ -534,13 +534,13 @@ const icon=(n,cls)=>'<svg class="'+(cls||"ico-svg")+'" viewBox="0 0 24 24" fill=
 const fmt = n => CONFIG.currency + Math.round(n).toLocaleString("en-SG");
 const effHi = hi => Math.round(hi * 0.8);
 /* Most-likely band: midpoint ± k, where k tightens as line items stack (sqrt N),
-   floored at ±10% (finish choices correlate across lines). The raw lo–hi span
+   floored at ±15% (finish choices correlate across lines). The raw lo–hi span
    assumes EVERY line lands at its extreme at once — that overstates uncertainty,
    so the span is shown only as small print under the itemised total. */
 function band(est){
   const n=est.nItems||0;
   if(!n || !est.hi) return {lo:est.lo||0, hi:est.hi||0};
-  const mid=(est.lo+est.hi)/2, k=Math.max(0.10, Math.min(0.33, 0.33/Math.sqrt(n)));
+  const mid=(est.lo+est.hi)/2, k=Math.max(0.15, Math.min(0.33, 0.33/Math.sqrt(n)));
   const r=x=>Math.round(x/100)*100;
   return {lo:Math.max(est.lo, r(mid*(1-k))), hi:Math.min(est.hi, r(mid*(1+k)))};
 }
