@@ -533,6 +533,17 @@ const icon=(n,cls)=>'<svg class="'+(cls||"ico-svg")+'" viewBox="0 0 24 24" fill=
 
 const fmt = n => CONFIG.currency + Math.round(n).toLocaleString("en-SG");
 const effHi = hi => Math.round(hi * 0.8);
+/* Most-likely band: midpoint ± k, where k tightens as line items stack (sqrt N),
+   floored at ±10% (finish choices correlate across lines). The raw lo–hi span
+   assumes EVERY line lands at its extreme at once — that overstates uncertainty,
+   so the span is shown only as small print under the itemised total. */
+function band(est){
+  const n=est.nItems||0;
+  if(!n || !est.hi) return {lo:est.lo||0, hi:est.hi||0};
+  const mid=(est.lo+est.hi)/2, k=Math.max(0.10, Math.min(0.33, 0.33/Math.sqrt(n)));
+  const r=x=>Math.round(x/100)*100;
+  return {lo:Math.max(est.lo, r(mid*(1-k))), hi:Math.min(est.hi, r(mid*(1+k)))};
+}
 /* window.print() is a no-op inside FB/IG in-app WebViews — hide the print link there. */
 const IN_APP=/FBAN|FBAV|FB_IAB|Instagram|Line\//i.test(navigator.userAgent);
 const BNAV_HTML=document.querySelector(".bnav-in").innerHTML;
@@ -575,12 +586,13 @@ function estimate(){
     if(items.length) sections.push({room,label:ROOM_LABELS[room],mult,items,
       lo:items.reduce((a,b)=>a+b.lo,0), hi:items.reduce((a,b)=>a+b.hi,0)});
   });
-  return {lo,hi,sections};
+  const nItems = sections.reduce((a,s)=>a+s.items.length,0);
+  return {lo,hi,sections,nItems};
 }
 
 /* ---------- estimate ticker (count-up) ---------- */
 function updateTicker(){
-  const {lo,hi} = estimate();
+  const {lo,hi} = band(estimate());
   animateEst(lastEstimate, {lo,hi});
   lastEstimate = {lo,hi};
 }
@@ -725,7 +737,7 @@ function renderStudio(){
 
 function renderGate(){
   const st=STYLES.find(s=>s.id===state.style);
-  const {lo,hi}=estimate();
+  const {lo,hi}=band(estimate());
   return `
   <div class="gate-hero">
     ${st?`<div class="gate-strip"><span class="gs"><img src="renders/${st.id}-living.jpg" alt=""></span><span class="gs lock"><img src="renders/${st.id}-bedroom.jpg" alt=""><i>${icon("lock","ico-lock")}</i></span><span class="gs lock"><img src="renders/${st.id}-kitchen.jpg" alt=""><i>${icon("lock","ico-lock")}</i></span></div>`:""}
@@ -767,7 +779,7 @@ function calendarSrc(){
 }
 
 function renderReport(){
-  const {lo,hi,sections}=estimate();
+  const est=estimate(), sections=est.sections, {lo,hi}=band(est), spanLo=est.lo, spanHi=est.hi;
   const st=STYLES.find(s=>s.id===state.style);
   const name=(state.lead.name||"").split(" ")[0];
   const cal=calendarSrc();
@@ -791,7 +803,7 @@ function renderReport(){
     <div class="re">Your Reno Blueprint</div>
     <h2>${name?name+", here's":"Here's"} your estimate</h2>
     <div class="big">${fmt(lo)} – ${fmt(hi)}</div>
-    <div class="rn">Estimated range based on your selected scope</div>
+    <div class="rn">Most likely range for your selected scope</div>
     <div class="rn">Where you land in this range depends on your floor plan and finishes — your free consult pins down the exact number.</div>
     ${state.autoScope?`<div class="rn" style="margin-top:4px">We pre-filled a typical ${state.unitStatus==="New"?"BTO":"resale"} scope so your report shows real numbers — adjust anything below or with your designer.</div>`:""}
     <div class="rep-meta">${meta.map(m=>`<span>${m}</span>`).join("")}</div>
@@ -829,7 +841,7 @@ function renderReport(){
         <div class="brk-rt"><span>${s.label}${s.mult>1?` <span style="color:var(--muted);font-weight:400">× ${s.mult}</span>`:""}</span><span class="sub">${fmt(s.lo)} – ${fmt(s.hi)}</span></div>
         ${s.items.map(i=>`<div class="brk-item"><span>${i.label} <span style="opacity:.7">· ${i.tier}</span></span><b>${fmt(i.lo)} – ${fmt(i.hi)}</b></div>`).join("")}
       </div>`).join("")+`
-      <div class="brk-total"><span>Estimated total</span><span class="tv">${fmt(lo)} – ${fmt(hi)}</span></div>`
+      <div class="brk-total"><span>Estimated total <span style="font-weight:400;color:var(--muted);font-size:12px">(most likely)</span></span><span class="tv">${fmt(lo)} – ${fmt(hi)}</span></div>\n      <p style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right">Full span if every line landed at its extreme: ${fmt(spanLo)} – ${fmt(spanHi)}. Most projects land inside the range above.</p>`
     :""}
     <button id="rep-edit" class="no-print" style="margin-top:12px;font-size:12.5px;font-weight:600;color:var(--accent);text-decoration:underline">✎ Adjust my scope &amp; update this estimate</button>
   </div>
@@ -1031,7 +1043,7 @@ async function submitLead(){
   Object.assign(state.lead,{name,phone,email});
   const btn=$("#g-submit"); btn.disabled=true; btn.textContent="Building your Blueprint…";
 
-  const {lo,hi,sections}=estimate();
+  const est=estimate(), sections=est.sections, {lo,hi}=band(est), spanLo=est.lo, spanHi=est.hi;
   const st=STYLES.find(x=>x.id===state.style);
   const payload={
     source:"reno-calculator", brand:CONFIG.brandShort,
@@ -1045,6 +1057,7 @@ async function submitLead(){
     areas:state.areas,
     design_style:st?st.label:"",
     estimate_low:lo, estimate_high:hi,
+    estimate_span_low:spanLo, estimate_span_high:spanHi,
     works:sections.map(s=>({room:s.label,items:s.items})),
     floor_plan_provided:!!state.floorPlan,
     floor_plan_name:state.floorPlan?state.floorPlan.name:null,
