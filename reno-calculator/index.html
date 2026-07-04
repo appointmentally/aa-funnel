@@ -11,9 +11,9 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏠</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,800&family=Inter:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,800&family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,800&family=Inter:wght@400;500;600&display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"></noscript>
 <link rel="preload" as="image" href="renders/japandi-living.jpg" fetchpriority="high">
 <style>
 :root{
@@ -33,13 +33,13 @@ img{max-width:100%;display:block}
 /* ---------- Landing ---------- */
 #landing{min-height:100vh;min-height:100dvh;position:relative;display:flex;align-items:center;justify-content:center;background:var(--ink)}
 #landing .bg{position:absolute;inset:0;background-image:url('renders/japandi-living.jpg');background-size:cover;background-position:center;opacity:.62;filter:saturate(1)}
-#landing .bg-grad{position:absolute;inset:0;background:linear-gradient(100deg,rgba(23,20,16,.9) 0%,rgba(23,20,16,.72) 42%,rgba(23,20,16,.28) 100%)}
-@media(max-width:659px){#landing .bg-grad{background:linear-gradient(180deg,rgba(23,20,16,.85),rgba(23,20,16,.5) 55%,rgba(23,20,16,.85))}}
+#landing .bg-grad{position:absolute;inset:0;background:linear-gradient(100deg,rgba(23,20,16,.92) 0%,rgba(23,20,16,.74) 48%,rgba(23,20,16,.28) 100%)}
+@media(max-width:659px){#landing .bg-grad{background:linear-gradient(180deg,rgba(23,20,16,.88),rgba(23,20,16,.55) 58%,rgba(23,20,16,.85))}}
 .landing-inner{position:relative;z-index:2;width:100%;max-width:1060px;margin:0 auto;padding:36px 20px 44px;display:flex;gap:44px;align-items:center;flex-wrap:wrap}
 .landing-copy{flex:1 1 400px;color:#fff}
 .brand-mark{font-family:'Poppins';font-weight:800;font-style:italic;font-size:26px;letter-spacing:.5px;color:#fff}
 .brand-mark small{display:block;font-style:normal;font-weight:500;font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-top:2px}
-.landing-copy h1{font-size:clamp(28px,4.6vw,44px);font-weight:800;line-height:1.13;margin:26px 0 14px}
+.landing-copy h1{font-size:clamp(28px,4.6vw,44px);font-weight:800;line-height:1.06;letter-spacing:-0.02em;margin:26px 0 14px}
 .landing-copy h1 .hl{color:var(--gold)}
 .landing-sub{color:rgba(255,255,255,.85);font-size:16px;max-width:430px;margin-bottom:22px}
 .landing-points{list-style:none;display:grid;gap:11px;margin-bottom:8px}
@@ -48,16 +48,16 @@ img{max-width:100%;display:block}
 .landing-trust{margin-top:18px;font-size:12px;color:rgba(255,255,255,.55)}
 @media(max-width:759px){ .landing-copy{display:contents} .landing-copy>*{flex:0 0 100%} .landing-card{order:4;flex:0 0 100%} .landing-points{order:5} .landing-trust{order:6} }
 .landing-card{flex:0 1 400px;background:var(--card);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.4);padding:28px 26px}
-.landing-card h2{font-size:17px;font-weight:700;color:var(--accent);margin-bottom:16px}
+.landing-card h2{font-size:18px;font-weight:700;color:var(--accent);margin-bottom:16px}
 .prop-btn{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:14px;border:2px solid var(--line);border-radius:14px;margin-bottom:10px;transition:all .15s;background:#fff}
 .prop-btn .ico{font-size:22px}
 .prop-btn .t{font-weight:600;font-size:14.5px}
 .prop-btn .s{font-size:12px;color:var(--muted)}
-.prop-btn .radio{margin-left:auto;width:19px;height:19px;border-radius:50%;border:2px solid #ccc;display:flex;align-items:center;justify-content:center}
+.prop-btn .radio{margin-left:auto;width:19px;height:19px;border-radius:50%;border:2px solid #ccc;display:flex;align-items:center;justify-content:center;transition:border-color .15s,background .15s}
 .prop-btn.sel{border-color:var(--accent);background:var(--accent);color:#fff}
 .prop-btn.sel .s{color:rgba(255,255,255,.8)}
-.prop-btn.sel .radio{border-color:#fff;background:#fff}
-.prop-btn.sel .radio::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.prop-btn.sel .radio{border-color:#fff;background:var(--accent)}
+.prop-btn.sel .radio::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff}
 .start-btn{width:100%;padding:16px;border-radius:14px;background:#EFEAE0;color:#9b958a;font-weight:700;font-size:15px;margin-top:6px;transition:all .15s}
 .start-btn.ready{background:var(--accent);color:#fff;box-shadow:0 10px 24px rgba(185,87,47,.35)}
 .start-btn.ready:hover{background:var(--accent-dark)}
@@ -279,6 +279,20 @@ input,select,textarea{font-size:16px}
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
+
+/* ---------- landing polish: signature receipt + CRO ---------- */
+.prop-btn{min-height:56px}
+.prop-btn:hover{border-color:var(--accent);background:rgba(185,87,47,.05)}
+.prop-btn:active{transform:scale(.985)}
+.prop-btn.sel:hover{background:var(--accent)}
+#landing :focus-visible{outline-color:var(--gold)}
+.rq-receipt{margin:14px 0 2px;padding:13px 14px 11px;background:var(--soft);border:1px solid var(--line);border-radius:12px}
+.rq-receipt .rq-head{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--muted);margin-bottom:9px}
+.rq-row{display:flex;align-items:baseline;font-size:12.5px;color:var(--ink);margin-bottom:6px}
+.rq-row .rl{font-weight:500}
+.rq-row .rd{flex:1;border-bottom:2px dotted var(--line);margin:0 6px 4px}
+.rq-row .rv{font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,monospace;font-weight:500;font-variant-numeric:tabular-nums}
+.rq-receipt .rq-foot{font-size:10.5px;color:var(--muted);margin-top:8px}
 </style>
 </head>
 <body>
@@ -302,6 +316,13 @@ input,select,textarea{font-size:16px}
     <div class="landing-card">
       <h2>Which home are we renovating?</h2>
       <div id="prop-list"></div>
+      <div class="rq-receipt">
+        <div class="rq-head">Sample — 4-room resale</div>
+        <div class="rq-row"><span class="rl">Whole-house painting</span><span class="rd"></span><span class="rv">S$1,450</span></div>
+        <div class="rq-row"><span class="rl">Vinyl flooring · 969 sqft</span><span class="rd"></span><span class="rv">S$6,180</span></div>
+        <div class="rq-row"><span class="rl">Kitchen cabinets · 20 ft</span><span class="rd"></span><span class="rv">S$2,900</span></div>
+        <div class="rq-foot">Your Reno Blueprint prices every line like this.</div>
+      </div>
       <p class="start-hint" id="start-hint">Tap your home type to start · about 2 minutes</p>
     </div>
   </div>

@@ -31,31 +31,34 @@ img{max-width:100%;display:block}
 .hidden{display:none!important}
 
 /* ---------- Landing (light, centered — technical drawing) ---------- */
-#landing{min-height:100vh;min-height:100dvh;position:relative;display:flex;align-items:center;justify-content:center;background:var(--bg)}
+#landing{min-height:100vh;min-height:100dvh;position:relative;display:flex;align-items:center;justify-content:center;background:var(--bg);background-image:repeating-linear-gradient(0deg,rgba(36,71,214,.045) 0 1px,transparent 1px 24px),repeating-linear-gradient(90deg,rgba(36,71,214,.045) 0 1px,transparent 1px 24px)}
 .landing-inner{position:relative;z-index:2;width:100%;max-width:660px;margin:0 auto;padding:48px 22px 56px;text-align:center;color:var(--ink)}
 .brand-mark{font-family:'Archivo',system-ui,sans-serif;font-weight:800;font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--ink)}
 .brand-mark::before{content:"";display:inline-block;width:10px;height:10px;background:var(--accent);margin-right:9px}
 .brand-mark small{display:block;font-size:9px;letter-spacing:5px;color:var(--muted);margin-top:4px;font-weight:600;text-transform:uppercase}
-.landing-inner h1{font-size:clamp(30px,6.4vw,46px);font-weight:800;line-height:1.08;margin:30px 0 14px;letter-spacing:-.02em}
-.landing-inner h1 .hl{background:linear-gradient(180deg,transparent 58%,rgba(232,178,26,.75) 58%);padding:0 2px}
-.landing-sub{color:var(--muted);font-size:16px;max-width:460px;margin:0 auto 24px}
+.landing-inner h1{font-size:clamp(30px,6.6vw,48px);font-weight:800;line-height:1.05;margin:30px 0 14px;letter-spacing:-.015em}
+.landing-inner h1 .hl{background:linear-gradient(180deg,transparent 58%,rgba(232,178,26,.75) 58%);padding:0 2px;position:relative;display:inline-block}
+.landing-inner h1 .hl::after{content:"";position:absolute;left:1px;right:1px;bottom:-6px;height:7px;border-bottom:1.5px solid var(--accent);border-left:1.5px solid var(--accent);border-right:1.5px solid var(--accent)}
+.landing-sub{color:var(--muted);font-size:16px;max-width:440px;margin:0 auto 24px}
 .landing-points{list-style:none;display:grid;gap:9px;margin:24px auto 0;max-width:440px;text-align:left}
 .landing-points li{display:flex;gap:10px;align-items:flex-start;font-weight:500;font-size:14px;color:var(--ink)}
-.landing-points .tick{flex:0 0 19px;height:19px;background:#fff;border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--accent);margin-top:2px;border-radius:3px}
+.landing-points .tick{flex:0 0 6px;width:6px;height:6px;background:var(--accent);display:inline-block;margin-top:7px}
 .prop-grid{display:grid;gap:10px;margin:0 auto;max-width:440px}
-.prop-btn{width:100%;display:flex;align-items:center;gap:13px;text-align:left;padding:15px 16px;border:2px solid var(--line);border-radius:var(--radius);background:#fff;transition:all .15s;color:var(--ink)}
+.prop-btn{width:100%;min-height:56px;display:flex;align-items:center;gap:13px;text-align:left;padding:15px 16px;border:2px solid var(--line);border-radius:var(--radius);background:#fff;transition:all .15s;color:var(--ink)}
 .prop-btn:hover{border-color:var(--accent)}
+.prop-btn:active{transform:scale(.985)}
 .prop-btn .ico{font-size:22px;color:var(--accent)}
 .prop-btn .t{font-weight:700;font-size:15px}
 .prop-btn .s{font-size:12px;color:var(--muted)}
 .prop-btn .go{margin-left:auto;font-size:17px;color:var(--accent);transition:transform .15s}
 .prop-btn:hover .go{transform:translateX(3px)}
-.prop-btn.sel{border-color:var(--accent);background:rgba(36,71,214,.06)}
+.prop-btn.sel{border-color:var(--accent);background:var(--accent);color:#fff}
+.prop-btn.sel .s{color:rgba(255,255,255,.8)}
+.prop-btn.sel .ico,.prop-btn.sel .go{color:#fff}
 .landing-trust{margin-top:22px;font-size:11.5px;color:var(--muted);letter-spacing:.3px}
-.landing-render{margin:38px auto 0}
+.landing-render{margin:38px auto 0;position:relative}
 .landing-render img{width:100%;height:auto;aspect-ratio:21/9;object-fit:cover;border-radius:var(--radius);border:2px solid var(--line)}
-.landing-render .lr-tag{margin-top:9px;font-size:10.5px;letter-spacing:1.8px;text-transform:uppercase;font-weight:700;color:var(--muted)}
-.landing-render .lr-tag::before{content:"";display:inline-block;width:8px;height:8px;background:var(--hl);margin-right:8px}
+.landing-render .lr-plate{position:absolute;top:-9px;left:14px;z-index:2;background:#fff;border:2px solid var(--accent);color:var(--ink);font-family:'Archivo',system-ui,sans-serif;font-weight:600;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 9px;line-height:1.3}
 
 /* ---------- App shell: single centered column + top progress ---------- */
 #app{display:none;min-height:100vh;min-height:100dvh}
@@ -234,6 +237,7 @@ img{max-width:100%;display:block}
 input,select,textarea{font-size:16px}
 .chip,.tier-btn,.unit-tog button,.prop-btn{min-height:44px}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#landing :focus-visible{outline-color:var(--hl)}
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
@@ -249,15 +253,15 @@ input,select,textarea{font-size:16px}
     <p class="landing-sub">Free itemised estimate built on typical Singapore market rates, plus A.I concept renders of a home like yours in 6 designer styles. About 2 minutes.</p>
     <div class="prop-grid" id="prop-list"></div>
     <ul class="landing-points">
-      <li><span class="tick">✓</span><span>Every work priced line by line — hacking, carpentry, wet works — the way a proper quotation is built</span></li>
-      <li><span class="tick">✓</span><span>A.I concept renders of a home like yours in 6 designer styles — on the spot</span></li>
-      <li><span class="tick">✓</span><span>Keep your Build Plan — measure every ID quote you collect against it, line by line</span></li>
-      <li><span class="tick">✓</span><span>Since 2016 · HDB Licensed (HB-07-5638B) · CaseTrust accredited</span></li>
+      <li><span class="tick" aria-hidden="true"></span><span>Every work priced line by line — hacking, carpentry, wet works — the way a proper quotation is built</span></li>
+      <li><span class="tick" aria-hidden="true"></span><span>A.I concept renders of a home like yours in 6 designer styles — on the spot</span></li>
+      <li><span class="tick" aria-hidden="true"></span><span>Keep your Build Plan — measure every ID quote you collect against it, line by line</span></li>
+      <li><span class="tick" aria-hidden="true"></span><span>Since 2016 · HDB Licensed (HB-07-5638B) · CaseTrust accredited</span></li>
     </ul>
     <p class="landing-trust" id="l-trust">Tap your home type to start · about 2 minutes · 100% free · Your data protected under the PDPA</p>
     <div class="landing-render">
+      <span class="lr-plate" aria-hidden="true">SHEET 01 · A.I CONCEPT — LIVING ROOM</span>
       <img src="../reno-calculator/renders/industrial-living.jpg" alt="A.I concept render of a Singapore living room" width="1376" height="590" fetchpriority="high" decoding="async">
-      <p class="lr-tag">A.I concept render — pick your style inside</p>
     </div>
   </div>
 </section>
@@ -435,9 +439,9 @@ const STYLES = [
 const ROOM_RENDER_LABELS = {living:"Living / Dining", bedroom:"Master Bedroom", kitchen:"Kitchen"};
 
 const PROPERTY_TYPES = [
-  {value:"HDB",label:"HDB",sub:"BTO & resale public housing",icon:"building"},
-  {value:"Condominium",label:"Condominium",sub:"Private condo & apartment",icon:"city"},
-  {value:"Landed",label:"Landed Property",sub:"Terrace, semi-D & bungalow",icon:"home"},
+  {value:"HDB",label:"HDB",sub:"3-room to executive · BTO & resale",icon:"building"},
+  {value:"Condominium",label:"Condominium",sub:"New launch & resale condos",icon:"city"},
+  {value:"Landed",label:"Landed Property",sub:"Terrace · semi-D · bungalow",icon:"home"},
 ];
 const AREAS = ["Living/Dining","Kitchen","Bedrooms","Bathrooms","Study","Others"];
 const AREA_TO_ROOM = {"Living/Dining":"living-room",Kitchen:"kitchen",Bedrooms:"bedrooms",Bathrooms:"bathrooms"};

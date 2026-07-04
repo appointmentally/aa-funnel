@@ -37,15 +37,28 @@ img{max-width:100%;display:block}
 .landing-inner{position:relative;z-index:2;width:100%;max-width:640px;margin:0 auto;padding:44px 22px 52px;text-align:center;color:#fff}
 .brand-mark{font-family:'Space Grotesk';font-weight:700;font-size:15px;letter-spacing:4px;text-transform:uppercase;color:#fff}
 .brand-mark small{display:block;font-size:9px;letter-spacing:5px;color:#7ED9CB;margin-top:3px;font-weight:500}
-.landing-inner h1{font-size:clamp(30px,6.4vw,46px);font-weight:700;line-height:1.08;margin:30px 0 14px}
-.landing-inner h1 .hl{color:#39C7B2}
+.landing-inner h1{font-size:clamp(30px,6.8vw,50px);font-weight:700;line-height:1.06;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin:30px 0 14px}
+.landing-inner h1 .hl{color:#39C7B2;position:relative;display:inline-block}
+.landing-inner h1 .hl::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:3px;border-radius:2px;background:#39C7B2}
+@media (prefers-reduced-motion: no-preference){
+  .landing-inner h1 .hl::after{transform:scaleX(0);transform-origin:left;animation:hl-draw .45s ease-out .25s forwards}
+}
+@keyframes hl-draw{to{transform:scaleX(1)}}
 .landing-sub{color:rgba(255,255,255,.78);font-size:16px;max-width:440px;margin:0 auto 24px}
+/* signature: the audit line — one mock padded quote row vs the market rate */
+.ml-audit{max-width:440px;margin:0 auto 18px;font-family:'Space Grotesk',system-ui,sans-serif;font-variant-numeric:tabular-nums}
+.ml-audit-row{display:flex;align-items:baseline;justify-content:center;gap:12px;font-size:14.5px;line-height:1.3;white-space:nowrap}
+.ml-audit .al{color:rgba(255,255,255,.72);font-weight:500}
+.ml-audit .ax{color:#E06C5B;font-weight:600;text-decoration-line:line-through;text-decoration-color:#E06C5B;text-decoration-thickness:1.5px}
+.ml-audit .aok{color:#39C7B2;font-weight:700;border-bottom:1px solid rgba(57,199,178,.6);padding-bottom:1px}
+.ml-audit-cap{font-family:'Inter',system-ui,sans-serif;font-size:11px;color:rgba(255,255,255,.55);margin-top:5px;text-align:center}
 .landing-points{list-style:none;display:grid;gap:9px;margin:24px auto 0;max-width:420px;text-align:left}
 .landing-points li{display:flex;gap:10px;align-items:flex-start;font-weight:500;font-size:14px;color:#fff}
 .landing-points .tick{flex:0 0 19px;height:19px;background:rgba(57,199,178,.16);border:1px solid #39C7B2;display:flex;align-items:center;justify-content:center;font-size:10px;color:#39C7B2;margin-top:2px;border-radius:5px}
 .prop-grid{display:grid;gap:10px;margin:0 auto;max-width:440px}
 .prop-btn{width:100%;display:flex;align-items:center;gap:13px;text-align:left;padding:15px 16px;border:1px solid rgba(255,255,255,.18);border-radius:var(--radius);background:rgba(255,255,255,.06);backdrop-filter:blur(6px);transition:all .15s;color:#fff}
-.prop-btn:hover{border-color:#39C7B2;background:rgba(57,199,178,.1)}
+.prop-btn:hover{border-color:#39C7B2;background:rgba(57,199,178,.12)}
+.prop-btn:active{transform:scale(.985)}
 .prop-btn .ico{font-size:22px}
 .prop-btn .t{font-weight:600;font-size:15px}
 .prop-btn .s{font-size:12px;color:rgba(255,255,255,.6)}
@@ -229,7 +242,9 @@ img{max-width:100%;display:block}
 .sw i{width:13px;height:13px;border-radius:50%;border:1px solid rgba(0,0,0,.1);display:inline-block}
 input,select,textarea{font-size:16px}
 .chip,.tier-btn,.unit-tog button,.prop-btn{min-height:44px}
+.prop-btn{min-height:56px}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#landing :focus-visible{outline-color:#39C7B2}
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
@@ -244,6 +259,10 @@ input,select,textarea{font-size:16px}
     <div class="brand-mark" id="l-brand">Modern Living<small>Interior Design</small></div>
     <h1>Been quoted S$50K+ for your reno? See what it should <span class="hl">actually cost</span> — line by line.</h1>
     <p class="landing-sub">Free 2-minute check: an itemised estimate built on typical Singapore market rates, plus A.I concept renders of a home like yours in 6 designer styles. No showroom visit needed — everything on your screen.</p>
+    <div class="ml-audit">
+      <div class="ml-audit-row"><span class="al">Carpentry, 25 ft</span> <s class="ax">S$6,250</s> <span class="aok">S$3,750</span></div>
+      <div class="ml-audit-cap">a typical padded line vs the market rate — we check every line like this</div>
+    </div>
     <div class="prop-grid" id="prop-list"></div>
     <ul class="landing-points">
       <li><span class="tick">✓</span><span>Itemised to the line: 15 work categories, each in Light / Moderate / Extensive</span></li>
