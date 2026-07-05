@@ -45,6 +45,10 @@ img{max-width:100%;display:block}
 .landing-points{list-style:none;display:grid;gap:10px;margin-top:24px}
 .landing-points li{padding-left:12px;border-left:3px solid var(--line);font-weight:500;font-size:14px}
 .landing-points li:first-child{border-left-color:var(--accent)}
+.prop-cue{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.prop-cue .cue-arrow{font-size:15px;line-height:1;animation:cueBounce 1.4s ease-in-out infinite}
+@keyframes cueBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+@media (prefers-reduced-motion:reduce){.prop-cue .cue-arrow{animation:none}}
 .prop-grid{display:grid;gap:10px;max-width:420px}
 .prop-btn{width:100%;display:flex;align-items:center;gap:13px;text-align:left;padding:15px 18px;border:1.5px solid var(--line);border-radius:999px;background:#fff;transition:all .15s}
 .prop-btn:hover{border-color:var(--accent);background:var(--soft)}
@@ -286,6 +290,7 @@ input,select,textarea{font-size:16px}
       <div class="brand-mark" id="l-brand">June<small>Interior Design</small></div>
       <h1>See your renovation cost in <em>under 60 seconds</em>.</h1>
       <p class="landing-sub">Less is more — a free, honest, itemised estimate for your home, plus free A.I concept renders in the style you'd pick. No sign-up to start, no pressure.</p>
+      <div class="prop-cue">Tap your property type to begin <span class="cue-arrow" aria-hidden="true">↓</span></div>
       <div class="prop-grid" id="prop-list"></div>
       <ul class="landing-points">
         <li>Over 10 years designing Singapore BTO, resale &amp; condo homes</li>
