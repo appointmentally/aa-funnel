@@ -1068,6 +1068,13 @@ async function submitLead(){
   Object.assign(state.lead,{name,phone,email});
   const btn=$("#g-submit"); btn.disabled=true; btn.textContent="Preparing your Honest Reno Report…";
 
+  // Meta Advanced Matching data (normalised) + shared event id for browser<>CAPI dedup
+  const _em=(email||"").trim().toLowerCase();
+  let _ph=(phone||"").replace(/[^0-9]/g,""); if(_ph.length===8) _ph="65"+_ph;
+  const _nm=(name||"").trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const _fn=_nm[0]||"", _ln=_nm.slice(1).join(" ");
+  const _eid="lead."+Date.now()+"."+Math.random().toString(36).slice(2,10);
+
   const est=estimate(), sections=est.sections, {lo,hi}=band(est), spanLo=est.lo, spanHi=est.hi;
   const st=STYLES.find(x=>x.id===state.style);
   const payload={
@@ -1091,6 +1098,7 @@ async function submitLead(){
     submitted_at:new Date().toISOString(),
     consent_text:CONFIG.privacyLine, consent_method:"form-submit",
     headline_variant:AD_KEY||"default", ad_identity:AD_HOME,
+    event_id:_eid,
   };
   if(CONFIG.webhookUrl){
     try{
@@ -1099,7 +1107,7 @@ async function submitLead(){
       try{ navigator.sendBeacon(CONFIG.webhookUrl, new Blob([JSON.stringify(payload)],{type:"application/json"})); }catch(e2){}
     }
   }
-  track("Lead",{value:lo,currency:"SGD",property_type:state.propertyType,style:payload.design_style,variant:AD_KEY||"default"});
+  track("Lead",{value:lo,currency:"SGD",property_type:state.propertyType,style:payload.design_style,variant:AD_KEY||"default",event_id:_eid,_am:{em:_em,ph:_ph,fn:_fn,ln:_ln}});
   state.submitted=true;
   if(CONFIG.bookConsultUrl){
     const parts=(state.lead.name||"").trim().split(" ");
