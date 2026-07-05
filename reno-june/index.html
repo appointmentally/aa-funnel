@@ -1172,22 +1172,31 @@ bindNav();
 /* ---------- boot: resume session → ad-param skip → landing ---------- */
 const TYPE_MAP={hdb:"HDB",condo:"Condominium",landed:"Landed"};
 (function boot(){
-  try{
-    const sv=JSON.parse(sessionStorage.getItem("renoState:june")||"null");
-    if(sv && sv.propertyType && !sv.submitted){
-      Object.assign(state,sv);
+  const preType=TYPE_MAP[(QS.get("type")||"").toLowerCase()];
+  const u=(QS.get("u")||"").toLowerCase();
+  /* pre-scope from ad params so a tap-through is already set — but never hide the landing headline */
+  if(preType){
+    state.propertyType=preType;
+    if(u==="bto")state.unitStatus="New"; else if(u==="resale")state.unitStatus="Resale";
+  }
+  /* A congruence ad click carries its own headline (?h=…). ALWAYS show the landing so that morph is seen.
+     Only resume an in-progress session / auto-skip into the calculator when there is NO headline param. */
+  if(!AD_KEY){
+    try{
+      const sv=JSON.parse(sessionStorage.getItem("renoState:june")||"null");
+      if(sv && sv.propertyType && !sv.submitted){
+        Object.assign(state,sv);
+        $("#landing").style.display="none"; $("#app").classList.add("on"); render();
+        return;
+      }
+    }catch(e){}
+    if(preType && QS.get("start")!=="land"){
+      track("StartCalculator",{property_type:preType,via:"ad_param",variant:"default"});
       $("#landing").style.display="none"; $("#app").classList.add("on"); render();
       return;
     }
-  }catch(e){}
-  const preType=TYPE_MAP[(QS.get("type")||"").toLowerCase()];
-  if(preType && QS.get("start")!=="land"){
-    state.propertyType=preType;
-    const u=(QS.get("u")||"").toLowerCase();
-    if(u==="bto")state.unitStatus="New"; else if(u==="resale")state.unitStatus="Resale";
-    track("StartCalculator",{property_type:preType,via:"ad_param",variant:AD_KEY||"default"});
-    $("#landing").style.display="none"; $("#app").classList.add("on"); render();
-  } else {
+  }
+  {
     
 /* ---- social proof toast (CONFIG.socialProof; seed now, prepend real claims to .real over time) ---- */
 (function(){
