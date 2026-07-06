@@ -328,7 +328,7 @@ input,select,textarea{font-size:16px}
   <nav class="bnav no-print" id="bnav">
     <div class="bnav-in">
       <button class="back" id="nav-back">←</button>
-      <div class="bnav-est"><div class="l">Est. budget</div><div class="v" id="m-est">S$0</div></div>
+      <div class="bnav-est"><div class="l">Estimate</div><div class="v" id="m-est">🔒 Locked</div></div>
       <button class="next" id="nav-next">Next →</button>
     </div>
   </nav>
@@ -630,9 +630,8 @@ function estimate(){
 }
 
 function updateTicker(){
-  const {lo,hi} = band(estimate());
-  animateEst(lastEstimate, {lo,hi});
-  lastEstimate = {lo,hi};
+  const m=$("#m-est"); if(!m) return;
+  m.textContent = estimate().hi ? "🔒 Ready" : "🔒 Locked";
 }
 let animFrame;
 function animateEst(from,to){
@@ -725,11 +724,12 @@ function renderRoom(room){
     const tier=sel[d.id]; const on=!!tier;
     const t0=on?d.t.find(x=>x.level===tier):null;
     const t=t0?resolveTier(t0):null;
+    const fill=on?Math.min(3,d.t.findIndex(x=>x.level===tier)+1):0;
     return `<div class="work ${on?"on":""}" data-room="${room}" data-work="${d.id}">
       <div class="work-head"><span class="work-tick">✓</span><span><span class="wt">${d.label}</span><br><span class="wd">${d.desc}</span></span></div>
       <div class="work-body">
         <div class="tier-row">${d.t.map(x=>`<button class="tier-btn ${tier===x.level?"sel":""}" data-tier="${x.level}">${x.level}</button>`).join("")}</div>
-        ${t?`<div class="tier-cost">Approx. cost: <b>${fmtRange(t.lo*mult, tierHi(t)*mult)}</b><span>${t.note}</span></div>`:""}
+        ${t?`<div class="tier-cost"><b>${"$".repeat(fill)}<i style="font-style:normal;opacity:.32">${"$".repeat(3-fill)}</i></b><span>${t.note}</span></div>`:""}
       </div>
     </div>`;
   }).join("")}`;
