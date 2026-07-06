@@ -735,12 +735,11 @@ function renderRoom(room){
     const tier=sel[d.id]; const on=!!tier;
     const t0=on?d.t.find(x=>x.level===tier):null;
     const t=t0?resolveTier(t0):null;
-    const fill=on?Math.min(3,d.t.findIndex(x=>x.level===tier)+1):0;
     return `<div class="work ${on?"on":""}" data-room="${room}" data-work="${d.id}">
       <div class="work-head"><span class="work-tick">✓</span><span><span class="wt">${d.label}</span><br><span class="wd">${d.desc}</span></span></div>
       <div class="work-body">
         <div class="tier-row">${d.t.map(x=>`<button class="tier-btn ${tier===x.level?"sel":""}" data-tier="${x.level}">${x.level}</button>`).join("")}</div>
-        ${t?`<div class="tier-cost"><b>${"$".repeat(fill)}<i style="font-style:normal;opacity:.32">${"$".repeat(3-fill)}</i></b><span>${t.note}</span></div>`:""}
+        ${t?`<div class="tier-cost">Approx. cost: <b>${fmtRange(t.lo*mult, tierHi(t)*mult)}</b><span>${t.note}</span></div>`:""}
       </div>
     </div>`;
   }).join("")}`;
