@@ -224,6 +224,9 @@ img{max-width:100%;display:block}
 .bnav-est{flex:1;text-align:center;line-height:1.15}
 .bnav-est .l{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700}
 .bnav-est .v{font-family:'Fraunces';font-weight:700;font-size:14px;color:var(--accent-dark);font-variant-numeric:tabular-nums}
+.est-track{height:6px;background:var(--soft);border:1px solid var(--line);border-radius:99px;overflow:hidden;max-width:160px;margin:5px auto 3px}
+.est-fill{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),#8FA07C);border-radius:99px;transition:width .55s cubic-bezier(.2,.8,.2,1)}
+.est-cap{font-size:9.5px;font-weight:700;letter-spacing:.3px;color:var(--accent-dark)}
 .bnav .next{padding:13px 24px;border-radius:999px;background:var(--accent);color:#fff;font-weight:700;font-size:14px;box-shadow:0 8px 20px rgba(95,112,80,.3);white-space:nowrap}
 .bnav .next:hover{background:var(--accent-dark)}
 .bnav .next:disabled{background:#D8D2C4;box-shadow:none;cursor:default}
@@ -328,7 +331,7 @@ input,select,textarea{font-size:16px}
   <nav class="bnav no-print" id="bnav">
     <div class="bnav-in">
       <button class="back" id="nav-back">←</button>
-      <div class="bnav-est"><div class="l">Estimate</div><div class="v" id="m-est">🔒 Locked</div></div>
+      <div class="bnav-est"><div class="l">Your estimate</div><div class="est-track"><span class="est-fill" id="m-estfill"></span></div><div class="est-cap" id="m-estcap">Building…</div></div>
       <button class="next" id="nav-next">Next →</button>
     </div>
   </nav>
@@ -630,8 +633,16 @@ function estimate(){
 }
 
 function updateTicker(){
-  const m=$("#m-est"); if(!m) return;
-  m.textContent = estimate().hi ? "🔒 Ready" : "🔒 Locked";
+  const fill=$("#m-estfill"), cap=$("#m-estcap"); if(!fill||!cap) return;
+  const s=currentStep();
+  let priced=0,total=0;
+  const rooms=state.areas.map(a=>AREA_TO_ROOM[a]).filter(Boolean).concat(["other-works"]);
+  rooms.forEach(r=>{ const defs=ROOM_WORKS[r]||[]; total+=defs.length; const sel=state.works[r]||{}; defs.forEach(d=>{ if(sel[d.id]) priced++; }); });
+  const ready = (s.id==="studio" || s.id==="gate");
+  let pct = ready ? 100 : (total ? Math.round(priced/total*100) : 0);
+  if(!ready && priced>0 && pct<10) pct=10;
+  fill.style.width = pct + "%";
+  cap.textContent = ready ? "Ready to reveal ✨" : "Building…";
 }
 let animFrame;
 function animateEst(from,to){
