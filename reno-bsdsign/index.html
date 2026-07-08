@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Free A.I Reno Estimator — BSD'sign (BoonSiew D'sign)</title>
+<meta name="description" content="Less is more. See your renovated HDB or condo in 3D and get a calm, honest itemised estimate — free, in about 2 minutes.">
+<meta property="og:title" content="See your renovation cost in under 60 seconds — free itemised estimate + A.I renders">
+<meta property="og:description" content="Less is more. Free A.I 3D renders + an honest itemised renovation estimate for Singapore homes.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://appointmentally.github.io/aa-funnel/reno-calculator/renders/japandi-living.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://appointmentally.github.io/aa-funnel/reno-calculator/renders/japandi-living.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"></noscript>
+<style>
+:root{
+  --bg:#F3F0E9; --ink:#1B2A3A; --muted:#5E6B78; --accent:#B07A2E; --accent-dark:#8A5E1F;
+  --soft:#ECE6D8; --card:#FFFFFF; --line:#E3DCCB; --good:#B07A2E; --bad:#B3432F;
+  --radius:18px; --shadow:0 10px 32px rgba(43,39,35,.07);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:15px}
+h1,h2,.font-head{font-family:'Archivo',Georgia,serif;letter-spacing:-.01em;font-weight:600}
+h3,h4{font-family:'Inter'}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,select{font-family:inherit;font-size:16px}
+img{max-width:100%;display:block}
+.hidden{display:none!important}
+
+/* ---------- Landing (light, airy split) ---------- */
+#landing{min-height:100vh;min-height:100dvh;background:var(--bg);display:flex;align-items:center}
+.landing-inner{width:100%;max-width:1020px;margin:0 auto;padding:44px 22px 52px;display:flex;gap:48px;align-items:center;flex-wrap:wrap}
+.landing-copy{flex:1 1 380px}
+.brand-mark{font-family:'Archivo';font-weight:800;font-style:normal;font-size:27px;letter-spacing:-.02em;color:var(--ink)}
+.brand-mark small{display:block;font-family:'Inter';font-style:normal;font-weight:600;font-size:9px;letter-spacing:4.5px;color:var(--accent);text-transform:uppercase;margin-top:2px}
+.landing-copy h1{font-size:clamp(31px,5.2vw,46px);line-height:1.1;margin:24px 0 12px}
+.landing-copy h1 em{font-style:italic;color:var(--accent)}
+.landing-sub{color:var(--muted);font-size:16px;max-width:400px;margin-bottom:20px}
+.landing-points{list-style:none;display:grid;gap:10px;margin-top:24px}
+.landing-points li{padding-left:12px;border-left:3px solid var(--line);font-weight:500;font-size:14px}
+.landing-points li:first-child{border-left-color:var(--accent)}
+.prop-cue{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.prop-cue .cue-arrow{font-size:15px;line-height:1;animation:cueBounce 1.4s ease-in-out infinite}
+@keyframes cueBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+@media (prefers-reduced-motion:reduce){.prop-cue .cue-arrow{animation:none}}
+.prop-grid{display:grid;gap:10px;max-width:420px}
+.prop-btn{width:100%;display:flex;align-items:center;gap:13px;text-align:left;padding:15px 18px;border:1.5px solid var(--line);border-radius:999px;background:#fff;transition:all .15s}
+.prop-btn:hover{border-color:var(--accent);background:var(--soft)}
+.prop-btn:active{transform:scale(.985)}
+.prop-btn .ico{font-size:20px}
+.prop-btn .t{font-weight:600;font-size:14.5px}
+.prop-btn .s{font-size:11.5px;color:var(--muted)}
+.prop-btn .go{margin-left:auto;font-size:16px;color:var(--accent);transition:transform .15s}
+.prop-btn:hover .go{transform:translateX(3px)}
+.prop-btn.sel{border-color:var(--accent);background:var(--accent);color:#fff}
+.prop-btn.sel .s{color:rgba(255,255,255,.8)}
+.prop-btn.sel .go{color:#fff}
+.landing-trust{margin-top:16px;padding-top:12px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted)}
+.landing-art{flex:1 1 340px;display:flex;justify-content:center}
+.arch{width:min(380px,86vw);aspect-ratio:4/5;border-radius:999px 999px 22px 22px;overflow:hidden;box-shadow:0 26px 60px rgba(43,39,35,.18);position:relative}
+.arch img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.arch .arch-top{z-index:2}
+@keyframes archFade{0%,100%{opacity:1}50%{opacity:0}}
+@media (prefers-reduced-motion: no-preference){ .arch .arch-top{animation:archFade 12s ease-in-out infinite} }
+.arch .tag{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:3;background:rgba(255,255,255,.92);border-radius:99px;padding:7px 16px;font-size:11px;font-weight:600;color:var(--ink);white-space:nowrap}
+@media(max-width:760px){ .landing-inner{padding-top:30px} .arch{aspect-ratio:21/10;width:100%;border-radius:120px 120px 18px 18px} }
+
+/* ---------- App shell: centered column, serif headings, pill accents ---------- */
+#app{display:none;min-height:100vh;min-height:100dvh}
+#app.on{display:block}
+.mtop{position:sticky;top:0;z-index:40;background:rgba(251,247,240,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:10px 18px 0}
+.mtop-row{display:flex;justify-content:space-between;align-items:center;max-width:680px;margin:0 auto}
+.mtop .brand-mark{font-size:19px}
+.mtop .brand-mark small{display:inline;margin-left:8px;letter-spacing:3px;font-size:8px}
+.mtop-step{font-size:11.5px;font-weight:600;color:var(--muted)}
+.mtop-track{height:4px;background:var(--soft);margin-top:9px;overflow:hidden;max-width:680px;margin-left:auto;margin-right:auto;border-radius:99px 99px 0 0}
+.prog-fill{height:100%;background:var(--accent);width:0%;transition:width .4s;border-radius:99px}
+.shell{max-width:680px;margin:0 auto;padding:20px 16px calc(96px + env(safe-area-inset-bottom))}
+.step-head{margin-bottom:20px}
+.step-head .eyebrow{font-size:10.5px;letter-spacing:3px;text-transform:uppercase;font-weight:700;color:var(--accent)}
+.step-head h2{font-size:clamp(23px,3.6vw,30px);margin-top:5px;font-style:normal;letter-spacing:-.01em}
+.step-head p{color:var(--muted);font-size:13.5px;margin-top:5px;max-width:560px}
+.card{background:var(--card);border-radius:var(--radius);border:1px solid var(--line);box-shadow:none;padding:24px;margin-bottom:16px}
+.card h3{font-family:'Archivo',Georgia,serif;font-size:17px;font-weight:600;letter-spacing:-.01em;padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:11px 17px;border:1.5px solid var(--line);border-radius:999px;font-size:13.5px;font-weight:600;background:#fff;transition:all .12s;min-width:52px;text-align:center}
+.chip:hover{border-color:var(--accent)}
+.chip.sel{border-color:var(--accent);background:var(--accent);color:#fff}
+.lbl-sm{font-size:12px;font-weight:600;color:var(--muted);margin:12px 0 7px}
+.lbl-sm:first-of-type{margin-top:0}
+.size-row{display:flex;gap:8px}
+.size-row input{flex:1;min-width:0;padding:12px 16px;border:1.5px solid var(--line);border-radius:999px;outline:none;font-weight:600;background:#fff}
+.size-row input:focus{border-color:var(--accent)}
+.unit-tog{display:flex;border:1.5px solid var(--line);border-radius:999px;overflow:hidden}
+.unit-tog button{padding:0 15px;font-size:13px;font-weight:600;color:var(--muted)}
+.unit-tog button.sel{background:var(--accent);color:#fff}
+
+/* work cards */
+.work{border:1px solid var(--line);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;transition:border-color .15s,background-color .15s;background:#fff}
+.work.on{border-color:var(--accent);background:#F7F3EA}
+.work-head{display:flex;gap:12px;align-items:flex-start;padding:15px 17px;cursor:pointer;user-select:none}
+.work-head .wt{font-weight:600;font-size:14.5px}
+.work-head .wd{font-size:12px;color:var(--muted);margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.work.on .work-head .wd{-webkit-line-clamp:unset}
+.work-tick{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;margin-top:1px;transition:all .12s}
+.work.on .work-tick{background:var(--accent);border-color:var(--accent)}
+.work-body{display:none;padding:0 17px 15px}
+.work.on .work-body{display:block}
+.tier-row{display:flex;gap:6px;margin-bottom:10px}
+.tier-btn{flex:1;padding:12px 4px;border:1.5px solid var(--line);border-radius:999px;font-size:12.5px;font-weight:600;background:#fff}
+.tier-btn.sel{border-color:var(--accent);background:var(--accent);color:#fff}
+.tier-cost{background:var(--soft);border-radius:12px;padding:10px 14px;font-size:12.5px}
+.tier-cost b{color:var(--accent-dark);font-size:14px}
+.tier-cost span{display:block;color:var(--muted);margin-top:2px;font-size:11.5px}
+.quickfill{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--accent-dark);background:var(--soft);border:1px dashed var(--accent);padding:8px 15px;border-radius:99px;margin-bottom:14px}
+.quickfill:hover{background:#E7DECB}
+
+/* studio */
+.style-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+@media(min-width:620px){.style-grid{grid-template-columns:repeat(3,1fr)}}
+.style-card{border:1.5px solid var(--line);border-radius:14px;padding:0;overflow:hidden;text-align:left;background:#fff;transition:all .12s}
+.style-card .se{font-size:19px}
+.style-card .sc-img{display:block;aspect-ratio:16/10;background:var(--soft)}
+.style-card .sc-img img{width:100%;height:100%;object-fit:cover}
+.style-card .sl{font-weight:600;font-size:13px;margin:8px 10px 0}
+.style-card .sd{font-size:11px;color:var(--muted);line-height:1.35;margin:2px 10px 10px}
+.style-card.sel{border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
+.style-writeup{margin-top:14px;background:var(--soft);border-radius:14px;padding:14px 17px;font-size:12.5px;line-height:1.6}
+.style-writeup b{color:var(--accent-dark)}
+.render-grid{display:grid;gap:12px;margin-top:14px}
+@media(min-width:620px){.render-grid{grid-template-columns:1fr 1fr}}
+.render-card{position:relative;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,var(--soft),#E7DECB);aspect-ratio:16/9}
+.render-card img{width:100%;height:100%;object-fit:cover}
+.render-card.main-render{grid-column:1/-1;border-radius:110px 110px 16px 16px}
+.render-tag{position:absolute;left:12px;top:12px;background:rgba(43,39,35,.72);color:#fff;font-size:11px;font-weight:600;padding:5px 12px;border-radius:99px;backdrop-filter:blur(4px)}
+.render-card.main-render .render-tag{left:50%;transform:translateX(-50%);top:auto;bottom:12px}
+.render-card.locked img{filter:blur(9px) saturate(1.1);transform:scale(1.06)}
+.lock-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#fff;background:rgba(43,39,35,.36);text-align:center;padding:10px}
+.lock-overlay .li{font-size:22px}
+.lock-overlay .lt{font-size:12px;font-weight:600;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.render-card.img-missing img{display:none}
+.render-card.img-missing::before{content:'📐';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px;opacity:.5}
+.upload-box{border:1.5px dashed var(--line);border-radius:16px;padding:22px;text-align:center;color:var(--muted);font-size:13px;transition:all .15s;width:100%;background:#fff}
+.upload-box:hover{border-color:var(--accent);background:var(--soft)}
+.upload-done{display:flex;align-items:center;gap:11px;background:var(--soft);border:1px solid var(--accent);border-radius:16px;padding:13px 16px;font-size:13px}
+.upload-done .fn{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.upload-done button{margin-left:auto;color:var(--muted);font-size:16px}
+
+/* lead gate */
+.gate-hero{position:relative;border-radius:var(--radius);overflow:hidden;margin-bottom:14px;background:var(--ink)}
+.gate-hero img{width:100%;height:120px;object-fit:cover;opacity:.85}
+.gate-hero .gh-grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 10%,rgba(43,39,35,.88))}
+.gate-hero .gh-txt{position:absolute;left:18px;right:18px;bottom:12px;color:#fff}
+.gate-hero .gh-txt h2{font-size:23px}
+.gate-strip{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:4px;height:150px}
+.gate-strip .gs{position:relative;overflow:hidden}
+.gate-strip .gs:first-child{border-radius:70px 70px 8px 8px;overflow:hidden}
+.gate-strip img{width:100%;height:100%;object-fit:cover;opacity:1}
+.gate-strip .lock img{filter:blur(14px);transform:scale(1.1)}
+.gate-strip .lock i{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:normal;color:#fff}
+.gate-hero .gh-txt p{font-size:12px;color:rgba(255,255,255,.85);margin-top:2px}
+.gate-list{list-style:none;display:grid;gap:7px;margin:2px 0 14px}
+.gate-list li{display:flex;gap:9px;font-size:13px;align-items:flex-start}
+.gate-list .tick{color:var(--good);font-weight:700}
+.f-row{display:grid;gap:10px;grid-template-columns:1fr}
+@media(min-width:560px){.f-row.two{grid-template-columns:1fr 1fr}}
+.f-in{width:100%;padding:13px 17px;border:1.5px solid var(--line);border-radius:999px;outline:none;font-weight:500;background:#fff}
+.f-in:focus{border-color:var(--accent)}
+.f-in.err{border-color:var(--bad)}
+.gate-err{color:var(--bad);font-size:12.5px;font-weight:600;margin-top:9px;display:none}
+.gate-err.on{display:block}
+#g-timeline.err{border-radius:12px;outline:2px solid var(--bad);outline-offset:6px}
+#g-timeline.err .chip{border-color:var(--bad)}
+.submit-btn{width:100%;margin-top:14px;padding:16px;border-radius:999px;background:var(--accent);color:#fff;font-weight:700;font-size:15px;box-shadow:0 12px 26px rgba(95,112,80,.32)}
+.submit-btn:hover{background:var(--accent-dark)}
+.submit-btn:disabled{opacity:.6;cursor:wait}
+.gate-privacy{font-size:10.5px;color:var(--muted);margin-top:10px;text-align:center;line-height:1.5}
+.gate-quote{margin-top:13px;background:var(--soft);border-radius:14px;padding:13px 16px;font-size:12.5px;color:var(--muted);font-style:italic}
+.gate-quote b{display:block;font-style:normal;color:var(--ink);margin-top:5px;font-size:11.5px}
+
+/* booking step (post-submit) */
+.book-hero{background:var(--card);border:1.5px solid var(--accent);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 18px 16px;margin-bottom:14px;text-align:center}
+.book-hero .bh-eyebrow{font-size:12px;font-weight:700;color:var(--good);margin-bottom:6px;font-family:'Inter'}
+.book-hero h2{font-size:clamp(21px,3.4vw,28px)}
+.book-hero p{font-size:13px;color:var(--muted);margin:8px auto 14px;max-width:520px}
+.cal-frame{width:100%;height:760px;border:0;border-radius:40px 40px 14px 14px;background:#fff}
+
+/* report */
+.rep-hero{background:var(--ink);color:#F3F0E9;border-radius:var(--radius);padding:28px 22px;margin-bottom:14px;text-align:center}
+.rep-hero .re{font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:#D9BE8A;font-weight:700;font-family:'Inter'}
+.rep-hero h2{font-size:clamp(21px,3.5vw,28px);margin:8px 0 4px}
+.rep-hero .big{font-family:'Archivo';font-weight:700;font-size:clamp(30px,6vw,44px);color:#E4C58A;margin:8px 0 2px}
+.rep-hero .rn{font-size:12px;color:rgba(251,247,240,.6)}
+.rep-meta{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:14px}
+.rep-meta span{font-size:11.5px;font-weight:600;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);padding:6px 13px;border-radius:99px;font-family:'Inter'}
+.brk-room{border-bottom:1px solid var(--line);padding:13px 0}
+.brk-room:last-child{border-bottom:0}
+.brk-rt{display:flex;justify-content:space-between;font-weight:600;font-size:14px}
+.brk-rt .sub{color:var(--accent-dark)}
+.brk-item{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--muted);margin-top:6px}
+.brk-item b{color:var(--ink);font-weight:600}
+.brk-total{display:flex;justify-content:space-between;padding-top:14px;font-weight:700;font-size:16px}
+.brk-total .tv{color:var(--accent-dark)}
+.cta-grid{display:grid;gap:10px;margin-top:4px}
+.cta-a{display:flex;align-items:center;justify-content:center;gap:9px;padding:16px;border-radius:999px;font-weight:700;font-size:14.5px;text-decoration:none;text-align:center}
+.cta-book{background:var(--accent);color:#fff;box-shadow:0 12px 26px rgba(95,112,80,.3)}
+.cta-book:hover{background:var(--accent-dark)}
+.cta-wa{background:#1FAF38;color:#fff}
+.cta-wa:hover{background:#188C2D}
+.cta-print{background:var(--soft);color:var(--ink);border:1.5px solid var(--line)}
+.rep-disc{font-size:10.5px;color:var(--muted);margin-top:16px;line-height:1.5}
+
+/* bottom nav */
+.bnav{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom))}
+.bnav-in{max-width:680px;margin:0 auto;display:flex;align-items:center;gap:10px}
+.bnav .back{padding:13px 18px;border-radius:999px;background:var(--soft);font-weight:600;font-size:14px;color:var(--muted)}
+.bnav .back:disabled{opacity:.4;cursor:default}
+.bnav-est{flex:1;text-align:center;line-height:1.15}
+.bnav-est .l{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700}
+.bnav-est .v{font-family:'Archivo';font-weight:700;font-size:14px;color:var(--accent-dark);font-variant-numeric:tabular-nums}
+.est-track{height:6px;background:var(--soft);border:1px solid var(--line);border-radius:99px;overflow:hidden;max-width:160px;margin:5px auto 3px}
+.est-fill{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),#D9B36A);border-radius:99px;transition:width .55s cubic-bezier(.2,.8,.2,1)}
+.est-cap{font-size:9.5px;font-weight:700;letter-spacing:.3px;color:var(--accent-dark)}
+.bnav .next{padding:13px 24px;border-radius:999px;background:var(--accent);color:#fff;font-weight:700;font-size:14px;box-shadow:0 8px 20px rgba(95,112,80,.3);white-space:nowrap}
+.bnav .next:hover{background:var(--accent-dark)}
+.bnav .next:disabled{background:#D8D2C4;box-shadow:none;cursor:default}
+
+/* step fade — quiet gallery entrance */
+@keyframes jnFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion: no-preference){
+  #main>*{animation:jnFade .3s ease-out both}
+  #main>*:nth-child(2){animation-delay:.05s}
+  #main>*:nth-child(3){animation-delay:.1s}
+  #main>*:nth-child(n+4){animation-delay:.15s}
+}
+
+/* print */
+@media print{
+  body{background:#fff}
+  .bnav,.mtop,#landing,.no-print{display:none!important}
+  #main>*{animation:none!important}
+  .shell{padding:0}
+  .card,.rep-hero{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
+  .rep-hero{color:#000;background:#fff}
+  .rep-hero .big,.rep-hero .re{color:var(--accent-dark)}
+  .rep-meta span{border:1px solid #ccc}
+}
+
+/* ---------- ui-ux-pro-max compliance ---------- */
+.ico-svg{width:22px;height:22px;flex:none}
+.ico-sm{width:15px;height:15px;flex:none;vertical-align:-2px}
+.ico-btn{width:17px;height:17px;flex:none}
+.ico-lock{width:26px;height:26px;flex:none}
+.sw{display:inline-flex;gap:4px;align-items:center}
+.sw i{width:13px;height:13px;border-radius:50%;border:1px solid rgba(0,0,0,.1);display:inline-block}
+input,select,textarea{font-size:16px}
+.chip,.tier-btn,.unit-tog button,.prop-btn{min-height:44px}
+.prop-btn{min-height:56px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+
+#landing{position:relative;flex-wrap:wrap}
+#landing .l-foot{position:relative;z-index:2;width:100%;flex-basis:100%;text-align:center;font-size:10.5px;color:var(--muted);padding:14px 20px 16px;margin:0}
+
+/* ---- social proof toast ---- */
+.sp-toast{position:fixed;left:16px;bottom:calc(88px + env(safe-area-inset-bottom));z-index:45;max-width:290px;display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 34px rgba(0,0,0,.17);padding:11px 30px 11px 12px;opacity:0;transform:translate3d(0,10px,0);transition:opacity .3s,transform .3s;pointer-events:none;will-change:transform,opacity;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.sp-toast.on{opacity:1;transform:translate3d(0,0,0);pointer-events:auto}
+.sp-toast .sp-av{width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:15px;background:var(--accent)}
+.sp-toast .sp-l1{font-weight:600;font-size:13px;line-height:1.3;color:var(--ink)}
+.sp-toast .sp-l1 span{font-weight:400;color:var(--muted)}
+.sp-toast .sp-l2{font-size:12px;color:var(--muted);line-height:1.35;margin-top:1px}
+.sp-toast .sp-l3{font-size:10.5px;color:var(--muted);opacity:.8;margin-top:3px}
+.sp-toast .sp-x{position:absolute;top:6px;right:8px;background:none;border:0;font-size:16px;color:var(--muted);cursor:pointer;line-height:1;padding:2px}
+@media(min-width:900px){.sp-toast{bottom:22px;left:22px}}
+@media print{.sp-toast{display:none!important}}
+@media(prefers-reduced-motion:reduce){.sp-toast{transition:opacity .2s}.sp-toast.on{transform:translate3d(0,0,0)}}
+</style>
+</head>
+<body>
+
+<!-- ============ LANDING ============ -->
+<section id="landing">
+  <div class="landing-inner">
+    <div class="landing-copy">
+      <div class="brand-mark" id="l-brand">BSD'sign<small>BoonSiew D'sign</small></div>
+      <h1>See your renovation cost in <em>under 60 seconds</em>.</h1>
+      <p class="landing-sub">Less is more — a free, honest, itemised estimate for your home, plus free A.I concept renders in the style you'd pick. No sign-up to start, no pressure.</p>
+      <div class="prop-cue">Tap your property type to begin <span class="cue-arrow" aria-hidden="true">↓</span></div>
+      <div class="prop-grid" id="prop-list"></div>
+      <ul class="landing-points">
+        <li>Singapore renovation specialists — built by our own in-house craftsmen</li>
+        <li>A calm, itemised estimate — every line explained, nothing hidden</li>
+        <li>A home like yours in 6 quiet, liveable styles — rendered while you watch</li>
+        <li>A report to keep, and read at your own pace — beside any quote you receive</li>
+      </ul>
+      <p class="landing-trust" id="l-trust">Tap your home type to begin · 100% free · No obligation · Your data protected under the PDPA</p>
+    </div>
+    <div class="landing-art">
+      <div class="arch">
+        <img class="arch-top" src="../reno-calculator/renders/japandi-living.jpg" alt="A.I render of a renovated Singapore living room" width="1376" height="768" decoding="async" fetchpriority="high" loading="eager" onerror="this.parentElement.style.display='none'">
+        <img src="../reno-calculator/renders/scandinavian-living.jpg" alt="" aria-hidden="true" width="1376" height="768" decoding="async" loading="lazy" onerror="this.style.display='none';this.previousElementSibling.style.animation='none'">
+        <span class="tag">One home — two of the 6 styles you can preview</span>
+      </div>
+    </div>
+  </div>
+  <p class="l-foot">BSD'sign · 11 Woodlands Close, #04-40 Woodlands 11, Singapore 737853</p>
+</section>
+
+<!-- ============ APP ============ -->
+<div id="app">
+  <div class="mtop">
+    <div class="mtop-row">
+      <div class="brand-mark">BSD'sign<small>BOONSIEW D'SIGN</small></div>
+      <div class="mtop-step" id="m-step">Step 1</div>
+    </div>
+    <div class="mtop-track"><div class="prog-fill" id="m-fill"></div></div>
+  </div>
+
+  <div class="shell">
+    <main id="main"></main>
+  </div>
+
+  <nav class="bnav no-print" id="bnav">
+    <div class="bnav-in">
+      <button class="back" id="nav-back">←</button>
+      <div class="bnav-est"><div class="l">Your estimate</div><div class="est-track"><span class="est-fill" id="m-estfill"></span></div><div class="est-cap" id="m-estcap">Building…</div></div>
+      <button class="next" id="nav-next">Next →</button>
+    </div>
+  </nav>
+</div>
+
+<script>
+/* =====================================================================
+   CONFIG — everything brand/wiring specific lives here.
+   ===================================================================== */
+const CONFIG = {
+  brandName: "BSD'sign",
+  brandShort: "BSD",
+  brandSub: "Interior Design",
+  // GHL workflow Inbound Webhook trigger URL (or n8n webhook) — full lead JSON POSTs here.
+  webhookUrl: "https://appointmentally.app.n8n.cloud/webhook/reno-report",
+  // Business WhatsApp (from GHL location record). Change if the setter runs on another number.
+  whatsappNumber: "6591556958",
+  // GHL calendar EMBED URL — becomes the booking page shown right after lead submit,
+  // prefilled with the lead's details. e.g. https://api.leadconnectorhq.com/widget/booking/<calendarId>
+  calendarUrl: "",
+  // Fallback external booking link (used only when calendarUrl is empty).
+  bookingUrl: "",
+  // On submit, redirect the WHOLE page to this GHL Book Consult funnel step (instead of the
+  // in-app booking screen). Lead first/last name, email + phone are appended for calendar prefill.
+  // Leave "" to keep the in-app booking screen.
+  bookConsultUrl: "",
+  // Meta pixel id — fires PageView + Lead + step events when set.
+  pixelId: "",
+  currency: "S$",
+  // Social proof toast. Seeded with plausible SG names until real claims exist.
+  // Prepend real {name,area} to .real as leads come in (they show first); seeds fill the rest.
+  socialProof: { enabled:true, label:"Honest Reno Report", real:[], seed:[
+    {name:"Wei Ling",area:"Tampines"},{name:"Marcus",area:"Punggol"},{name:"Siti",area:"Woodlands"},
+    {name:"Rajesh",area:"Sengkang"},{name:"Hui Min",area:"Bedok"},{name:"Farah",area:"Yishun"},
+    {name:"Daniel",area:"Jurong West"},{name:"Nurul",area:"Choa Chu Kang"},{name:"Jia Hui",area:"Hougang"},
+    {name:"Kumar",area:"Ang Mo Kio"},{name:"Wan Ting",area:"Bukit Batok"},{name:"Aisha",area:"Pasir Ris"},
+    {name:"Zhi Hao",area:"Clementi"},{name:"Priya",area:"Serangoon"},{name:"Mei Xin",area:"Bishan"},
+    {name:"Hafiz",area:"Bukit Panjang"},{name:"Ryan",area:"Toa Payoh"},{name:"Shanti",area:"Queenstown"},
+    {name:"Xin Yi",area:"Sembawang"},{name:"Amir",area:"Kallang"},{name:"Cheryl",area:"Marine Parade"},
+    {name:"Devi",area:"Bukit Merah"},{name:"Jun Jie",area:"Geylang"},{name:"Nabila",area:"Tampines"},
+    {name:"Wei Jie",area:"Punggol"},{name:"Lakshmi",area:"Jurong East"},{name:"Shu Fen",area:"Sengkang"},
+    {name:"Iskandar",area:"Woodlands"},{name:"Grace",area:"Pasir Ris"},{name:"Meng Hui",area:"Yishun"}
+  ] },
+  emailRequired: true,
+  // Optional testimonial on the lead gate. Leave quote empty to hide.
+  testimonial: { quote: "", author: "" },
+  privacyLine: "By tapping the button, you consent to BSD'sign contacting you via WhatsApp, SMS or phone call about your renovation enquiry and sending you this report (PDPA). Opt out anytime — just reply 'stop'. We never sell or share your data.",
+  copyrightLine: "© 2026 BSD'sign",
+};
+const RENDER_BASE = "../reno-calculator/renders/";
+const IN_APP=/FBAN|FBAV|FB_IAB|Instagram|Line\//i.test(navigator.userAgent);
+
+/* ---------- ad → LP congruence engine (?h=<angle>&type=<hdb|condo|landed>[&u=<bto|resale>]) ---------- */
+const QS=new URLSearchParams(location.search);
+const AD_HOME=(()=>{const t=(QS.get("type")||"").toLowerCase(),u=(QS.get("u")||"").toLowerCase();
+  if(u==="bto")return "BTO";
+  if(u==="resale")return t==="condo"?"resale condo":"resale flat";
+  return {hdb:"HDB",condo:"condo",landed:"landed home"}[t]||"home";})();
+const AD_SUB="A free itemised estimate built on typical Singapore market rates, plus A.I concept renders of a home like yours in 6 designer styles. About 2 minutes.";
+const HEADLINES={
+  cost:{h1:"See what your {home} reno will <em>actually cost</em> — line by line, in 2 minutes.",sub:AD_SUB,gate:"Your real number is ready",close:"You've seen your number — now see how to hit it."},
+  see:{h1:"See your new {home} <em>before</em> you renovate — in the style you'd actually pick.",sub:AD_SUB,gate:"Your renders are ready",close:"You've seen it — now see what it takes to build it."},
+  quote:{h1:"Check any ID quote against <em>typical market rates</em> — line by line, free.",sub:AD_SUB,gate:"Your comparison sheet is ready",close:"Put us to the same test — bring this report to your free consult."},
+  keys:{h1:"Collecting keys soon? See your {home} <em>designed &amp; priced</em> before day one.",sub:AD_SUB,gate:"Your key-day plan is ready",close:"Keys in hand soon — book your free consult and start on day one."},
+  resale:{h1:"Renovating a <em>resale</em> {home}? Price the works most people forget.",sub:AD_SUB,gate:"Your resale breakdown is ready",close:"Now let a designer sanity-check your scope — free."},
+  budget:{h1:"Set your reno budget <em>before the showroom</em> sets it for you.",sub:AD_SUB,gate:"Your budget is ready",close:"Your budget, your terms — the free consult keeps it that way."},
+};
+const AD_KEY=HEADLINES[(QS.get("h")||"").toLowerCase()]?(QS.get("h")||"").toLowerCase():"";
+const AD=AD_KEY?HEADLINES[AD_KEY]:null;
+const adTxt=s=>s.replaceAll("{home}",AD_HOME);
+if(AD){
+  const h1=document.querySelector("#landing h1"); if(h1)h1.innerHTML=adTxt(AD.h1);
+  const sub=document.querySelector(".landing-sub"); if(sub)sub.textContent=adTxt(AD.sub);
+}
+
+/* Cost model: shown high = costHigh × 0.8; bedrooms/bathrooms multiply by count. */
+const TIERS = {
+  hacking:[{level:"Light",lo:150,hi:300,note:"Minor hacking of a small section of floor or wall tiles."},{level:"Moderate",lo:300,hi:550,note:"Dismantling of a few built-in fixtures and/or false ceiling, hacking a portion of wall."},{level:"Extensive",lo:550,hi:1200,note:"Full hacking of floors, walls and dismantling of all built-in fixtures and false ceilings."}],
+  masonry:[{level:"Light",lo:150,hi:250,note:"Minor patching or cementing of small areas."},{level:"Moderate",lo:250,hi:400,note:"Patch up 2–3 areas affected by hacking, or cement screed a portion of floor or walls."},{level:"Extensive",lo:400,hi:900,note:"Full tiling or wet works across the entire area."}],
+  masonryBathroom:[{level:"Light",lo:375,hi:625,note:"Minor patching or cementing of small areas."},{level:"Moderate",lo:625,hi:1000,note:"Patch up 2–3 areas affected by hacking, or cement screed a portion of floor or walls."},{level:"Extensive",lo:1000,hi:4500,note:"Full tiling or wet works across the entire bathroom."}],
+  flooring:[{level:"Light",lo:800,hi:1500,note:"Vinyl or laminate overlay on a small area."},{level:"Moderate",lo:1500,hi:3500,note:"Full room flooring with mid-range materials such as engineered timber or quality vinyl."},{level:"Extensive",lo:3500,hi:7000,note:"Premium hardwood or large-format tiles across multiple areas."}],
+  ceiling:[{level:"Light",lo:500,hi:1200,note:"Simple false ceiling box-up in one area."},{level:"Moderate",lo:1200,hi:3000,note:"False ceiling across the room with cove lighting."},{level:"Extensive",lo:3000,hi:6000,note:"Full false ceiling with partitions and feature lighting throughout."}],
+  carpentryLiving:[{level:"Light",lo:700,hi:1200,exact:true,note:"One piece — e.g. a 5–8 ft TV console or shoe cabinet."},{level:"Moderate",lo:2100,hi:3800,exact:true,note:"2–3 pieces — roughly 15–25 ft of carpentry."},{level:"Extensive",lo:4200,hi:7500,exact:true,note:"Full feature wall + storage suite — roughly 30–50 ft."}],
+  kitchenCabinets:[{level:"Light",lo:1100,hi:1500,exact:true,note:"Partial — replace roughly 8–10 ft of base or wall cabinets."},{level:"Moderate",lo:2500,hi:3300,exact:true,note:"Full galley set — roughly 18–22 ft of base + wall cabinets."},{level:"Extensive",lo:3600,hi:4800,exact:true,note:"Large or L-shaped kitchen — roughly 26–32 ft of cabinets."}],
+  countertop:[{level:"Quartz",lo:1000,hi:1400,exact:true,note:"Quartz — typical 10–14 ft counter."},{level:"Granite",lo:1300,hi:2100,exact:true,note:"Granite — typical 10–14 ft counter."},{level:"Sintered stone",lo:1200,hi:2500,exact:true,note:"Sintered stone — typical 10–14 ft counter."}],
+  hackingWhole:[{level:"Kitchen + bathrooms",exact:true,calc:calcHackKB,note:"Package: hack kitchen and 2 bathrooms only."},{level:"Whole house",exact:true,calc:calcHackWhole,note:"Whole-house hacking package — standard items, priced for your flat type."}],
+  paintingWhole:[{level:"Whole house",exact:true,calc:calcPaint,note:"Whole-house painting, priced for your flat type."}],
+  sealantWhole:[{level:"Whole house",exact:true,calc:calcSealant,note:"Silicon sealant works throughout, priced for your flat type."}],
+  flooringWhole:[{level:"Tiles (incl labour)",exact:true,calc:calcTileFloor,note:"Tiles including labour and wastage, across your floor area."},{level:"Vinyl overlay",exact:true,calc:calcVinyl,note:"Vinyl overlay including wastage, across your floor area."}],
+  rewiringWhole:[{level:"Full rewiring",exact:true,calc:calcRewire,note:"Full electrical rewiring, priced for your flat type."}],
+  walltiles:[{level:"Cooking zone",exact:true,calc:calcWallTilesZone,note:"Roughly 60–100 sqft around the cooking zone, including labour and wastage."},{level:"Full walls",exact:true,calc:calcWallTilesFull,note:"Roughly 120–200 sqft of kitchen wall tiling, including labour and wastage."}],
+  wardrobe:[{level:"Light",lo:1100,hi:1400,exact:true,note:"Compact 4 ft full-height wardrobe."},{level:"Moderate",lo:1700,hi:2800,exact:true,note:"Standard 6–8 ft full-height wardrobe."},{level:"Extensive",lo:3400,hi:5000,exact:true,note:"Full wardrobe wall (8–10 ft) plus study or storage carpentry."}],
+  vanity:[{level:"Light",lo:400,hi:600,exact:true,note:"3–4 ft vanity cabinet."},{level:"Moderate",lo:800,hi:1200,exact:true,note:"Vanity + mirror cabinet — roughly 6–8 ft combined."},{level:"Extensive",lo:1400,hi:2100,exact:true,note:"Full vanity wall with tall storage — roughly 10–14 ft."}],
+  painting:[{level:"Light",lo:300,hi:600,note:"Single coat on one room's walls."},{level:"Moderate",lo:600,hi:1200,note:"Two coats on walls and ceiling of one room."},{level:"Extensive",lo:1200,hi:3000,note:"Full repaint of entire area including ceilings and feature walls."}],
+  electrical:[{level:"Light",lo:300,hi:600,note:"A few additional power points or light fittings."},{level:"Moderate",lo:600,hi:1500,note:"Rewiring of power points, switches and lighting for one room."},{level:"Extensive",lo:1500,hi:4000,note:"Full electrical overhaul including DB upgrades and whole-area rewiring."}],
+  appliances:[{level:"Light",lo:500,hi:1000,note:"Basic appliance installation (hood, hob)."},{level:"Moderate",lo:1000,hi:2500,note:"Mid-range built-in oven, hob, hood and sink fitting."},{level:"Extensive",lo:2500,hi:6000,note:"Full premium appliance package with dishwasher, oven and smart fittings."}],
+  sanitary:[{level:"Light",lo:400,hi:800,note:"Basic toilet and basin replacement."},{level:"Moderate",lo:800,hi:2000,note:"Full sanitary set including shower, basin and toilet of mid-range brand."},{level:"Extensive",lo:2000,hi:5000,note:"Premium sanitary fittings including freestanding bath and branded fixtures."}],
+  waterproofing:[{level:"Light",lo:200,hi:400,note:"Spot waterproofing on floor only."},{level:"Moderate",lo:400,hi:800,note:"Floor and lower wall waterproofing up to 300mm."},{level:"Extensive",lo:800,hi:1500,note:"Full floor-to-ceiling waterproofing for wet areas."}],
+  plastering:[{level:"Light",lo:200,hi:400,note:"Spot plastering on a few areas."},{level:"Moderate",lo:400,hi:900,note:"Plastering of one full wall or ceiling area."},{level:"Extensive",lo:900,hi:2500,note:"Full plastering of all walls and ceilings in the space."}],
+  haulage:[{level:"Light",lo:200,hi:400,note:"Basic debris clearance for minor works."},{level:"Moderate",lo:400,hi:800,note:"Haulage for moderate wet works and post-reno cleaning."},{level:"Extensive",lo:800,hi:1800,note:"Full haulage and cleaning for a major renovation."}],
+  glass:[{level:"Light",lo:500,hi:1200,note:"Single glass panel or small aluminium window."},{level:"Moderate",lo:1200,hi:3000,note:"Glass partition or aluminium sliding door."},{level:"Extensive",lo:3000,hi:8000,note:"Full glass and aluminium works including doors and windows."}],
+  doors:[{level:"Light",lo:400,hi:800,note:"Single door replacement with standard frame."},{level:"Moderate",lo:800,hi:2000,note:"2–3 doors with custom frames and hardware."},{level:"Extensive",lo:2000,hi:5000,note:"Full door replacement throughout with premium materials."}],
+  aircon:[{level:"Light",lo:600,hi:1200,note:"Single split unit supply and installation."},{level:"Moderate",lo:1200,hi:3000,note:"2–3 fan coil units with trunking."},{level:"Extensive",lo:3000,hi:7000,note:"Full system with multiple units and concealed trunking."}],
+};
+
+const ROOM_WORKS = {
+  "living-room":[
+    {id:"masonry",label:"Masonry",desc:"Tiling and wet construction tasks. Priced by total area and labour required.",t:TIERS.masonry},
+    {id:"ceiling",label:"Ceiling & Partition",desc:"Partition walls and/or false ceilings, priced by size and design style.",t:TIERS.ceiling},
+    {id:"carpentry",label:"Carpentry",desc:"Custom carpentry — TV consoles, shoe cabinets, feature storage — priced per foot run.",t:TIERS.carpentryLiving},
+  ],
+  kitchen:[
+    {id:"masonry",label:"Masonry",desc:"Tiling and wet construction tasks.",t:TIERS.masonry},
+    {id:"carpentry",label:"Carpentry / Cabinets",desc:"Kitchen base + wall cabinets and built-in storage, priced per foot run.",t:TIERS.kitchenCabinets},
+    {id:"countertop",label:"Countertop",desc:"Solid-surface worktop — choose quartz, granite or sintered stone.",t:TIERS.countertop},
+    {id:"walltiles",label:"Wall tiles",desc:"Kitchen wall tiling, priced per sqft including labour.",t:TIERS.walltiles},
+    {id:"appliances",label:"Appliances & Fitting",desc:"Installation of kitchen appliances, sinks and fittings.",t:TIERS.appliances},
+  ],
+  bedrooms:[
+    {id:"carpentry",label:"Carpentry / Wardrobe",desc:"Full-height wardrobes and other built-ins, priced per foot run.",t:TIERS.wardrobe},
+    {id:"ceiling",label:"Ceiling & Partition",desc:"Partition walls and/or false ceilings.",t:TIERS.ceiling},
+  ],
+  bathrooms:[
+    {id:"masonry",label:"Masonry / Tiling",desc:"Tiling of floors and walls in the bathroom.",t:TIERS.masonryBathroom},
+    {id:"sanitary",label:"Sanitary Fitting",desc:"Toilets, basins, showers and bathtubs.",t:TIERS.sanitary},
+    {id:"carpentry",label:"Carpentry / Vanity",desc:"Vanity and mirror cabinets, priced per foot run.",t:TIERS.vanity},
+    {id:"waterproofing",label:"Waterproofing",desc:"Essential for wet areas to prevent water seepage.",t:TIERS.waterproofing},
+  ],
+  "other-works":[
+    {id:"hacking",label:"Hacking package",desc:"Hacking priced as a package — kitchen + bathrooms only, or the whole house (standard items). For HDB flats, wall hacking needs an HDB permit — your designer handles the application.",t:TIERS.hackingWhole},
+    {id:"painting",label:"Painting (whole house)",desc:"Full repaint of the whole home, priced for your flat type.",t:TIERS.paintingWhole},
+    {id:"flooring",label:"Flooring (whole house)",desc:"Vinyl overlay or tiles — priced on your floor area, including labour and wastage.",t:TIERS.flooringWhole},
+    {id:"rewiring",label:"Electrical rewiring",desc:"Full-house rewiring — power points, switches and lighting, priced for your flat type.",t:TIERS.rewiringWhole},
+    {id:"sealant",label:"Sealant works",desc:"Silicon sealant works throughout the home.",t:TIERS.sealantWhole},
+    {id:"plastering",label:"Plastering",desc:"Patching uneven walls/ceilings and smoothing surfaces before painting.",t:TIERS.plastering},
+    {id:"haulage",label:"Haulage & Cleaning",desc:"Hauling materials, clearing debris and post-renovation cleaning.",t:TIERS.haulage},
+    {id:"glass",label:"Glass & Aluminium",desc:"Custom glass and aluminium components such as doors and windows.",t:TIERS.glass},
+    {id:"doors",label:"Doors",desc:"Custom door frames and doors fitted to existing entryways.",t:TIERS.doors},
+    {id:"aircon",label:"Air Conditioning",desc:"Supply and installation of aircon units and trunking.",t:TIERS.aircon},
+  ],
+};
+
+const TYPICAL = {
+  "living-room":["carpentry"],
+  kitchen:["carpentry","countertop","appliances"],
+  bedrooms:["carpentry"],
+  bathrooms:["sanitary","carpentry"],
+  "other-works":["painting","sealant"],
+};
+const TYPICAL_RESALE={
+  "living-room":["masonry","carpentry"],
+  kitchen:["masonry","carpentry","countertop","walltiles","appliances"],
+  bedrooms:["carpentry"],
+  bathrooms:["masonry","sanitary","waterproofing","carpentry"],
+  "other-works":["hacking","painting","sealant","flooring","rewiring","haulage","doors"],
+};
+
+const STYLES = [
+  {id:"modern-minimalist",label:"Modern Minimalist",emoji:"🪟",swatch:["#F5F4EF","#D9D8D2","#9C9B94"],desc:"Clean lines, neutral palette, clutter-free",
+   writeup:"A Modern Minimalist home embraces simplicity and calm. Every element serves a purpose, with clutter hidden by smart built-in storage. Warm whites and soft greys let natural light take centre stage, over large-format matte tiles or light oak vinyl. Serene, timeless, never dated."},
+  {id:"scandinavian",label:"Scandinavian",emoji:"📐",swatch:["#F8F4EC","#E3D3BA","#A9BCA0"],desc:"Light woods, whites, cosy warmth",
+   writeup:"Scandinavian design celebrates hygge — the art of cosiness. Light birch-toned timber flooring, white or pale grey walls to maximise brightness, and accents of sage, dusty blue or terracotta. Functional yet inviting, with soft linen and wool textures."},
+  {id:"japandi",label:"Japandi",emoji:"🎋",swatch:["#EFE6D8","#C9A97F","#6B5B45"],desc:"Japanese-Scandi fusion, zen & functional",
+   writeup:"Japandi merges Japanese wabi-sabi with Scandinavian minimalism into a deeply calming aesthetic. Warm mid-toned timber, earthy muted walls in beige, clay or greige, and natural rattan, bamboo and linen. Low-contrast, grounding, designed to reduce visual noise."},
+  {id:"muji",label:"Muji / Wabi-sabi",emoji:"🍵",swatch:["#F5EFE4","#D9CBB2","#8F8574"],desc:"Imperfect beauty, earthy tones, raw textures",
+   writeup:"Muji and Wabi-sabi interiors find beauty in imperfection and simplicity. Unfinished timber, handmade ceramics, linen and raw stone, in soft earthy tones of warm white and pale sand. No sharp contrasts — only quiet textures, gentle light and a philosophy of 'enough'."},
+  {id:"industrial",label:"Industrial",emoji:"🏗️",swatch:["#3B3F44","#8A8D91","#B06A4A"],desc:"Raw materials, exposed textures, metal accents",
+   writeup:"Industrial interiors draw character from raw, unfinished materials. Concrete-effect tiles or dark timber floors, exposed ceiling tracks, walls in deep charcoal or warm brick tones, and matte black or brushed steel fixtures. Edge and personality throughout."},
+  {id:"smart-luxury",label:"Smart Luxury",emoji:"🖤",swatch:["#1E2126","#6E7681","#C0A062"],desc:"High-tech meets premium finishes",
+   writeup:"Smart Luxury combines cutting-edge technology with premium materials. Polished marble-effect surfaces or dark engineered timber, concealed smart lighting, motorised blinds and hidden AV — sleek, precise and elevated. A home built for modern high achievers."},
+];
+const ROOM_RENDER_LABELS = {living:"Living / Dining", bedroom:"Master Bedroom", kitchen:"Kitchen"};
+
+const PROPERTY_TYPES = [
+  {value:"HDB",label:"HDB",sub:"BTO & resale public housing",icon:"building"},
+  {value:"Condominium",label:"Condominium",sub:"Private condo & apartment",icon:"city"},
+  {value:"Landed",label:"Landed Property",sub:"Terrace, semi-D & bungalow",icon:"home"},
+];
+const AREAS = ["Living/Dining","Kitchen","Bedrooms","Bathrooms","Study","Others"];
+const AREA_TO_ROOM = {"Living/Dining":"living-room",Kitchen:"kitchen",Bedrooms:"bedrooms",Bathrooms:"bathrooms"};
+const ROOM_LABELS = {"living-room":"Living Room",kitchen:"Kitchen",bedrooms:"Bedrooms",bathrooms:"Bathrooms","other-works":"Whole House"};
+const TIMELINES = ["Keys in hand — ready to start","Collecting keys in 1–3 months","Collecting keys in 3–6 months","No keys yet — still exploring"];
+const HDB_FLAT_TYPES=[
+  {label:"2-room Flexi",beds:1,baths:1,size:45},
+  {label:"3-room",beds:2,baths:2,size:65},
+  {label:"4-room",beds:3,baths:2,size:90},
+  {label:"5-room",beds:3,baths:2,size:110},
+  {label:"Executive / Maisonette",beds:4,baths:2,size:130},
+];
+
+/* ===================================================================== */
+const state = {
+  propertyType:"", unitStatus:"", flatType:"", bedrooms:0, bathrooms:0, size:"", sizeUnit:"m²",
+  areas:[], works:{}, style:"", floorPlan:null, submitted:false, lead:{}, stepIndex:0,
+};
+let lastEstimate = {lo:0, hi:0};
+let lastRenderKey="";
+
+const $ = s => document.querySelector(s);
+const ICONS={
+  building:'<rect x="4" y="2" width="16" height="20" rx="1"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/>',
+  city:'<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/>',
+  home:'<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+  bolt:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+  lock:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+  calendar:'<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+  printer:'<polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>',
+  upload:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>',
+  file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>',
+};
+const icon=(n,cls)=>'<svg class="'+(cls||"ico-svg")+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+ICONS[n]+'</svg>';
+
+const fmt = n => CONFIG.currency + Math.round(n).toLocaleString("en-SG");
+const effHi = hi => Math.round(hi * 0.8);
+const tierHi = t => t.exact ? Math.round(t.hi) : effHi(t.hi); /* rate-derived tiers show true highs */
+const fmtRange=(l,h)=>l===h?fmt(l):fmt(l)+" – "+fmt(h);
+function sizeSqft(){ const s=Number(state.size)||0; if(!s) return 0; return state.sizeUnit==="m²"?Math.round(s*10.764):Math.round(s); }
+function flatBand(){
+  const ft=state.flatType||"";
+  if(ft.indexOf("2-room")===0||ft.indexOf("3-room")===0) return "3rm";
+  if(ft.indexOf("4-room")===0) return "4rm";
+  if(ft.indexOf("5-room")===0) return "5rm";
+  if(ft.indexOf("Executive")===0) return "EA";
+  const sq=sizeSqft();
+  if(sq){ if(sq<750)return "3rm"; if(sq<1050)return "4rm"; if(sq<1250)return "5rm"; if(sq<1500)return "EA"; return "EM"; }
+  const b=state.bedrooms||3;
+  return b<=2?"3rm":b===3?"4rm":b===4?"EA":"EM";
+}
+const PKG_SQFT={"3rm":700,"4rm":970,"5rm":1180,"EA":1400,"EM":1550};
+/* Owner package rates (2026-07-04). EA/EM painting & sealant use the highest quoted band. */
+const PKG={
+  paint:{"3rm":1250,"4rm":1450,"5rm":1650,"EA":1650,"EM":1650},
+  sealant:{"3rm":300,"4rm":400,"5rm":500,"EA":500,"EM":500},
+  hackWhole:{"3rm":3500,"4rm":3800,"5rm":4200,"EA":4600,"EM":4600},
+  rewire:{"3rm":[2700,3200],"4rm":[3500,4200],"5rm":[4200,5000],"EA":[5200,6500],"EM":[5500,6800]},
+};
+const isCondo=()=>state.propertyType==="Condominium";
+const tileSurcharge=()=>(state.propertyType==="Condominium"||state.propertyType==="Landed")?1.10:1;
+function calcPaint(){const v=PKG.paint[flatBand()];return{lo:v,hi:v};}
+function calcSealant(){const v=PKG.sealant[flatBand()];return{lo:v,hi:v};}
+function calcHackKB(){const v=isCondo()?Math.round(2800*1.05):2800;return{lo:v,hi:v};}
+function calcHackWhole(){let v=PKG.hackWhole[flatBand()];if(isCondo())v=Math.round(v*1.05);return{lo:v,hi:v};}
+function calcRewire(){const r=PKG.rewire[flatBand()];let l=r[0],h=r[1];if(isCondo()){l=Math.round(l*1.08);h=Math.round(h*1.10);}return{lo:l,hi:h};}
+function calcVinyl(){const sq=sizeSqft()||PKG_SQFT[flatBand()];const v=Math.round(sq*5.8*1.1/10)*10;return{lo:v,hi:v};}
+function calcTileFloor(){const sq=sizeSqft()||PKG_SQFT[flatBand()];const v=Math.round(sq*11.8*1.1*tileSurcharge()/10)*10;return{lo:v,hi:v};}
+function calcWallTilesFull(){const m=11.8*1.1*tileSurcharge();return{lo:Math.round(120*m/10)*10,hi:Math.round(200*m/10)*10};}
+function calcWallTilesZone(){const m=11.8*1.1*tileSurcharge();return{lo:Math.round(60*m/10)*10,hi:Math.round(100*m/10)*10};}
+const resolveTier=t=>t.calc?Object.assign({},t,t.calc()):t;
+/* Most-likely band: midpoint ± k, where k tightens as line items stack (sqrt N),
+   floored at ±15% (finish choices correlate across lines). The raw lo–hi span
+   assumes EVERY line lands at its extreme at once — that overstates uncertainty,
+   so the span is shown only as small print under the itemised total. */
+function band(est){
+  const n=est.nItems||0;
+  if(!n || !est.hi) return {lo:est.lo||0, hi:est.hi||0};
+  const mid=(est.lo+est.hi)/2, k=Math.max(0.15, Math.min(0.33, 0.33/Math.sqrt(n)));
+  const r=x=>Math.round(x/100)*100;
+  return {lo:Math.max(est.lo, r(mid*(1-k))), hi:Math.min(est.hi, r(mid*(1+k)))};
+}
+
+function track(ev, data){
+  try{ if(window.fbq){ ev==="Lead" ? fbq("track","Lead",data||{}) : fbq("trackCustom",ev,data||{}); } }catch(e){}
+  try{ parent.postMessage({renoCalcEvent:ev, data:data||{}}, "*"); }catch(e){}
+}
+if(CONFIG.pixelId){
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq("init", CONFIG.pixelId); fbq("track","PageView");
+}
+
+function getSteps(){
+  const steps = [{id:"home",label:"Home Details"}];
+  state.areas.forEach(a=>{ const r=AREA_TO_ROOM[a]; if(r) steps.push({id:r,label:ROOM_LABELS[r]}); });
+  steps.push({id:"other-works",label:"Whole House"});
+  steps.push({id:"studio",label:"A.I Design Studio"});
+  steps.push({id:"gate",label:"Your Honest Reno Report"});
+  return steps;
+}
+
+function estimate(){
+  let lo=0, hi=0; const sections=[];
+  const order=["living-room","kitchen","bedrooms","bathrooms","other-works"];
+  order.forEach(room=>{
+    const sel = state.works[room]||{};
+    const mult = room==="bedrooms" ? (state.bedrooms||1) : room==="bathrooms" ? (state.bathrooms||1) : 1;
+    const defs = ROOM_WORKS[room]||[]; const items=[];
+    Object.entries(sel).forEach(([wid,tier])=>{
+      if(!tier) return;
+      const def = defs.find(d=>d.id===wid); if(!def) return;
+      const t0 = def.t.find(x=>x.level===tier); if(!t0) return;
+      const t = resolveTier(t0);
+      const l=t.lo*mult, h=tierHi(t)*mult;
+      items.push({label:def.label,tier,lo:l,hi:h,note:t.note||""}); lo+=l; hi+=h;
+    });
+    if(items.length) sections.push({room,label:ROOM_LABELS[room],mult,items,
+      lo:items.reduce((a,b)=>a+b.lo,0), hi:items.reduce((a,b)=>a+b.hi,0)});
+  });
+  const nItems = sections.reduce((a,s)=>a+s.items.length,0);
+  return {lo,hi,sections,nItems};
+}
+
+function updateTicker(){
+  const fill=$("#m-estfill"), cap=$("#m-estcap"); if(!fill||!cap) return;
+  const s=currentStep();
+  let priced=0,total=0;
+  const rooms=state.areas.map(a=>AREA_TO_ROOM[a]).filter(Boolean).concat(["other-works"]);
+  rooms.forEach(r=>{ const defs=ROOM_WORKS[r]||[]; total+=defs.length; const sel=state.works[r]||{}; defs.forEach(d=>{ if(sel[d.id]) priced++; }); });
+  const ready = (s.id==="studio" || s.id==="gate");
+  let pct = ready ? 100 : (total ? Math.round(priced/total*100) : 0);
+  if(!ready && priced>0 && pct<10) pct=10;
+  fill.style.width = pct + "%";
+  cap.textContent = ready ? "Ready to reveal ✨" : "Building…";
+}
+let animFrame;
+function animateEst(from,to){
+  cancelAnimationFrame(animFrame);
+  const t0=performance.now(), dur=500;
+  function frame(now){
+    const p=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-p,3);
+    const lo=from.lo+(to.lo-from.lo)*e, hi=from.hi+(to.hi-from.hi)*e;
+    const txt = to.lo===0&&to.hi===0 ? fmt(0) : fmt(lo)+" – "+fmt(hi);
+    const m=$("#m-est"); if(m) m.textContent=txt;
+    if(p<1) animFrame=requestAnimationFrame(frame);
+  }
+  animFrame=requestAnimationFrame(frame);
+}
+
+/* ---------- renderers ---------- */
+function renderLanding(){
+  const list=$("#prop-list"); list.innerHTML="";
+  PROPERTY_TYPES.forEach(p=>{
+    const b=document.createElement("button");
+    b.className="prop-btn"+(state.propertyType===p.value?" sel":"");
+    b.innerHTML=`<span class="ico">${icon(p.icon)}</span><span><span class="t">${p.label}</span><br><span class="s">${p.sub}</span></span><span class="go">→</span>`;
+    b.onclick=()=>{
+      if(state.propertyType&&state.propertyType!==p.value){state.flatType="";} state.propertyType=p.value; renderLanding();
+      track("StartCalculator",{property_type:p.value});
+      setTimeout(()=>{ $("#landing").style.display="none"; $("#app").classList.add("on"); render(); }, 320);
+    };
+    list.appendChild(b);
+  });
+}
+
+function stepHead(eyebrow,title,sub){
+  return `<div class="step-head"><div class="eyebrow">${eyebrow}</div><h2>${title}</h2>${sub?`<p>${sub}</p>`:""}</div>`;
+}
+
+function renderHome(){
+  const beds=["1","2","3","4","5+"], baths=["1","2","3","4","5+"];
+  const chip=(list,cur,attr)=>list.map(v=>`<button class="chip ${String(cur)===v?"sel":""}" data-${attr}="${v}">${v}</button>`).join("");
+  const isHDB=state.propertyType==="HDB";
+  return `
+  ${stepHead("Step 1 — Home Details","Tell us about your "+state.propertyType,"30 seconds — this shapes your estimate and your A.I renders.")}
+  <div class="card" id="card-status">
+    <h3>Is it a new or resale unit?</h3>
+    <div class="chip-row">
+      <button class="chip ${state.unitStatus==="New"?"sel":""}" data-status="New">New / BTO</button>
+      <button class="chip ${state.unitStatus==="Resale"?"sel":""}" data-status="Resale">Resale</button>
+    </div>
+  </div>
+  ${isHDB?`
+  <div class="card" id="card-flat">
+    <h3>Which flat type?</h3>
+    <div class="chip-row">${HDB_FLAT_TYPES.map(f=>`<button class="chip ${state.flatType===f.label?"sel":""}" data-flat="${f.label}">${f.label}</button>`).join("")}</div>
+  </div>`:""}
+  <div class="card" id="card-rooms">
+    <h3>${isHDB?"Confirm bedrooms &amp; bathrooms":"Bedrooms &amp; bathrooms"}</h3>
+    ${isHDB?`<p style="font-size:12px;color:var(--muted);margin:-6px 0 10px">Pre-filled from your flat type — adjust if yours differs.</p>`:""}
+    <div class="lbl-sm">Number of bedrooms</div>
+    <div class="chip-row">${chip(beds,state.bedrooms===5?"5+":state.bedrooms||"","beds")}</div>
+    <div class="lbl-sm">Number of bathrooms</div>
+    <div class="chip-row">${chip(baths,state.bathrooms===5?"5+":state.bathrooms||"","baths")}</div>
+  </div>
+  <div class="card" id="card-size">
+    <h3>Size of your unit <span style="font-weight:400;color:var(--muted)">(optional — sharpens your estimate)</span></h3>
+    <div class="size-row">
+      <input type="number" inputmode="numeric" id="in-size" min="1" max="20000" placeholder="e.g. 90" value="${state.size}">
+      <div class="unit-tog">
+        <button class="${state.sizeUnit==="m²"?"sel":""}" data-unit="m²">m²</button>
+        <button class="${state.sizeUnit==="sq. ft."?"sel":""}" data-unit="sq. ft.">sq. ft.</button>
+      </div>
+    </div>
+  </div>
+  <div class="card" id="card-areas">
+    <h3>Which areas are you renovating?</h3>
+    <div class="chip-row">${AREAS.map(a=>`<button class="chip ${state.areas.includes(a)?"sel":""}" data-area="${a}">${a}</button>`).join("")}</div>
+  </div>`;
+}
+
+function renderRoom(room){
+  const defs=ROOM_WORKS[room], sel=state.works[room]||{};
+  const idx=getSteps().findIndex(s=>s.id===room);
+  const mult = room==="bedrooms"?(state.bedrooms||1):room==="bathrooms"?(state.bathrooms||1):1;
+  const multNote = mult>1?`<p style="font-size:12px;color:var(--muted);margin:-8px 0 12px">Costs shown are per ${room==="bedrooms"?"bedroom":"bathroom"} × ${mult}.</p>`:"";
+  return `
+  ${stepHead(`Step ${idx+1} of ${getSteps().length} — select works`,
+    ROOM_LABELS[room],
+    (room==="other-works"?"Whole-house packages and finishing works, priced for your home.":"You're pricing the "+ROOM_LABELS[room].toLowerCase()+" now.")+" Tap the works you intend to do, then pick the option that fits. Skip anything you're not sure about.")}
+  ${multNote}
+  <button class="quickfill" data-room="${room}">${icon("bolt","ico-sm")} Not sure? Apply a typical ${state.unitStatus==="New"?"BTO":"resale"} scope</button>
+  ${defs.map(d=>{
+    const tier=sel[d.id]; const on=!!tier;
+    const t0=on?d.t.find(x=>x.level===tier):null;
+    const t=t0?resolveTier(t0):null;
+    return `<div class="work ${on?"on":""}" data-room="${room}" data-work="${d.id}">
+      <div class="work-head"><span class="work-tick">✓</span><span><span class="wt">${d.label}</span><br><span class="wd">${d.desc}</span></span></div>
+      <div class="work-body">
+        <div class="tier-row">${d.t.map(x=>`<button class="tier-btn ${tier===x.level?"sel":""}" data-tier="${x.level}">${x.level}</button>`).join("")}</div>
+        ${t?`<div class="tier-cost">Approx. cost: <b>${fmtRange(t.lo*mult, tierHi(t)*mult)}</b><span>${t.note}</span></div>`:""}
+      </div>
+    </div>`;
+  }).join("")}`;
+}
+
+function renderStudio(){
+  const idx=getSteps().findIndex(s=>s.id==="studio");
+  const st=STYLES.find(s=>s.id===state.style);
+  return `
+  ${stepHead(`Step ${idx+1} — A.I Design Studio`,"Now see your new home ✨","Pick a designer style — our A.I shows you your home instantly.")}
+  <div class="card">
+    <h3>Choose your design style</h3>
+    <div class="style-grid">${STYLES.map(s=>`
+      <button class="style-card ${state.style===s.id?"sel":""}" data-style="${s.id}">
+        <span class="sc-img"><img loading="lazy" src="${RENDER_BASE}${s.id}-living.jpg" alt="${s.label}" width="1376" height="768" decoding="async" onerror="this.parentElement.style.display='none'"></span>
+        <div class="sl">${s.label}</div>
+        <div class="sd">${s.desc}</div>
+      </button>`).join("")}
+    </div>
+    ${st?`<div class="style-writeup"><b>${st.label}</b> — ${st.writeup}</div>`:""}
+  </div>
+  ${st?`
+  <div class="card">
+    <h3>Your home in ${st.label}</h3>
+    <div class="render-grid">
+      <div class="render-card main-render"><img src="${RENDER_BASE}${st.id}-living.jpg" alt="${st.label} living room" width="1376" height="768" decoding="async" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.living}</span></div>
+      <div class="render-card locked"><img loading="lazy" src="${RENDER_BASE}${st.id}-bedroom.jpg" alt="" width="1376" height="768" decoding="async" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.bedroom}</span><div class="lock-overlay">${icon("lock","ico-lock")}<span class="lt">Opens with your Honest Reno Report</span></div></div>
+      <div class="render-card locked"><img loading="lazy" src="${RENDER_BASE}${st.id}-kitchen.jpg" alt="" width="1376" height="768" decoding="async" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.kitchen}</span><div class="lock-overlay">${icon("lock","ico-lock")}<span class="lt">Opens with your Honest Reno Report</span></div></div>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-top:10px">A.I draft visualisations of a typical ${state.propertyType} in this style — your designer tailors the real design to your exact floor plan.</p>
+  </div>`:""}
+  <div class="card">
+    <h3>Have your floor plan? <span style="font-weight:400;color:var(--muted)">(optional)</span></h3>
+    <p style="font-size:12.5px;color:var(--muted);margin-bottom:12px">Attach it and bring it to your free consult — your designer prices your exact layout from it.</p>
+    ${state.floorPlan
+      ? `<div class="upload-done">${icon("file","ico-sm")}<span class="fn">${state.floorPlan.name}</span><button id="fp-remove">✕</button></div>`
+      : `<button class="upload-box" id="fp-btn">${icon("upload","ico-sm")}&nbsp; Click to attach floor plan<br><span style="font-size:11px">PNG, JPG or PDF</span></button><input type="file" id="fp-input" accept="image/*,.pdf" class="hidden">`}
+  </div>`;
+}
+
+function renderGate(){
+  const st=STYLES.find(s=>s.id===state.style);
+  const {lo,hi}=band(estimate());
+  const tq=CONFIG.testimonial&&CONFIG.testimonial.quote;
+  return `
+  <div class="gate-hero">
+    ${st?`<div class="gate-strip"><span class="gs"><img src="${RENDER_BASE}${st.id}-living.jpg" alt="" width="1376" height="768" decoding="async"></span><span class="gs lock"><img src="${RENDER_BASE}${st.id}-bedroom.jpg" alt="" width="1376" height="768" decoding="async"><i>${icon("lock","ico-lock")}</i></span><span class="gs lock"><img src="${RENDER_BASE}${st.id}-kitchen.jpg" alt="" width="1376" height="768" decoding="async"><i>${icon("lock","ico-lock")}</i></span></div>`:""}
+    <div class="gh-grad"></div>
+    <div class="gh-txt"><h2>${AD?adTxt(AD.gate):"Your Honest Reno Report is ready"} 📐</h2><p>Estimate, itemised breakdown &amp; your ${st?st.label:""} renders</p></div>
+  </div>
+  <div class="card">
+    <ul class="gate-list">
+      <li><span class="tick">✓</span><span>Your full itemised breakdown — every line explained — sent to your inbox as your <b>Honest Reno Report</b></span></li>
+      <li><span class="tick">✓</span><span>All 3 ${st?("<b>"+st.label+"</b>"):"style"} concept renders — living, bedroom &amp; kitchen — unlocked</span></li>
+      <li><span class="tick">✓</span><span>A copy to keep beside any quote you receive — including ours</span></li>
+      <li><span class="tick">✓</span><span>Prepared by BSD'sign — Singapore renovation craftsmen, built in-house</span></li>
+    </ul>
+    ${state.autoScope?`<p style="font-size:12px;color:var(--muted);margin:-6px 0 14px">We pre-filled a typical ${state.unitStatus==="New"?"BTO":"resale"} scope so your report shows real numbers — adjust anything below or with your designer.</p>`:""}
+    <div class="lbl-sm">Where are you in the journey?</div>
+    <div class="chip-row" id="g-timeline">${TIMELINES.map(t=>`<button class="chip ${state.lead.timeline===t?"sel":""}" data-timeline="${t}">${t}</button>`).join("")}</div>
+    <div class="f-row two" style="margin-top:14px">
+      <input class="f-in" id="g-name" placeholder="Name" autocomplete="name" autocapitalize="words" enterkeyhint="next">
+      <input class="f-in" id="g-phone" placeholder="Mobile number" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="next" maxlength="13">
+    </div>
+    <div class="f-row" style="margin-top:10px">
+      <input class="f-in" id="g-email" placeholder="Email${CONFIG.emailRequired?"":" (optional)"}" type="email" autocomplete="email" enterkeyhint="done" autocapitalize="none">
+    </div>
+    <p class="gate-err" id="g-err"></p>
+    <p style="font-size:12.5px;font-weight:600;color:var(--accent-dark);text-align:center;margin-top:14px">Your report is ready — 20 quiet seconds.</p>
+    <button class="submit-btn" id="g-submit" style="margin-top:8px">Unlock my Honest Reno Report →</button>
+    <p class="gate-privacy">Your Honest Reno Report reaches your inbox within minutes — and your booking page opens right here.<br>${CONFIG.privacyLine}<br>100% free · No obligation · Yours to keep even if we never speak.</p>
+    ${tq?`<div class="gate-quote">“${CONFIG.testimonial.quote}”<b>— ${CONFIG.testimonial.author||""}</b></div>`:""}
+  </div>`;
+}
+
+function calendarSrc(){
+  if(!CONFIG.calendarUrl) return "";
+  const parts=(state.lead.name||"").trim().split(" ");
+  return CONFIG.calendarUrl + (CONFIG.calendarUrl.includes("?")?"&":"?") +
+    "first_name="+encodeURIComponent(parts[0]||"") +
+    "&last_name="+encodeURIComponent(parts.slice(1).join(" ")) +
+    "&email="+encodeURIComponent(state.lead.email||"") +
+    "&phone="+encodeURIComponent(state.lead.phone||"");
+}
+
+function renderReport(){
+  const est=estimate(), sections=est.sections, {lo,hi}=band(est), spanLo=est.lo, spanHi=est.hi;
+  const st=STYLES.find(s=>s.id===state.style);
+  const name=(state.lead.name||"").split(" ")[0];
+  const cal=calendarSrc();
+  /* EMAIL_FLOW: webhook wired AND the lead gave an email — the itemised report
+     travels by email, so the page becomes a quiet booking-first thank-you. */
+  const EMAIL_FLOW = !!(CONFIG.webhookUrl && (state.lead.email||"").trim());
+  const meta=[
+    (state.flatType?state.flatType+" ":"")+state.propertyType + (state.unitStatus?` · ${state.unitStatus}`:""),
+    state.size?`${state.size} ${state.sizeUnit}`:"",
+    state.bedrooms?`${state.bedrooms===5?"5+":state.bedrooms} bed`:"",
+    state.bathrooms?`${state.bathrooms===5?"5+":state.bathrooms} bath`:"",
+    st?st.label:"",
+  ].filter(Boolean);
+  const repHero=`
+  <div class="rep-hero">
+    <div class="re">Your Honest Reno Report</div>
+    <h2>${name?name+", here's":"Here's"} your estimate</h2>
+    <div class="big">${fmt(lo)} – ${fmt(hi)}</div>
+    <div class="rn">Most likely range for your selected scope</div>
+    <div class="rn" style="margin-top:4px">Where you land in this range depends on your floor plan and finishes — your free consult quietly pins down the exact number.</div>
+    ${state.autoScope?`<div class="rn" style="margin-top:4px">We pre-filled a typical ${state.unitStatus==="New"?"BTO":"resale"} scope so your report shows real numbers — adjust anything below or with your designer.</div>`:""}
+    <div class="rep-meta">${meta.map(m=>`<span>${m}</span>`).join("")}</div>
+  </div>`;
+  const rendersCard=st?`
+  <div class="card">
+    <h3>Your home in ${st.label}</h3>
+    <div class="render-grid">
+      <div class="render-card main-render"><img src="${RENDER_BASE}${st.id}-living.jpg" alt="" width="1376" height="768" decoding="async" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.living}</span></div>
+      <div class="render-card"><img loading="lazy" src="${RENDER_BASE}${st.id}-bedroom.jpg" alt="" width="1376" height="768" decoding="async" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.bedroom}</span></div>
+      <div class="render-card"><img loading="lazy" src="${RENDER_BASE}${st.id}-kitchen.jpg" alt="" width="1376" height="768" decoding="async" onerror="this.closest('.render-card').classList.add('img-missing')"><span class="render-tag">${ROOM_RENDER_LABELS.kitchen}</span></div>
+    </div>
+    <div class="style-writeup" style="margin-top:12px"><b>${st.label}</b> — ${st.writeup}</div>
+  </div>`:"";
+  const repDisc=`<p class="rep-disc">* This is an indicative estimate based on typical Singapore renovation pricing for the scope you selected — not a quotation. A.I renders are draft visualisations for inspiration; the final design is tailored to your actual floor plan. ${CONFIG.privacyLine}</p>`;
+  if(EMAIL_FLOW) return `
+  <div class="book-hero no-print" id="booking">
+    <div class="bh-eyebrow">📐 ${name?name+", your":"Your"} Honest Reno Report is on its way to ${state.lead.email}</div>
+    <h2>Book your free design consult</h2>
+    <p>Your report — every line, quietly explained — will reach your inbox in the next few minutes. When you're ready, a free, no-pressure consult with a BSD'sign designer turns it into an honest, itemised quote for your own floor plan. Over 10 years of Singapore BTO, resale &amp; condo homes. The report stays yours either way.</p>
+    ${cal?`<iframe class="cal-frame" src="${cal}" title="Book your free design consult"></iframe>`
+      :CONFIG.bookingUrl?`<div class="cta-grid"><a class="cta-a cta-book" href="${CONFIG.bookingUrl}" target="_top">${icon("calendar","ico-btn")} Book my free consult</a></div>`
+      :`<div class="cta-grid"><button class="cta-a cta-book" id="cta-book-fb">${icon("calendar","ico-btn")} Book my free design consult</button></div>`}
+  </div>
+  ${repHero}
+  ${rendersCard}
+  ${repDisc}`;
+  return `
+  ${cal?`
+  <div class="book-hero no-print" id="booking">
+    <div class="bh-eyebrow">📐 ${name?name+", your":"Your"} report is saved — one last step</div>
+    <h2>Turn this estimate into your exact price</h2>
+    <p>${AD?adTxt(AD.close)+" ":""}This range is an A.I estimate built from typical ${state.propertyType} pricing — your real number depends on your floor plan. In a free consult, a designer prices your exact unit room by room and shows how ${st?st.label:"your style"} works in your actual layout. No pitch, no pressure — you keep the report, the renders and every idea from the session, even if you never work with us. Prepared by BSD'sign — Singapore renovation craftsmen, built in-house.</p>
+    <iframe class="cal-frame" src="${cal}" title="Book your free design consult"></iframe>
+  </div>`:""}
+  ${repHero}
+  ${rendersCard}
+  <div class="card no-print">
+    <h3>Make it exact — when you're ready.</h3>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:12px">A free, no-pressure consult with a BSD'sign designer — over 10 years of Singapore BTO, resale &amp; condo homes — turns this range into an honest, itemised quote for your own floor plan. The report stays yours either way.</p>
+    <div class="cta-grid">
+      ${cal?`<a class="cta-a cta-book" href="#booking">${icon("calendar","ico-btn")} Book my free consult</a>`
+        :CONFIG.bookingUrl?`<a class="cta-a cta-book" href="${CONFIG.bookingUrl}" target="_top">${icon("calendar","ico-btn")} Book my free consult</a>`
+        :`<button class="cta-a cta-book" id="cta-book-fb">${icon("calendar","ico-btn")} Book my free design consult</button>`}
+    </div>
+    ${IN_APP?"":`<button style="display:block;margin:12px auto 0;background:none;border:0;font-size:12.5px;color:var(--muted);text-decoration:underline;cursor:pointer" onclick="window.print()">Save / print this report</button>`}
+  </div>
+  <div class="card">
+    <h3>Itemised breakdown</h3>
+    ${sections.length?sections.map(s=>`
+      <div class="brk-room">
+        <div class="brk-rt"><span>${s.label}${s.mult>1?` <span style="color:var(--muted);font-weight:400">× ${s.mult}</span>`:""}</span><span class="sub">${fmtRange(s.lo,s.hi)}</span></div>
+        ${s.items.map(i=>`<div class="brk-item"><span>${i.label} <span style="opacity:.7">· ${i.tier}</span></span><b>${fmtRange(i.lo,i.hi)}</b></div>`).join("")}
+      </div>`).join("")+`
+      <div class="brk-total"><span>Estimated total <span style="font-weight:400;color:var(--muted);font-size:12px">(most likely)</span></span><span class="tv">${fmt(lo)} – ${fmt(hi)}</span></div>\n      <p style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right">Full span if every line landed at its extreme: ${fmt(spanLo)} – ${fmt(spanHi)}. Most projects land inside the range above.</p>`
+    :""}
+    <button id="rep-edit" class="no-print" style="margin-top:12px;font-size:12.5px;font-weight:600;color:var(--accent);text-decoration:underline">✎ Adjust my scope &amp; update this estimate</button>
+  </div>
+  ${repDisc}`;
+}
+
+/* ---------- nav + events ---------- */
+function currentStep(){ return getSteps()[state.stepIndex]; }
+function validateStep(){
+  const s=currentStep();
+  if(s.id==="home") return state.unitStatus && state.bedrooms && state.bathrooms && state.areas.length>0;
+  if(s.id==="studio") return !!state.style;
+  return true;
+}
+
+function render(){
+  if(currentStep().id==="gate" && !estimate().hi){
+    const rooms=state.areas.map(a=>AREA_TO_ROOM[a]).filter(Boolean).concat(["other-works"]);
+    rooms.forEach(room=>{
+      state.works[room]=state.works[room]||{};
+      const src=(state.unitStatus==="Resale"?TYPICAL_RESALE:TYPICAL);
+      (src[room]||[]).forEach(wid=>{ if(!state.works[room][wid]){ const d=(ROOM_WORKS[room]||[]).find(x=>x.id===wid); state.works[room][wid]=d?d.t[Math.min(1,d.t.length-1)].level:"Moderate"; } });
+    });
+    state.autoScope=true;
+  }
+  const steps=getSteps(), s=currentStep();
+  let html="";
+  if(state.submitted && s.id==="gate"){ html=renderReport(); }
+  else if(s.id==="home") html=renderHome();
+  else if(s.id==="studio") html=renderStudio();
+  else if(s.id==="gate") html=renderGate();
+  else html=renderRoom(s.id);
+  $("#main").innerHTML=html;
+  const _rk=state.stepIndex+"|"+state.submitted;
+  if(_rk!==lastRenderKey){ window.scrollTo({top:0}); lastRenderKey=_rk; }
+
+  const n=steps.length, i=state.stepIndex;
+  const pct=Math.round(((i+1)/(n+1))*100);
+  $("#m-fill").style.width=pct+"%";
+  $("#m-step").textContent = state.submitted?"Report":steps[i].label+" · "+(i+1)+"/"+n+" · ~"+Math.max(1,Math.round((n-1-i)*0.35))+" min left";
+
+  const bn=document.querySelector(".bnav-in");
+  if(state.submitted && s.id==="gate"){
+    const dest=CONFIG.calendarUrl?"#booking":CONFIG.bookingUrl;
+    if(dest){
+      $("#bnav").style.display="";
+      bn.innerHTML=`<a class="cta-a cta-book" style="flex:1" href="${dest}"${CONFIG.calendarUrl?"":' target="_top"'}>${icon("calendar","ico-btn")} Book my free design consult</a>`;
+    }else{ $("#bnav").style.display="none"; }
+  }
+  else{
+    $("#bnav").style.display="";
+    if(!$("#nav-next")){ bn.innerHTML=BNAV_HTML; bindNav(); }
+    $("#nav-back").disabled = false;
+    const next=$("#nav-next");
+    next.textContent = s.id==="gate" ? "" : (s.id==="studio" ? "See my Honest Reno Report →" : "Next →");
+    next.style.display = s.id==="gate" ? "none" : "";
+    next.disabled = s.id==="home" ? false : !validateStep();
+  }
+  updateTicker();
+  bindStep();
+  try{ sessionStorage.setItem("renoState:bsd", JSON.stringify({...state, floorPlan: state.floorPlan?{name:state.floorPlan.name}:null})); }catch(e){}
+}
+
+function bindStep(){
+  const s=currentStep();
+  if(s.id==="home"){
+    document.querySelectorAll("[data-status]").forEach(b=>b.onclick=()=>{state.unitStatus=b.dataset.status;render();});
+    document.querySelectorAll("[data-flat]").forEach(b=>b.onclick=()=>{
+      const f=HDB_FLAT_TYPES.find(x=>x.label===b.dataset.flat); if(!f) return;
+      state.flatType=f.label; state.bedrooms=f.beds; state.bathrooms=f.baths;
+      if(!state.size){ state.size=f.size; state.sizeUnit="m²"; }
+      render();
+    });
+    document.querySelectorAll("[data-beds]").forEach(b=>b.onclick=()=>{state.bedrooms=b.dataset.beds==="5+"?5:+b.dataset.beds;render();});
+    document.querySelectorAll("[data-baths]").forEach(b=>b.onclick=()=>{state.bathrooms=b.dataset.baths==="5+"?5:+b.dataset.baths;render();});
+    document.querySelectorAll("[data-unit]").forEach(b=>b.onclick=()=>{state.sizeUnit=b.dataset.unit;render();});
+    const sz=$("#in-size");
+    sz.oninput=()=>{ state.size=sz.value; };
+    document.querySelectorAll("[data-area]").forEach(b=>b.onclick=()=>{
+      const a=b.dataset.area;
+      state.areas.includes(a) ? state.areas=state.areas.filter(x=>x!==a) : state.areas.push(a);
+      state.areas.sort((x,y)=>AREAS.indexOf(x)-AREAS.indexOf(y));
+      render();
+    });
+  }
+  if(ROOM_WORKS[s.id]){
+    document.querySelectorAll(".work").forEach(w=>{
+      const room=w.dataset.room, wid=w.dataset.work;
+      w.querySelector(".work-head").onclick=()=>{
+        state.works[room]=state.works[room]||{};
+        if(state.works[room][wid]) delete state.works[room][wid];
+        else { const d=ROOM_WORKS[room].find(x=>x.id===wid); state.works[room][wid]=d?d.t[Math.min(1,d.t.length-1)].level:"Moderate"; }
+        render();
+      };
+      w.querySelectorAll(".tier-btn").forEach(tb=>tb.onclick=e=>{
+        e.stopPropagation();
+        state.works[room]=state.works[room]||{};
+        state.works[room][wid]=tb.dataset.tier;
+        render();
+      });
+    });
+    const qf=document.querySelector(".quickfill");
+    if(qf) qf.onclick=()=>{
+      const room=qf.dataset.room;
+      state.works[room]=state.works[room]||{};
+      const src=(state.unitStatus==="Resale"?TYPICAL_RESALE:TYPICAL);
+      (src[room]||[]).forEach(wid=>{ if(!state.works[room][wid]){ const d=(ROOM_WORKS[room]||[]).find(x=>x.id===wid); state.works[room][wid]=d?d.t[Math.min(1,d.t.length-1)].level:"Moderate"; } });
+      track("QuickFill",{room});
+      render();
+    };
+  }
+  if(s.id==="studio"){
+    document.querySelectorAll("[data-style]").forEach(b=>b.onclick=()=>{
+      state.style=b.dataset.style; track("StyleSelected",{style:state.style}); render();
+    });
+    const fpBtn=$("#fp-btn"), fpIn=$("#fp-input");
+    if(fpBtn) fpBtn.onclick=()=>fpIn.click();
+    if(fpIn) fpIn.onchange=()=>{
+      const f=fpIn.files[0]; if(!f) return;
+      const rd=new FileReader();
+      rd.onload=()=>{ state.floorPlan={name:f.name,dataUrl:(f.size<1500000?rd.result:null),size:f.size}; track("FloorPlanUploaded"); render(); };
+      rd.readAsDataURL(f);
+    };
+    const fpRm=$("#fp-remove");
+    if(fpRm) fpRm.onclick=()=>{ state.floorPlan=null; render(); };
+  }
+  if(s.id==="gate" && !state.submitted){
+    ["g-name","g-phone","g-email"].forEach(id=>{
+      const el=$("#"+id), key=id.slice(2);
+      if(el&&state.lead[key]) el.value=state.lead[key];
+      if(el){ el.oninput=()=>{ state.lead[key]=el.value; };
+              el.onkeydown=e=>{
+                if(e.key!=="Enter") return;
+                e.preventDefault();
+                if(id==="g-name")$("#g-phone").focus();
+                else if(id==="g-phone")$("#g-email").focus();
+                else $("#g-submit").click();
+              }; }
+    });
+    document.querySelectorAll("[data-timeline]").forEach(b=>b.onclick=()=>{ state.lead.timeline=b.dataset.timeline; render(); });
+    $("#g-submit").onclick=submitLead;
+    const nm=$("#g-name"); if(nm && !nm.value && matchMedia("(min-width:900px)").matches) setTimeout(()=>nm.focus(),150);
+  }
+  if(s.id==="gate" && state.submitted){
+    const re=$("#rep-edit");
+    if(re) re.onclick=()=>{ state.stepIndex=1; render(); };
+    const fb=$("#cta-book-fb");
+    if(fb) fb.onclick=()=>{
+      track("BookIntent");
+      fb.outerHTML=`<div class="gate-list" style="text-align:center;font-weight:600">✓ Request received — we'll WhatsApp you at <b>${state.lead.phone}</b> to lock in a time${CONFIG.whatsappNumber?` — save <b>+${CONFIG.whatsappNumber}</b> so you don't miss us`:""}.</div>`;
+    };
+  }
+}
+
+async function submitLead(){
+  const name=$("#g-name").value.trim(), phone=$("#g-phone").value.trim(), email=$("#g-email").value.trim();
+  const errs=[];
+  $("#g-name").classList.toggle("err",!name); if(!name) errs.push("name");
+  const phoneOk=/^(\+?65)?\s?[3689]\d{3}\s?\d{4}$/.test(phone.replace(/[-\s]/g,""));
+  $("#g-phone").classList.toggle("err",!phoneOk); if(!phoneOk) errs.push("mobile number");
+  const emailOk = CONFIG.emailRequired
+    ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    : (!email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+  $("#g-email").classList.toggle("err",!emailOk); if(!emailOk) errs.push("email");
+  document.getElementById("g-timeline").classList.toggle("err",!state.lead.timeline);
+  if(!state.lead.timeline) errs.push("timeline");
+  const errEl=$("#g-err");
+  if(errs.length){
+    errEl.textContent = !phoneOk
+      ? "Please enter a valid Singapore mobile (8 digits, starts with 8 or 9) — that's where your report goes."
+      : "Almost done — please add your "+errs.join(" and ")+".";
+    errEl.classList.add("on");
+    errEl.scrollIntoView({block:"center",behavior:"smooth"});
+    const firstBad = !name?$("#g-name"):!phoneOk?$("#g-phone"):!emailOk?$("#g-email"):null;
+    if(firstBad) firstBad.focus();
+    return;
+  }
+  errEl.classList.remove("on");
+
+  Object.assign(state.lead,{name,phone,email});
+  const btn=$("#g-submit"); btn.disabled=true; btn.textContent="Preparing your Honest Reno Report…";
+
+  // Meta Advanced Matching data (normalised) + shared event id for browser<>CAPI dedup
+  const _em=(email||"").trim().toLowerCase();
+  let _ph=(phone||"").replace(/[^0-9]/g,""); if(_ph.length===8) _ph="65"+_ph;
+  const _nm=(name||"").trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const _fn=_nm[0]||"", _ln=_nm.slice(1).join(" ");
+  const _eid="lead."+Date.now()+"."+Math.random().toString(36).slice(2,10);
+
+  const est=estimate(), sections=est.sections, {lo,hi}=band(est), spanLo=est.lo, spanHi=est.hi;
+  const st=STYLES.find(x=>x.id===state.style);
+  const payload={
+    source:"reno-calculator", brand:CONFIG.brandShort,
+    name, phone, email,
+    timeline:state.lead.timeline,
+    property_type:state.propertyType, unit_status:state.unitStatus,
+    flat_type:state.flatType||null,
+    flat_band:flatBand(),
+    bedrooms:state.bedrooms, bathrooms:state.bathrooms,
+    size:state.size, size_unit:state.sizeUnit,
+    areas:state.areas,
+    design_style:st?st.label:"",
+    estimate_low:lo, estimate_high:hi,
+    estimate_span_low:spanLo, estimate_span_high:spanHi,
+    works:sections.map(s=>({room:s.label,items:s.items})),
+    floor_plan_provided:!!state.floorPlan,
+    floor_plan_name:state.floorPlan?state.floorPlan.name:null,
+    floor_plan_base64:state.floorPlan&&state.floorPlan.dataUrl?state.floorPlan.dataUrl:null,
+    page_url:location.href, query:location.search, referrer:document.referrer,
+    submitted_at:new Date().toISOString(),
+    consent_text:CONFIG.privacyLine, consent_method:"form-submit",
+    headline_variant:AD_KEY||"default", ad_identity:AD_HOME,
+    event_id:_eid,
+  };
+  if(CONFIG.webhookUrl){
+    try{
+      await fetch(CONFIG.webhookUrl,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+    }catch(e){
+      try{ navigator.sendBeacon(CONFIG.webhookUrl, new Blob([JSON.stringify(payload)],{type:"application/json"})); }catch(e2){}
+    }
+  }
+  track("Lead",{value:lo,currency:"SGD",property_type:state.propertyType,style:payload.design_style,variant:AD_KEY||"default",event_id:_eid,_am:{em:_em,ph:_ph,fn:_fn,ln:_ln}});
+  state.submitted=true;
+  if(CONFIG.bookConsultUrl){
+    const parts=(state.lead.name||"").trim().split(" ");
+    const q="?first_name="+encodeURIComponent(parts[0]||"")
+      +"&last_name="+encodeURIComponent(parts.slice(1).join(" "))
+      +"&email="+encodeURIComponent(state.lead.email||"")
+      +"&phone="+encodeURIComponent(state.lead.phone||"");
+    try{ window.top.location.href=CONFIG.bookConsultUrl+q; }
+    catch(e){ window.location.href=CONFIG.bookConsultUrl+q; }
+    return;
+  }
+  render();
+}
+
+function goLanding(){
+  $("#app").classList.remove("on");
+  var lz=$("#landing"); if(lz) lz.style.display="";
+  renderLanding();
+  window.scrollTo({top:0});
+}
+const BNAV_HTML=document.querySelector(".bnav-in").innerHTML;
+function bindNav(){
+  $("#nav-back").onclick=()=>{ if(state.stepIndex>0){ state.stepIndex--; render(); } else { goLanding(); } };
+  $("#nav-next").onclick=()=>{
+    const s=currentStep();
+    if(s.id==="home"){
+      const missing=[!state.unitStatus&&"new or resale",!state.bedrooms&&"bedrooms",!state.bathrooms&&"bathrooms",!state.areas.length&&"areas to renovate"].filter(Boolean);
+      if(missing.length){
+        const cardId = missing[0]==="new or resale"?"card-status":missing[0]==="areas to renovate"?"card-areas":"card-rooms";
+        const card=document.getElementById(cardId);
+        if(card){
+          let msg=card.querySelector(".gate-err");
+          if(!msg){ msg=document.createElement("p"); card.appendChild(msg); }
+          msg.className="gate-err on";
+          msg.textContent="Almost there — just tap "+missing[0]+" above to continue.";
+          card.scrollIntoView({block:"center",behavior:"smooth"});
+        }
+        return;
+      }
+    }
+    if(!validateStep()) return;
+    track("StepCompleted",{step:s.id});
+    if(state.stepIndex<getSteps().length-1){ state.stepIndex++; render(); }
+  };
+}
+bindNav();
+
+(function(){
+  function postH(){
+    const h=document.documentElement.scrollHeight;
+    try{ parent.postMessage({renoCalcHeight:h, trioFrameHeight:h},"*"); }catch(e){}
+  }
+  new ResizeObserver(postH).observe(document.body);
+  setInterval(postH,800);
+})();
+
+/* ---------- boot: resume session → ad-param skip → landing ---------- */
+const TYPE_MAP={hdb:"HDB",condo:"Condominium",landed:"Landed"};
+(function boot(){
+  const preType=TYPE_MAP[(QS.get("type")||"").toLowerCase()];
+  const u=(QS.get("u")||"").toLowerCase();
+  /* pre-scope from ad params so a tap-through is already set — but never hide the landing headline */
+  if(preType){
+    state.propertyType=preType;
+    if(u==="bto")state.unitStatus="New"; else if(u==="resale")state.unitStatus="Resale";
+  }
+  /* A congruence ad click carries its own headline (?h=…). ALWAYS show the landing so that morph is seen.
+     Only resume an in-progress session / auto-skip into the calculator when there is NO headline param. */
+  if(!AD_KEY){
+    try{
+      const sv=JSON.parse(sessionStorage.getItem("renoState:bsd")||"null");
+      if(sv && sv.propertyType && !sv.submitted){
+        Object.assign(state,sv);
+        $("#landing").style.display="none"; $("#app").classList.add("on"); render();
+        return;
+      }
+    }catch(e){}
+    if(preType && QS.get("start")!=="land"){
+      track("StartCalculator",{property_type:preType,via:"ad_param",variant:"default"});
+      $("#landing").style.display="none"; $("#app").classList.add("on"); render();
+      return;
+    }
+  }
+  {
+    
+/* ---- social proof toast (CONFIG.socialProof; seed now, prepend real claims to .real over time) ---- */
+(function(){
+  var SP=CONFIG.socialProof; if(!SP||SP.enabled===false) return;
+  try{ if(sessionStorage.getItem('sp-off')) return; }catch(e){}
+  var pool=(SP.real||[]).concat(SP.seed||[]); if(!pool.length) return;
+  var times=['just now','2 minutes ago','4 minutes ago','8 minutes ago','13 minutes ago','21 minutes ago','34 minutes ago','47 minutes ago','an hour ago','2 hours ago'];
+  var order=pool.map(function(_,i){return i;});
+  for(var i=order.length-1;i>0;i--){var j=(i*7+5)%(i+1);var tmp=order[i];order[i]=order[j];order[j]=tmp;}
+  var t=document.createElement('div'); t.className='sp-toast'; t.setAttribute('aria-live','polite');
+  t.innerHTML='<button class="sp-x" aria-label="Dismiss">&times;</button><div class="sp-av" id="sp-av"></div><div><div class="sp-l1"><b id="sp-nm"></b> <span id="sp-ar"></span></div><div class="sp-l2" id="sp-l2"></div><div class="sp-l3" id="sp-tm"></div></div>';
+  document.body.appendChild(t);
+  var win; function schedule(ms){ clearTimeout(win); win=setTimeout(show,ms); }
+  t.querySelector('.sp-x').onclick=function(){ t.classList.remove('on'); clearTimeout(win); try{sessionStorage.setItem('sp-off','1');}catch(e){} };
+  var idx=0;
+  function show(){
+    try{ if(sessionStorage.getItem('sp-off')) return; }catch(e){}
+    if(window.state && state.submitted){ schedule(40000); return; }
+    var e=pool[order[idx%order.length]];
+    document.getElementById('sp-av').textContent=(e.name||'?').trim().charAt(0).toUpperCase();
+    document.getElementById('sp-nm').textContent=e.name;
+    document.getElementById('sp-ar').textContent='· '+e.area;
+    document.getElementById('sp-l2').textContent='just built their '+SP.label;
+    document.getElementById('sp-tm').textContent=times[idx%times.length];
+    idx++;
+    t.classList.add('on');
+    setTimeout(function(){ t.classList.remove('on'); }, 5200);
+    schedule(15000 + (idx%5)*5000);
+  }
+  schedule(4500);
+})();
+
+renderLanding();
+  }
+})();
+</script>
+</body>
+</html>
