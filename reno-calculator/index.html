@@ -252,6 +252,9 @@ img{max-width:100%;display:block}
 .bnav-est{flex:1;text-align:center;line-height:1.15}
 .bnav-est .l{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700}
 .bnav-est .v{font-family:'Poppins';font-weight:700;font-size:13.5px;color:var(--accent);font-variant-numeric:tabular-nums}
+.est-track{height:6px;background:var(--line);border-radius:99px;overflow:hidden;max-width:160px;margin:5px auto 3px}
+.est-fill{display:block;height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .55s cubic-bezier(.2,.8,.2,1)}
+.est-cap{font-size:9.5px;font-weight:700;letter-spacing:.3px;color:var(--accent)}
 .bnav .next{padding:13px 26px;border-radius:12px;background:var(--accent);color:#fff;font-weight:700;font-size:14px;box-shadow:0 8px 20px rgba(185,87,47,.3)}
 .bnav .next:hover{background:var(--accent-dark)}
 .bnav .next:disabled{background:#d9cfc0;box-shadow:none;cursor:default}
@@ -344,8 +347,8 @@ input,select,textarea{font-size:16px}
 #landing .l-foot{position:relative;z-index:2;width:100%;flex-basis:100%;text-align:center;font-size:10.5px;color:rgba(255,255,255,.45);padding:14px 20px 16px;margin:0}
 
 /* ---- social proof toast ---- */
-.sp-toast{position:fixed;left:16px;bottom:92px;z-index:45;max-width:290px;display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 34px rgba(0,0,0,.17);padding:11px 30px 11px 12px;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;pointer-events:none}
-.sp-toast.on{opacity:1;transform:none;pointer-events:auto}
+.sp-toast{position:fixed;left:16px;bottom:calc(88px + env(safe-area-inset-bottom));z-index:45;max-width:290px;display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 34px rgba(0,0,0,.17);padding:11px 30px 11px 12px;opacity:0;transform:translate3d(0,10px,0);transition:opacity .3s,transform .3s;pointer-events:none;will-change:transform,opacity;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.sp-toast.on{opacity:1;transform:translate3d(0,0,0);pointer-events:auto}
 .sp-toast .sp-av{width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:15px;background:var(--accent)}
 .sp-toast .sp-l1{font-weight:600;font-size:13px;line-height:1.3;color:var(--ink)}
 .sp-toast .sp-l1 span{font-weight:400;color:var(--muted)}
@@ -354,7 +357,7 @@ input,select,textarea{font-size:16px}
 .sp-toast .sp-x{position:absolute;top:6px;right:8px;background:none;border:0;font-size:16px;color:var(--muted);cursor:pointer;line-height:1;padding:2px}
 @media(min-width:900px){.sp-toast{bottom:22px;left:22px}}
 @media print{.sp-toast{display:none!important}}
-@media(prefers-reduced-motion:reduce){.sp-toast{transition:opacity .2s}.sp-toast.on{transform:none}}
+@media(prefers-reduced-motion:reduce){.sp-toast{transition:opacity .2s}.sp-toast.on{transform:translate3d(0,0,0)}}
 </style>
 </head>
 <body>
@@ -423,7 +426,7 @@ input,select,textarea{font-size:16px}
   <nav class="bnav no-print" id="bnav">
     <div class="bnav-in">
       <button class="back" id="nav-back" aria-label="Back">←</button>
-      <div class="bnav-est"><div class="l">Est. budget</div><div class="v" id="m-est">S$0</div></div>
+      <div class="bnav-est"><div class="l">Your estimate</div><div class="est-track"><span class="est-fill" id="m-estfill"></span></div><div class="est-cap" id="m-estcap">Building…</div></div>
       <button class="next" id="nav-next">Next →</button>
     </div>
   </nav>
@@ -739,9 +742,16 @@ function estimate(){
 
 /* ---------- estimate ticker (count-up) ---------- */
 function updateTicker(){
-  const {lo,hi} = band(estimate());
-  animateEst(lastEstimate, {lo,hi});
-  lastEstimate = {lo,hi};
+  const fill=$("#m-estfill"), cap=$("#m-estcap"); if(!fill||!cap) return;
+  const s=currentStep();
+  let priced=0,total=0;
+  const rooms=state.areas.map(a=>AREA_TO_ROOM[a]).filter(Boolean).concat(["other-works"]);
+  rooms.forEach(r=>{ const defs=ROOM_WORKS[r]||[]; total+=defs.length; const sel=state.works[r]||{}; defs.forEach(d=>{ if(sel[d.id]) priced++; }); });
+  const ready = (s.id==="studio" || s.id==="gate");
+  let pct = ready ? 100 : (total ? Math.round(priced/total*100) : 0);
+  if(!ready && priced>0 && pct<10) pct=10;
+  fill.style.width = pct + "%";
+  cap.textContent = ready ? "Ready to reveal ✨" : "Building…";
 }
 let animFrame;
 function animateEst(from,to){
@@ -1291,24 +1301,33 @@ bindNav();
 })();
 
 /* ---------- boot: session restore → ad-param skip → landing ---------- */
-(function(){
-  try{
-    const sv=JSON.parse(sessionStorage.getItem('renoState:trio')||'null');
-    if(sv && sv.propertyType && !sv.submitted){
-      Object.assign(state,sv);
+(function boot(){
+  const TYPE_MAP={hdb:"HDB",condo:"Condominium",landed:"Landed"};
+  const preType=TYPE_MAP[(QS.get("type")||"").toLowerCase()];
+  const u=(QS.get("u")||"").toLowerCase();
+  /* pre-scope from ad params so a tap-through is already set — but never hide the landing headline */
+  if(preType){
+    state.propertyType=preType;
+    if(u==="bto")state.unitStatus="New"; else if(u==="resale")state.unitStatus="Resale";
+  }
+  /* A congruence ad click carries its own headline (?h=…). ALWAYS show the landing so the morph is seen.
+     Only resume an in-progress session / auto-skip into the calculator when there is NO headline param. */
+  if(!AD_KEY){
+    try{
+      const sv=JSON.parse(sessionStorage.getItem('renoState:trio')||'null');
+      if(sv && sv.propertyType && !sv.submitted){
+        Object.assign(state,sv);
+        $("#landing").style.display="none"; $("#app").classList.add("on"); render();
+        return;
+      }
+    }catch(e){}
+    if(preType && QS.get("start")!=="land"){
+      track("StartCalculator",{property_type:preType,via:"ad_param",variant:"default"});
       $("#landing").style.display="none"; $("#app").classList.add("on"); render();
       return;
     }
-  }catch(e){}
-  const TYPE_MAP={hdb:"HDB",condo:"Condominium",landed:"Landed"};
-  const preType=TYPE_MAP[(QS.get("type")||"").toLowerCase()];
-  if(preType && QS.get("start")!=="land"){
-    state.propertyType=preType;
-    const u=(QS.get("u")||"").toLowerCase();
-    if(u==="bto")state.unitStatus="New"; else if(u==="resale")state.unitStatus="Resale";
-    track("StartCalculator",{property_type:preType,via:"ad_param",variant:AD_KEY||"default"});
-    $("#landing").style.display="none"; $("#app").classList.add("on"); render();
-  } else { 
+  }
+  { 
 /* ---- social proof toast (CONFIG.socialProof; seed now, prepend real claims to .real over time) ---- */
 (function(){
   var SP=CONFIG.socialProof; if(!SP||SP.enabled===false) return;
