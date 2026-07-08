@@ -396,6 +396,24 @@ const HEADLINES={
   budget:{h1:'Set your reno budget <span class="hl">before the showroom</span> sets it for you.',sub:AD_SUB,gate:"Your budget is ready",close:"Your budget, your terms — the free consult keeps it that way."},
 };
 const AD_KEY=HEADLINES[(QS.get("h")||"").toLowerCase()]?(QS.get("h")||"").toLowerCase():"";
+/* Ad attribution: capture utm_* / fbclid / gclid from the query string once,
+   persist per-brand in sessionStorage so it survives the multi-step flow and
+   sessionStorage resume (submit may happen on a later visit without params). */
+const ATTRIB=(function(){
+  var KEYS=["utm_source","utm_medium","utm_campaign","utm_content","utm_term","utm_id","fbclid","gclid"];
+  var SK="renoAttrib:ml"; var saved=null;
+  try{ saved=JSON.parse(sessionStorage.getItem(SK)||"null"); }catch(e){}
+  var cur={}, has=false;
+  KEYS.forEach(function(k){ var v=QS.get(k); if(v){ cur[k]=String(v).slice(0,500); has=true; } });
+  if(has){
+    cur.landing_url=location.href.slice(0,1500);
+    cur.captured_at=new Date().toISOString();
+    try{ sessionStorage.setItem(SK, JSON.stringify(cur)); }catch(e){}
+    return cur;
+  }
+  return saved||{};
+})();
+
 const AD=AD_KEY?HEADLINES[AD_KEY]:null;
 const adTxt=s=>s.replaceAll("{home}",AD_HOME);
 if(AD){const h1=document.querySelector("#landing h1");if(h1)h1.innerHTML=adTxt(AD.h1); const sub=document.querySelector(".landing-sub");if(sub)sub.textContent=adTxt(AD.sub);}
@@ -1112,6 +1130,12 @@ async function submitLead(){
     floor_plan_name:state.floorPlan?state.floorPlan.name:null,
     floor_plan_base64:state.floorPlan&&state.floorPlan.dataUrl?state.floorPlan.dataUrl:null,
     page_url:location.href, query:location.search, referrer:document.referrer,
+    utm_source:ATTRIB.utm_source||null, utm_medium:ATTRIB.utm_medium||null,
+    utm_campaign:ATTRIB.utm_campaign||null, utm_content:ATTRIB.utm_content||null,
+    utm_term:ATTRIB.utm_term||null, utm_id:ATTRIB.utm_id||null,
+    fbclid:ATTRIB.fbclid||null, gclid:ATTRIB.gclid||null,
+    attribution_landing_url:ATTRIB.landing_url||null,
+    attribution_captured_at:ATTRIB.captured_at||null,
     submitted_at:new Date().toISOString(),
     consent_text:CONFIG.privacyLine, consent_method:"form-submit",
     headline_variant:AD_KEY||"default", ad_identity:AD_HOME,
